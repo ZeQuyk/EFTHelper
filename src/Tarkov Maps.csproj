@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Tarkov_Maps</RootNamespace>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\customs.png" />
+    <None Remove="Images\factory.png" />
+    <None Remove="Images\interchange.png" />
+    <None Remove="Images\labs.png" />
+    <None Remove="Images\lighthouse.png" />
+    <None Remove="Images\reserve.png" />
+    <None Remove="Images\shoreline.png" />
+    <None Remove="Images\woods.png" />
+    <None Remove="Resources\Maps.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Maps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\customs.png" />
+    <Resource Include="Images\factory.png" />
+    <Resource Include="Images\interchange.png" />
+    <Resource Include="Images\labs.png" />
+    <Resource Include="Images\lighthouse.png" />
+    <Resource Include="Images\reserve.png" />
+    <Resource Include="Images\shoreline.png" />
+    <Resource Include="Images\woods.png" />
+  </ItemGroup>
+
+</Project>
