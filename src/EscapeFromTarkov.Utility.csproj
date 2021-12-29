@@ -26,6 +26,7 @@
   <ItemGroup>
     <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="Winook" Version="1.3.2" />
   </ItemGroup>
 
   <ItemGroup>

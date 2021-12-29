@@ -55,7 +55,7 @@ namespace EscapeFromTarkov.Utility.Services
         #region Events
 
         /// <summary>
-        /// The poe ended
+        /// The process ended
         /// </summary>
         public event EventHandler ProcessClosed;
 
