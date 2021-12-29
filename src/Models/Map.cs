@@ -1,4 +1,4 @@
-﻿namespace Tarkov_Maps.Models
+﻿namespace EscapeFromTarkov.Utility.Models
 {
     public class Map
     {

@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using Tarkov_Maps.Services;
-using Tarkov_Maps.ViewModels;
+using EscapeFromTarkov.Utility.Services;
+using EscapeFromTarkov.Utility.ViewModels;
 
-namespace Tarkov_Maps
+namespace EscapeFromTarkov.Utility
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

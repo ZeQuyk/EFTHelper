@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using Tarkov_Maps.Services;
+using EscapeFromTarkov.Utility.Services;
 
-namespace Tarkov_Maps
+namespace EscapeFromTarkov.Utility
 {
     /// <summary>
     /// Interaction logic for App.xaml

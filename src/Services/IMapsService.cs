@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Tarkov_Maps.ViewModels;
+using EscapeFromTarkov.Utility.ViewModels;
 
-namespace Tarkov_Maps.Services
+namespace EscapeFromTarkov.Utility.Services
 {
     public interface IMapsService
     {

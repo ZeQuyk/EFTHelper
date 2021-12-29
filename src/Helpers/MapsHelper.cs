@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Tarkov_Maps.Enums;
-using Tarkov_Maps.Models;
+using EscapeFromTarkov.Utility.Enums;
+using EscapeFromTarkov.Utility.Models;
 
-namespace Tarkov_Maps.Helpers
+namespace EscapeFromTarkov.Utility.Helpers
 {
     public static class MapsHelper
     {

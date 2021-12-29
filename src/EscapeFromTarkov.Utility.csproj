@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Tarkov_Maps</RootNamespace>
+    <RootNamespace>EscapeFromTarkov.Utility</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 

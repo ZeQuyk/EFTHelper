@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tarkov_Maps.Enums
+namespace EscapeFromTarkov.Utility.Enums
 {
     public enum Maps
     {

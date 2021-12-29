@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Tarkov_Maps.Helpers;
-using Tarkov_Maps.Models;
-using Tarkov_Maps.ViewModels;
+using EscapeFromTarkov.Utility.Helpers;
+using EscapeFromTarkov.Utility.Models;
+using EscapeFromTarkov.Utility.ViewModels;
 
-namespace Tarkov_Maps.Services
+namespace EscapeFromTarkov.Utility.Services
 {
     public class MapsService : IMapsService
     {
-        private const string FilePath = "Resources/Maps.json";
         public IEnumerable<MapViewModel> GetMapViewModels()
         {
             var maps = MapsHelper.GetMaps();

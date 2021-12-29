@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tarkov_Maps.ViewModels
+namespace EscapeFromTarkov.Utility.ViewModels
 {
     public class MapViewModel
     {
