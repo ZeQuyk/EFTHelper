@@ -16,13 +16,6 @@
     <None Remove="Images\reserve.png" />
     <None Remove="Images\shoreline.png" />
     <None Remove="Images\woods.png" />
-    <None Remove="Resources\Maps.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Maps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
