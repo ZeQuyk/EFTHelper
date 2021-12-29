@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tarkov_Maps.Models
+﻿namespace Tarkov_Maps.Models
 {
     public class Map
     {

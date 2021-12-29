@@ -1,20 +1,7 @@
 ﻿using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Tarkov_Maps.Services;
 using Tarkov_Maps.ViewModels;
 
@@ -25,7 +12,8 @@ namespace Tarkov_Maps
     /// </summary>
     public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
-        private MapService mapService;
+        private IMapsService _mapService;
+
         private ObservableCollection<MapViewModel> _mapViewModels;
         public ObservableCollection<MapViewModel> MapViewModels
         {
@@ -40,6 +28,7 @@ namespace Tarkov_Maps
                 OnPropertyChanged(nameof(MapViewModels));
             }
         }
+
         private MapViewModel _selectedMap;
         public MapViewModel SelectedMap
         {
@@ -54,6 +43,7 @@ namespace Tarkov_Maps
                 OnPropertyChanged(nameof(SelectedMap));
             }           
         }
+
         private string _mapImageSource;
         public string MapImageSource 
         { 
@@ -70,17 +60,17 @@ namespace Tarkov_Maps
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MainWindow()
+        public MainWindow(IMapsService mapService)
         {   
             DataContext = this;
-            mapService = new MapService();
+            _mapService = mapService;
             LoadViewModels();            
             InitializeComponent();           
         }
 
         private void LoadViewModels()
         {
-            MapViewModels = new ObservableCollection<MapViewModel>(mapService.GetMapViewModels());
+            MapViewModels = new ObservableCollection<MapViewModel>(_mapService.GetMapViewModels());
             SelectedMap = MapViewModels.FirstOrDefault();         
         }
 
@@ -91,6 +81,5 @@ namespace Tarkov_Maps
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
     }
 }

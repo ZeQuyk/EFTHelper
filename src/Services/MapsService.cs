@@ -11,7 +11,7 @@ using Tarkov_Maps.ViewModels;
 
 namespace Tarkov_Maps.Services
 {
-    public class MapService
+    public class MapsService : IMapsService
     {
         private const string FilePath = "Resources/Maps.json";
         public IEnumerable<MapViewModel> GetMapViewModels()
