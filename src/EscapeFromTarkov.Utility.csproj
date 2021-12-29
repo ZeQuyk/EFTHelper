@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>EscapeFromTarkov.Utility</RootNamespace>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +17,10 @@
     <None Remove="Images\reserve.png" />
     <None Remove="Images\shoreline.png" />
     <None Remove="Images\woods.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\icon.ico" />
   </ItemGroup>
 
   <ItemGroup>

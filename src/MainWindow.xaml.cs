@@ -61,7 +61,7 @@ namespace EscapeFromTarkov.Utility
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainWindow(IMapsService mapService)
-        {   
+        {    
             DataContext = this;
             _mapService = mapService;
             LoadViewModels();            
