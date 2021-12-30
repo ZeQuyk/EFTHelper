@@ -12,13 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace EscapeFromTarkov.Utility.Views
 {
     /// <summary>
     /// Interaction logic for MapSelectorView.xaml
     /// </summary>
-    public partial class MapSelectorView : UserControl
+    public partial class MapSelectorView : MetroWindow
     {
         public MapSelectorView()
         {

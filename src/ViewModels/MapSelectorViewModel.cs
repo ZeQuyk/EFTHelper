@@ -10,9 +10,17 @@ using EscapeFromTarkov.Utility.Services;
 
 namespace EscapeFromTarkov.Utility.ViewModels
 {
-    public class MapSelectorViewModel : PropertyChangedBase
+    public class MapSelectorViewModel : Screen
     {
         private IMapsService _mapsService;
+
+        public MapSelectorViewModel(IMapsService mapsService)
+        {
+            _mapsService = mapsService;
+            MapTypes = new ObservableCollection<Maps>(MapsHelper.GetMaps());
+            SelectedMap = new MapViewModel(MapTypes.FirstOrDefault());
+            DisplayName = "EFT Utility";
+        }
 
         private Maps _selectedMapType;
         public Maps SelectedMapType {
@@ -44,11 +52,5 @@ namespace EscapeFromTarkov.Utility.ViewModels
 
         public ObservableCollection<Maps> MapTypes { get; set; }
 
-        public MapSelectorViewModel(IMapsService mapsService)
-        {
-            _mapsService = mapsService;
-            MapTypes = new ObservableCollection<Maps>(MapsHelper.GetMaps());
-            SelectedMap = new MapViewModel(MapTypes.FirstOrDefault());
-        }
     }
 }
