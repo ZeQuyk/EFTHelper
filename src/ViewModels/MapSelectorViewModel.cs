@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
+using System.Windows;
 using Caliburn.Micro;
 using EscapeFromTarkov.Utility.Enums;
 using EscapeFromTarkov.Utility.Helpers;
@@ -10,21 +8,27 @@ using EscapeFromTarkov.Utility.Services;
 
 namespace EscapeFromTarkov.Utility.ViewModels
 {
-    public class MapSelectorViewModel : Screen
+    public class MapSelectorViewModel : Screen, IViewAware
     {
+        private Maps _selectedMapType;
         private IMapsService _mapsService;
+        private SettingsService _settingsService;
+        private MapViewModel _selectedMap;
 
-        public MapSelectorViewModel(IMapsService mapsService)
+        public MapSelectorViewModel(IMapsService mapsService, SettingsService settingsService)
         {
             _mapsService = mapsService;
+            _settingsService = settingsService;
+
             MapTypes = new ObservableCollection<Maps>(MapsHelper.GetMaps());
             SelectedMap = new MapViewModel(MapTypes.FirstOrDefault());
             DisplayName = "EFT Utility";
         }
 
-        private Maps _selectedMapType;
-        public Maps SelectedMapType {
+        public Maps SelectedMapType 
+        {
             get => _selectedMapType;
+
             set 
             {
                 if (_selectedMapType != value)
@@ -36,7 +40,6 @@ namespace EscapeFromTarkov.Utility.ViewModels
             }
         }
 
-        private MapViewModel _selectedMap;
         public MapViewModel SelectedMap 
         { 
             get => _selectedMap;
@@ -52,5 +55,19 @@ namespace EscapeFromTarkov.Utility.ViewModels
 
         public ObservableCollection<Maps> MapTypes { get; set; }
 
+        protected override void OnViewLoaded(object view)
+        {
+            var window = view as Window;
+            var informations = _settingsService.MapSelectorInformations;
+
+            // Todo: Check if out off screen
+            Execute.OnUIThread(() =>
+            {
+                window.Width = informations.Width;
+                window.Height = informations.Height;
+                window.Left = informations.Position.Left;
+                window.Top = informations.Position.Top;
+            });
+        }
     }
 }
