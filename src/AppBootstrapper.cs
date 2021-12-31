@@ -25,6 +25,7 @@ namespace EscapeFromTarkov.Utility
             container.PerRequest<MapViewModel, MapViewModel>();
             container.PerRequest<IMapsService, MapsService>();
             container.Singleton<IWindowManager, WindowManager>();
+            container.Singleton<SettingsService, SettingsService>();
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)

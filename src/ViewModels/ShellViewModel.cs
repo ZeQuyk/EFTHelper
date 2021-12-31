@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Windows;
 using Caliburn.Micro;
 using EscapeFromTarkov.Utility.Models;
 using EscapeFromTarkov.Utility.Services;
@@ -12,11 +13,13 @@ namespace EscapeFromTarkov.Utility.ViewModels
         private IWindowManager _windowManager;
         private ProcessService _processService;
         private IKeyboardMouseEvents _globalHook;
+        private SettingsService _settingsService;
 
-        public ShellViewModel(MapSelectorViewModel mapSelectorViewModel, IWindowManager windowManager)
+        public ShellViewModel(MapSelectorViewModel mapSelectorViewModel, IWindowManager windowManager, SettingsService settingsService)
         {
             _screen = mapSelectorViewModel;
             _windowManager = windowManager;
+            _settingsService = settingsService;
             _processService = new ProcessService("EscapeFromTarkov");
             _processService.ProcessClosed += Service_ProcessClosed;
             _ = WaitForTarkov();
@@ -35,7 +38,7 @@ namespace EscapeFromTarkov.Utility.ViewModels
         }
 
         private async Task WaitForTarkov()
-        {           
+        {
             var processId = await _processService.WaitForProcess();
             _globalHook = Hook.GlobalEvents();
             _globalHook.KeyDown += _globalHook_KeyDown;
@@ -47,6 +50,9 @@ namespace EscapeFromTarkov.Utility.ViewModels
             {
                 if (_screen.IsActive)
                 {
+                    var window = _screen.GetView() as Window;
+                    _settingsService.MapSelectorInformations.Copy(window);
+                    _settingsService.Save();
                     _screen.TryCloseAsync();
                 }
                 else
