@@ -17,11 +17,7 @@ namespace EscapeFromTarkov.Utility.Services
                 Directory.CreateDirectory(this.SettingsFolderPath);
             }
 
-            if (!File.Exists(this.SettingsFilePath))
-            {
-                Save();
-            }
-            else
+            if (File.Exists(this.SettingsFilePath))
             {
                 try
                 {
@@ -33,6 +29,11 @@ namespace EscapeFromTarkov.Utility.Services
                     _settings = new Settings();
                     Save();
                 }
+            }
+            else
+            {
+                // Create File with default values
+                Save();
             }
         }
 
