@@ -15,26 +15,26 @@ namespace EscapeFromTarkov.Utility.ViewModels
         private IKeyboardMouseEvents _globalHook;
         private SettingsService _settingsService;
 
-        public ShellViewModel(MapSelectorViewModel mapSelectorViewModel, IWindowManager windowManager, SettingsService settingsService)
+        public ShellViewModel(LocationSelectorViewModel locationSelectorViewModel, IWindowManager windowManager, SettingsService settingsService)
         {
-            _screen = mapSelectorViewModel;
+            _screen = locationSelectorViewModel;
             _windowManager = windowManager;
             _settingsService = settingsService;
             _processService = new ProcessService("EscapeFromTarkov");
             _processService.ProcessClosed += Service_ProcessClosed;
             _ = WaitForTarkov();
-        }     
+        }
 
-        public DoubleClickCommand ShowMaps => new DoubleClickCommand(ShowMapsWindow);
+        public DoubleClickCommand ShowLocations => new DoubleClickCommand(ShowLocationsWindow);
 
-        private async void ShowMapsWindow()
+        private async void ShowLocationsWindow()
         {
             if (_screen.IsActive)
             {
                 return;
             }
 
-            await _windowManager.ShowWindowAsync(_screen);          
+            await _windowManager.ShowWindowAsync(_screen);
         }
 
         private async Task WaitForTarkov()
@@ -50,14 +50,11 @@ namespace EscapeFromTarkov.Utility.ViewModels
             {
                 if (_screen.IsActive)
                 {
-                    var window = _screen.GetView() as Window;
-                    _settingsService.MapSelectorInformations.Copy(window);
-                    _settingsService.Save();
                     _screen.TryCloseAsync();
                 }
                 else
                 {
-                    ShowMapsWindow();
+                    ShowLocationsWindow();
                 }
             }
         }

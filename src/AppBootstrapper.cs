@@ -21,9 +21,8 @@ namespace EscapeFromTarkov.Utility
         {
             this.container = new SimpleContainer();
             container.PerRequest<ShellViewModel, ShellViewModel>();
-            container.PerRequest<MapSelectorViewModel, MapSelectorViewModel>();
-            container.PerRequest<MapViewModel, MapViewModel>();
-            container.PerRequest<IMapsService, MapsService>();
+            container.PerRequest<LocationSelectorViewModel, LocationSelectorViewModel>();
+            container.PerRequest<LocationViewModel, LocationViewModel>();
             container.Singleton<IWindowManager, WindowManager>();
             container.Singleton<SettingsService, SettingsService>();
         }

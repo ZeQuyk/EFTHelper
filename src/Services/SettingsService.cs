@@ -37,16 +37,16 @@ namespace EscapeFromTarkov.Utility.Services
             }
         }
 
-        public WindowInformations MapSelectorInformations
+        public WindowInformations LocationSelectorInformations
         {
             get
             {
-                return _settings.MapSelectorInformations;
+                return _settings.LocationSelectorInformations;
             }
 
             set
             {
-                _settings.MapSelectorInformations = value;
+                _settings.LocationSelectorInformations = value;
             }
         }
 

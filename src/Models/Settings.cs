@@ -4,9 +4,9 @@
     {
         public Settings()
         {
-            MapSelectorInformations = new WindowInformations();
+            LocationSelectorInformations = new WindowInformations();
         }
 
-        public WindowInformations MapSelectorInformations { get; set; }
+        public WindowInformations LocationSelectorInformations { get; set; }
     }
 }

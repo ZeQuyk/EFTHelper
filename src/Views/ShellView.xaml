@@ -9,12 +9,13 @@
         Title="Escape From Tarkov Utility" Height="450" Width="800"
         AllowsTransparency="True"
         Visibility="Hidden"
-        WindowStyle="None">
+        WindowStyle="None" 
+        FontFamily="{StaticResource Bender}">
     <Grid Background="Transparent">
         <tb:TaskbarIcon
             IconSource="pack://application:,,,/Images/icon.ico"
             ToolTipText="EFT Utility" 
-            DoubleClickCommand="{Binding ShowMaps}"/>
+            DoubleClickCommand="{Binding ShowLocations}"/>
         <!--<Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>

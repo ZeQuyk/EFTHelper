@@ -9,17 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\bender.regular.otf" />
     <None Remove="Images\customs.png" />
     <None Remove="Images\factory.png" />
     <None Remove="Images\interchange.png" />
-    <None Remove="Images\labs.png" />
     <None Remove="Images\lighthouse.png" />
     <None Remove="Images\reserve.png" />
     <None Remove="Images\shoreline.png" />
+    <None Remove="Images\thelab.png" />
     <None Remove="Images\woods.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\bender.regular.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\icon.ico">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
@@ -36,7 +40,7 @@
     <Resource Include="Images\customs.png" />
     <Resource Include="Images\factory.png" />
     <Resource Include="Images\interchange.png" />
-    <Resource Include="Images\labs.png" />
+    <Resource Include="Images\thelab.png" />
     <Resource Include="Images\lighthouse.png" />
     <Resource Include="Images\reserve.png" />
     <Resource Include="Images\shoreline.png" />
