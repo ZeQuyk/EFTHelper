@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Caliburn.Micro;
-using EscapeFromTarkov.Utility.Extensions;
+using EFTHelper.Extensions;
 
-namespace EscapeFromTarkov.Utility.ViewModels
+namespace EFTHelper.ViewModels
 {
     public class LocationViewModel : PropertyChangedBase
     {

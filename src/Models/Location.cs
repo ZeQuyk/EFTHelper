@@ -1,7 +1,7 @@
-﻿using EscapeFromTarkov.Utility.Enums;
-using EscapeFromTarkov.Utility.Extensions;
+﻿using EFTHelper.Enums;
+using EFTHelper.Extensions;
 
-namespace EscapeFromTarkov.Utility.Models
+namespace EFTHelper.Models
 {
     public class Location
     {

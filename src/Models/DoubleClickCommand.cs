@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace EscapeFromTarkov.Utility.Models
+namespace EFTHelper.Models
 {
     using System;
     using System.Windows.Input;

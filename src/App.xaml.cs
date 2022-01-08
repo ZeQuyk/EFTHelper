@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace EscapeFromTarkov.Utility
+namespace EFTHelper
 {
     /// <summary>
     /// Interaction logic for App.xaml

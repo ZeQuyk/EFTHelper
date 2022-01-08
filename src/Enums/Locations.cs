@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EscapeFromTarkov.Utility.Enums
+namespace EFTHelper.Enums
 {
     public enum Locations
     {

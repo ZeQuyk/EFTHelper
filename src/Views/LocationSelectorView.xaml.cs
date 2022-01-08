@@ -1,6 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 
-namespace EscapeFromTarkov.Utility.Views
+namespace EFTHelper.Views
 {
     /// <summary>
     /// Interaction logic for LocationSelectorView.xaml

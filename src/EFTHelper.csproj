@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <RootNamespace>EscapeFromTarkov.Utility</RootNamespace>
+    <RootNamespace>EFTHelper</RootNamespace>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Images\icon.ico</ApplicationIcon>
   </PropertyGroup>

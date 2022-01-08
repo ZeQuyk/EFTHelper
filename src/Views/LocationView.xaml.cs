@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace EscapeFromTarkov.Utility.Views
+namespace EFTHelper.Views
 {
     /// <summary>
     /// Interaction logic for LocationView.xaml

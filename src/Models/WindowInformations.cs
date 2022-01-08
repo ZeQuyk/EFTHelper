@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace EscapeFromTarkov.Utility.Models
+namespace EFTHelper.Models
 {
     public class WindowInformations
     {

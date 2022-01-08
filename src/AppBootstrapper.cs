@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using Caliburn.Micro;
-using EscapeFromTarkov.Utility.Services;
-using EscapeFromTarkov.Utility.ViewModels;
+using EFTHelper.Services;
+using EFTHelper.ViewModels;
 
-namespace EscapeFromTarkov.Utility
+namespace EFTHelper
 {
     class AppBootstrapper : BootstrapperBase
     {

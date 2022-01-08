@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
-using EscapeFromTarkov.Utility.Models;
+using EFTHelper.Models;
 
-namespace EscapeFromTarkov.Utility.Services
+namespace EFTHelper.Services
 {
     public class SettingsService
     {

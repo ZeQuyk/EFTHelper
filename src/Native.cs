@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace EscapeFromTarkov.Utility
+namespace EFTHelper
 {
     using System;
     using System.Runtime.InteropServices;

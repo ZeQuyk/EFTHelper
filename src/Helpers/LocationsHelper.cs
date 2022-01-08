@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EscapeFromTarkov.Utility.Enums;
-using EscapeFromTarkov.Utility.Models;
+using EFTHelper.Enums;
+using EFTHelper.Models;
 
-namespace EscapeFromTarkov.Utility.Helpers
+namespace EFTHelper.Helpers
 {
     public static class LocationsHelper
     {

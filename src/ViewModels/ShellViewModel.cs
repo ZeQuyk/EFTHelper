@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
-using System.Windows;
 using Caliburn.Micro;
-using EscapeFromTarkov.Utility.Models;
-using EscapeFromTarkov.Utility.Services;
+using EFTHelper.Models;
+using EFTHelper.Services;
 using Gma.System.MouseKeyHook;
 
-namespace EscapeFromTarkov.Utility.ViewModels
+namespace EFTHelper.ViewModels
 {
     public class ShellViewModel : Screen
     {

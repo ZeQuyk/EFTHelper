@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace EscapeFromTarkov.Utility.Views
+namespace EFTHelper.Views
 {
     /// <summary>
     /// Interaction logic for ShellView.xaml

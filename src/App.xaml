@@ -1,7 +1,7 @@
-﻿<Application x:Class="EscapeFromTarkov.Utility.App"
+﻿<Application x:Class="EFTHelper.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:EscapeFromTarkov.Utility">
+             xmlns:local="clr-namespace:EFTHelper">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

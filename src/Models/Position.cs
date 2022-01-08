@@ -1,4 +1,4 @@
-﻿namespace EscapeFromTarkov.Utility.Models
+﻿namespace EFTHelper.Models
 {
     public class Position
     {

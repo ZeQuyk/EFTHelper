@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace EscapeFromTarkov.Utility.Services
+namespace EFTHelper.Services
 {
     using System;
     using System.Collections.Generic;

@@ -5,11 +5,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
-using EscapeFromTarkov.Utility.Enums;
-using EscapeFromTarkov.Utility.Helpers;
-using EscapeFromTarkov.Utility.Services;
+using EFTHelper.Enums;
+using EFTHelper.Helpers;
+using EFTHelper.Services;
 
-namespace EscapeFromTarkov.Utility.ViewModels
+namespace EFTHelper.ViewModels
 {
     public class LocationSelectorViewModel : Screen, IViewAware
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EscapeFromTarkov.Utility.Extensions
+namespace EFTHelper.Extensions
 {
     public static class StringExtensions
     {
