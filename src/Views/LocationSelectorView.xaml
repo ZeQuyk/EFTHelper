@@ -35,12 +35,17 @@
 
         <StackPanel Margin ="15" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2"  VerticalAlignment="Center">
             <TextBlock Text="{Binding Version}" Margin="15,0" FontSize="20"></TextBlock>
-            <Border  Padding="5" BorderThickness="1"  Background="{DynamicResource MahApps.Brushes.Badged.Background}" CornerRadius="10" Visibility="{Binding NeedUpdate, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock Cursor="Hand" 
+            <Button Cursor="Hand" BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" 
                     cal:Message.Attach="[Event Click] = [Action UpdateApplication]" 
-                    Background="{DynamicResource MahApps.Brushes.Badged.Background}"                     
+                    Background="{DynamicResource MahApps.Brushes.Badged.Background}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+                <TextBlock                                                           
                    Text="Update" FontFamily="{StaticResource Bender}" FontSize="15"/>
-            </Border>
+            </Button>
         </StackPanel>
     </Grid>
 </mah:MetroWindow>
