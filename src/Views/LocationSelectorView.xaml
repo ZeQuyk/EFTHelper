@@ -22,6 +22,7 @@
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        
         <mah:MetroHeader mah:HeaderedControlHelper.HeaderFontWeight="Bold"              
                  Margin="-60,0,-60,60"
                  Grid.ColumnSpan="2" 
@@ -37,7 +38,8 @@
             <TextBlock Text="{Binding Version}" Margin="15,0" FontSize="20"></TextBlock>
             <Button Cursor="Hand" BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" 
                     cal:Message.Attach="[Event Click] = [Action UpdateApplication]" 
-                    Background="{DynamicResource MahApps.Brushes.Badged.Background}">
+                    Background="{DynamicResource MahApps.Brushes.Badged.Background}"
+                    Visibility="{Binding NeedUpdate, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>
