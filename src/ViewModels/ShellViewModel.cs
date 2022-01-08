@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Reflection;
+using System.Threading.Tasks;
 using Caliburn.Micro;
 using EFTHelper.Models;
 using EFTHelper.Services;
@@ -12,19 +13,36 @@ namespace EFTHelper.ViewModels
         private IWindowManager _windowManager;
         private ProcessService _processService;
         private IKeyboardMouseEvents _globalHook;
-        private SettingsService _settingsService;
+        private UpdateManagerService _updateManagerService;
 
-        public ShellViewModel(LocationSelectorViewModel locationSelectorViewModel, IWindowManager windowManager, SettingsService settingsService)
+        public ShellViewModel(LocationSelectorViewModel locationSelectorViewModel, IWindowManager windowManager, UpdateManagerService updateManagerService)
         {
             _screen = locationSelectorViewModel;
             _windowManager = windowManager;
-            _settingsService = settingsService;
+            _updateManagerService = updateManagerService;
             _processService = new ProcessService("EscapeFromTarkov");
             _processService.ProcessClosed += Service_ProcessClosed;
             _ = WaitForTarkov();
         }
 
         public DoubleClickCommand ShowLocations => new DoubleClickCommand(ShowLocationsWindow);
+
+        public string Version
+        {
+            get
+            {
+                var version = Assembly.GetExecutingAssembly().GetName().Version;
+                return $"Version {version.Major}.{version.Minor}.{version.Build}";
+            }
+        }
+
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        public async void Close()
+        {
+            await TryCloseAsync();
+        }
 
         private async void ShowLocationsWindow()
         {

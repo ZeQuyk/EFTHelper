@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
-using EFTHelper.Enums;
 using EFTHelper.Helpers;
 using EFTHelper.Services;
 
@@ -13,16 +13,20 @@ namespace EFTHelper.ViewModels
 {
     public class LocationSelectorViewModel : Screen, IViewAware
     {
+        private bool _needUpdate;
         private SettingsService _settingsService;
         private LocationViewModel _selectedLocation;
         private string _selectedLocationName;
-        public LocationSelectorViewModel(SettingsService settingsService)
+        private UpdateManagerService _updateManagerService;
+
+        public LocationSelectorViewModel(SettingsService settingsService, UpdateManagerService updateManagerService)
         {
+            _updateManagerService = updateManagerService;
             _settingsService = settingsService;
             LocationViewModels = LocationsHelper.GetLocations().Select(x => new LocationViewModel(x)).OrderBy(x => x.Name).ToList();
             SelectedLocationName = LocationViewModels.FirstOrDefault().Name;
             LocationNames = new ObservableCollection<string>(LocationViewModels.Select(x => x.Name));
-            DisplayName = "EFT Utility";
+            DisplayName = "EFTHelper";
         }
 
         public string SelectedLocationName 
@@ -51,8 +55,26 @@ namespace EFTHelper.ViewModels
         public List<LocationViewModel> LocationViewModels { get; set; }
         public ObservableCollection<string> LocationNames { get; set; }
 
-        protected override void OnViewLoaded(object view)
+        public bool NeedUpdate
         {
+            get
+            {
+                return _needUpdate;
+            }
+
+            private set
+            {
+                _needUpdate = value;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(() => UpToDate);
+            }
+        }
+
+        public bool UpToDate => !NeedUpdate;
+
+        protected override async void OnViewLoaded(object view)
+        {
+            NeedUpdate = await _updateManagerService.CheckForUpdate();
             var window = view as Window;
             var informations = _settingsService.LocationSelectorInformations;
 
@@ -72,6 +94,29 @@ namespace EFTHelper.ViewModels
             _settingsService.LocationSelectorInformations.Copy(window);
             _settingsService.Save();
             return base.OnDeactivateAsync(close, cancellationToken);
+        }
+
+
+        public async void UpdateApplication()
+        {
+            var needUpdate = await _updateManagerService.CheckForUpdate();
+            if (needUpdate)
+            {
+                await _updateManagerService.Update();
+            }
+            else
+            {
+                needUpdate = false;
+            }
+        }
+
+        public string Version
+        {
+            get
+            {
+                var version = Assembly.GetExecutingAssembly().GetName().Version;
+                return $"Version {version.Major}.{version.Minor}.{version.Build}";
+            }
         }
     }
 }

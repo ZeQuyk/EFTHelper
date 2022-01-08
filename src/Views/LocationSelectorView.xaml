@@ -5,19 +5,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EFTHelper.Views"                      
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Topmost="True"
              WindowStartupLocation="CenterScreen"
              UseNoneWindowStyle="True"
              FontFamily="{StaticResource Bender}">
-    <Grid Margin="60">
-
+    <Grid Margin="60,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="LocationNames" Grid.Column="0" FontSize="20" />
-        <ContentControl x:Name="SelectedLocation" Grid.Column="1" Margin="20,0,0,0"/>
+        <mah:MetroHeader mah:HeaderedControlHelper.HeaderFontWeight="Bold"              
+                 Margin="-60,0,-60,60"
+                 Grid.ColumnSpan="2" 
+                 FontSize="25" 
+                 mah:HeaderedControlHelper.HeaderBackground="{DynamicResource MahApps.Brushes.Badged.Background}">
+            <TextBlock Text="{Binding DisplayName}" Background="{DynamicResource MahApps.Brushes.Badged.Background}"></TextBlock>
+        </mah:MetroHeader>
+
+        <ListView x:Name="LocationNames" Grid.Column="0" Grid.Row="1" FontSize="20" />
+        <ContentControl x:Name="SelectedLocation" Grid.Column="1" Grid.Row="1" Margin="20,0,0,0"/>
+
+        <StackPanel Margin ="15" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2"  VerticalAlignment="Center">
+            <TextBlock Text="{Binding Version}" Margin="15,0" FontSize="20"></TextBlock>
+            <Border  Padding="5" BorderThickness="1"  Background="{DynamicResource MahApps.Brushes.Badged.Background}" CornerRadius="10" Visibility="{Binding NeedUpdate, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Cursor="Hand" 
+                    cal:Message.Attach="[Event Click] = [Action UpdateApplication]" 
+                    Background="{DynamicResource MahApps.Brushes.Badged.Background}"                     
+                   Text="Update" FontFamily="{StaticResource Bender}" FontSize="15"/>
+            </Border>
+        </StackPanel>
     </Grid>
 </mah:MetroWindow>

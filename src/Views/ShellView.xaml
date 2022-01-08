@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
-        xmlns:local="clr-namespace:EFTHelper.Views"
+        xmlns:local="clr-namespace:EFTHelper.Views"       
+        xmlns:cal="http://www.caliburnproject.org"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         Title="Escape From Tarkov Utility" Height="450" Width="800"
@@ -15,11 +16,23 @@
         <tb:TaskbarIcon
             IconSource="pack://application:,,,/Images/icon.ico"
             ToolTipText="EFT Utility" 
-            DoubleClickCommand="{Binding ShowLocations}"/>
-        <!--<Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-        </Grid.RowDefinitions>
-       <ContentControl x:Name="SelectedViewModel"/>-->
+            DoubleClickCommand="{Binding ShowLocations}">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem cal:Message.Attach="[Event Click] = [Action Close]">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock>Close</TextBlock>
+                                <TextBlock Foreground="DarkGray" Margin="15,0,0,0" Grid.Column="1" Text="{Binding Version}"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
     </Grid>
 </Window>
