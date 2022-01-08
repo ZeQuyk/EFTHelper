@@ -41,6 +41,11 @@ namespace EFTHelper.ViewModels
         /// </summary>
         public async void Close()
         {
+            if (_screen.IsActive)
+            {
+                await _screen.TryCloseAsync();
+            }
+
             await TryCloseAsync();
         }
 

@@ -53,6 +53,7 @@ namespace EFTHelper.ViewModels
         }
 
         public List<LocationViewModel> LocationViewModels { get; set; }
+
         public ObservableCollection<string> LocationNames { get; set; }
 
         public bool NeedUpdate
@@ -95,7 +96,6 @@ namespace EFTHelper.ViewModels
             _settingsService.Save();
             return base.OnDeactivateAsync(close, cancellationToken);
         }
-
 
         public async void UpdateApplication()
         {
