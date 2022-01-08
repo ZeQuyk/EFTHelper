@@ -24,8 +24,8 @@ namespace EFTHelper
         protected override void Configure()
         {
             this.container = new SimpleContainer();
-            container.PerRequest<ShellViewModel, ShellViewModel>();
-            container.PerRequest<LocationSelectorViewModel, LocationSelectorViewModel>();
+            container.Singleton<ShellViewModel, ShellViewModel>();
+            container.Singleton<LocationSelectorViewModel, LocationSelectorViewModel>();
             container.PerRequest<LocationViewModel, LocationViewModel>();
             container.Singleton<IWindowManager, WindowManager>();
             container.Singleton<SettingsService, SettingsService>();
