@@ -8,6 +8,7 @@ using System.Windows;
 using Caliburn.Micro;
 using EFTHelper.Helpers;
 using EFTHelper.Services;
+using MahApps.Metro.Controls;
 
 namespace EFTHelper.ViewModels
 {
@@ -72,6 +73,15 @@ namespace EFTHelper.ViewModels
         }
 
         public bool UpToDate => !NeedUpdate;
+
+        public void MenuSelectionChanged(object value, ItemClickEventArgs args)
+        {
+            var location = args.ClickedItem as LocationViewModel;
+            if (location != null)
+            {
+                SelectedLocation = location;
+            }
+        }
 
         protected override async void OnViewLoaded(object view)
         {

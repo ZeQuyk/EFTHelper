@@ -5,15 +5,50 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EFTHelper.Views"                      
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:converters="clr-namespace:EFTHelper.Converters"
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Topmost="True"
              WindowStartupLocation="CenterScreen"
-             UseNoneWindowStyle="True"
              FontFamily="{StaticResource Bender}">
-    <Grid Margin="60,0">
-        <Grid.RowDefinitions>
+    <mah:MetroWindow.Resources>
+        
+        <ResourceDictionary>
+            
+        <!-- Menu Header Template -->
+        <DataTemplate x:Key="MenuHeaderTemplate">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="16"  Foreground="White"  Text="Locations" />
+        </DataTemplate>
+
+        <!-- Menu Item Template -->
+        <DataTemplate x:Key="MenuItemTemplate">
+            <Grid x:Name="RootGrid" Height="48" Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Label}"/>
+                    <TextBlock Grid.Column="1"
+           VerticalAlignment="Center"
+           FontSize="16"
+           Text="{Binding Label}" />
+            </Grid>
+        </DataTemplate>
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
+    <Grid Margin="0,0">
+        <mah:HamburgerMenu x:Name="Menu" DisplayMode="CompactOverlay" 
+           cal:Message.Attach="[Event ItemClick]=[Action MenuSelectionChanged($source,$eventArgs)]"
+           SelectedItem="{Binding SelectedLocation,Converter={StaticResource SelectedItemConverter}}"                
+           ItemsSource="{Binding LocationViewModels,Converter={StaticResource HamuburgerMenuItemConverter}}"           
+           HamburgerMenuHeaderTemplate="{StaticResource MenuHeaderTemplate}"
+           ItemTemplate="{StaticResource MenuItemTemplate}">
+            <mah:HamburgerMenu.Content>
+                <ContentControl x:Name="SelectedLocation" HorizontalAlignment="Center" Margin="0,25" Grid.Column="0" Grid.Row="1"  />
+            </mah:HamburgerMenu.Content>
+        </mah:HamburgerMenu>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -48,6 +83,6 @@
                 <TextBlock                                                           
                    Text="Update" FontFamily="{StaticResource Bender}" FontSize="15"/>
             </Button>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </mah:MetroWindow>

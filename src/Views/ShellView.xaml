@@ -7,7 +7,7 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="Escape From Tarkov Utility" Height="450" Width="800"
+        Title="EFTHelper" Height="450" Width="800"
         AllowsTransparency="True"
         Visibility="Hidden"
         WindowStyle="None" 
@@ -15,7 +15,7 @@
     <Grid Background="Transparent">
         <tb:TaskbarIcon
             IconSource="pack://application:,,,/Images/icon.ico"
-            ToolTipText="EFT Utility" 
+            ToolTipText="EFTHelper" 
             DoubleClickCommand="{Binding ShowLocations}">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>

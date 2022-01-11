@@ -1,4 +1,10 @@
-﻿using MahApps.Metro.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Data;
+using EFTHelper.Models;
+using MahApps.Metro.Controls;
 
 namespace EFTHelper.Views
 {
