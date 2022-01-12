@@ -10,7 +10,7 @@ namespace EFTHelper.ViewModels
 
         public string ImagePath { get; set; }
 
-        public string Label => Name;
+        public string Label => Name.Substring(0,1);
 
         public string Title => Name;
 

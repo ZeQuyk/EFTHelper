@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using Caliburn.Micro;
 using EFTHelper.Services;
 using EFTHelper.ViewModels;
-using Squirrel;
 
 namespace EFTHelper
 {
@@ -24,9 +22,8 @@ namespace EFTHelper
         protected override void Configure()
         {
             this.container = new SimpleContainer();
-            container.Singleton<ShellViewModel, ShellViewModel>();
-            container.Singleton<LocationSelectorViewModel, LocationSelectorViewModel>();
-            container.PerRequest<LocationViewModel, LocationViewModel>();
+
+            AddViewModels();
             container.Singleton<IWindowManager, WindowManager>();
             container.Singleton<SettingsService, SettingsService>();
             container.Instance(Application);
@@ -51,6 +48,14 @@ namespace EFTHelper
         protected override void BuildUp(object instance)
         {
             container.BuildUp(instance);
+        }
+
+        private void AddViewModels()
+        {
+            container.Singleton<ShellViewModel, ShellViewModel>();
+            container.Singleton<LocationSelectorViewModel, LocationSelectorViewModel>();
+            container.Singleton<LocationViewModel, LocationViewModel>();
+            container.Singleton<VersionViewModel, VersionViewModel>();
         }
     }
 }

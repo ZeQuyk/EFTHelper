@@ -17,7 +17,8 @@ namespace EFTHelper.Converters
                 return nmItemCollection.Select(item => new HamburgerMenuIconItem
                 {
                     Tag = item,
-                    Label = item.Title
+                    Label = item.Title,
+                    Icon = item.Label
                 });
             }
             return value;

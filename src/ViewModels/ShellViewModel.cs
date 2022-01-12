@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using EFTHelper.Models;
@@ -7,32 +7,36 @@ using Gma.System.MouseKeyHook;
 
 namespace EFTHelper.ViewModels
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : Conductor<Screen>.Collection.OneActive
     {
-        private Screen _screen;
+        private LocationSelectorViewModel _locationSelectorViewModel;
+        private VersionViewModel _versionViewModel;
         private IWindowManager _windowManager;
         private ProcessService _processService;
         private IKeyboardMouseEvents _globalHook;
         private UpdateManagerService _updateManagerService;
 
-        public ShellViewModel(LocationSelectorViewModel locationSelectorViewModel, IWindowManager windowManager, UpdateManagerService updateManagerService)
+        public ShellViewModel(LocationSelectorViewModel locationSelectorViewModel, IWindowManager windowManager, UpdateManagerService updateManagerService, VersionViewModel versionViewModel)
         {
-            _screen = locationSelectorViewModel;
+            _locationSelectorViewModel = locationSelectorViewModel;
+            _versionViewModel = versionViewModel;
             _windowManager = windowManager;
             _updateManagerService = updateManagerService;
+            DisplayName = "EFTHelper";
+            ChangeActiveItemAsync(_locationSelectorViewModel, true, CancellationToken.None);
             _processService = new ProcessService("EscapeFromTarkov");
             _processService.ProcessClosed += Service_ProcessClosed;
             _ = WaitForTarkov();
         }
 
-        public DoubleClickCommand ShowLocations => new DoubleClickCommand(ShowLocationsWindow);
+        public DoubleClickCommand ShowLocations => new DoubleClickCommand(ShowActiveItem);
 
         public string Version
         {
             get
             {
-                var version = Assembly.GetExecutingAssembly().GetName().Version;
-                return $"Version {version.Major}.{version.Minor}.{version.Build}";
+                var version = _updateManagerService.GetVersion().ToString(3);
+                return $"{version}";
             }
         }
 
@@ -41,22 +45,22 @@ namespace EFTHelper.ViewModels
         /// </summary>
         public async void Close()
         {
-            if (_screen.IsActive)
+            if (ActiveItem != null)
             {
-                await _screen.TryCloseAsync();
+                await ActiveItem.TryCloseAsync();
             }
 
             await TryCloseAsync();
         }
 
-        private async void ShowLocationsWindow()
+        private async void ShowActiveItem()
         {
-            if (_screen.IsActive)
+            if (ActiveItem == null)
             {
-                return;
+                ActiveItem = _locationSelectorViewModel;
             }
 
-            await _windowManager.ShowWindowAsync(_screen);
+            await _windowManager.ShowWindowAsync(ActiveItem);
         }
 
         private async Task WaitForTarkov()
@@ -70,20 +74,20 @@ namespace EFTHelper.ViewModels
         {
             if (e.KeyCode == System.Windows.Forms.Keys.F2)
             {
-                if (_screen.IsActive)
+                if (ActiveItem != null)
                 {
-                    _screen.TryCloseAsync();
+                    ActiveItem.TryCloseAsync();
                 }
                 else
                 {
-                    ShowLocationsWindow();
+                    ShowActiveItem();
                 }
             }
         }
 
         private async void Service_ProcessClosed(object sender, System.EventArgs e)
         {
-            await _screen.TryCloseAsync();
+            await ActiveItem.TryCloseAsync();
             _globalHook.KeyDown -= _globalHook_KeyDown;
             _globalHook?.Dispose();
             _ = WaitForTarkov();

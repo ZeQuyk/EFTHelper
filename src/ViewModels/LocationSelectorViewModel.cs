@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,8 +19,9 @@ namespace EFTHelper.ViewModels
         private string _selectedLocationName;
         private UpdateManagerService _updateManagerService;
 
-        public LocationSelectorViewModel(SettingsService settingsService, UpdateManagerService updateManagerService)
+        public LocationSelectorViewModel(SettingsService settingsService, UpdateManagerService updateManagerService, VersionViewModel versionViewModel)
         {
+            VersionViewModel = versionViewModel;
             _updateManagerService = updateManagerService;
             _settingsService = settingsService;
             LocationViewModels = LocationsHelper.GetLocations().Select(x => new LocationViewModel(x)).OrderBy(x => x.Name).ToList();
@@ -55,24 +55,9 @@ namespace EFTHelper.ViewModels
 
         public List<LocationViewModel> LocationViewModels { get; set; }
 
-        public ObservableCollection<string> LocationNames { get; set; }
+        public ObservableCollection<string> LocationNames { get; set; }        
 
-        public bool NeedUpdate
-        {
-            get
-            {
-                return _needUpdate;
-            }
-
-            private set
-            {
-                _needUpdate = value;
-                NotifyOfPropertyChange();
-                NotifyOfPropertyChange(() => UpToDate);
-            }
-        }
-
-        public bool UpToDate => !NeedUpdate;
+        public VersionViewModel VersionViewModel { get; set; }
 
         public void MenuSelectionChanged(object value, ItemClickEventArgs args)
         {
@@ -84,8 +69,7 @@ namespace EFTHelper.ViewModels
         }
 
         protected override async void OnViewLoaded(object view)
-        {
-            NeedUpdate = await _updateManagerService.CheckForUpdate();
+        {            
             var window = view as Window;
             var informations = _settingsService.LocationSelectorInformations;
 
@@ -105,28 +89,6 @@ namespace EFTHelper.ViewModels
             _settingsService.LocationSelectorInformations.Copy(window);
             _settingsService.Save();
             return base.OnDeactivateAsync(close, cancellationToken);
-        }
-
-        public async void UpdateApplication()
-        {
-            var needUpdate = await _updateManagerService.CheckForUpdate();
-            if (needUpdate)
-            {
-                await _updateManagerService.Update();
-            }
-            else
-            {
-                needUpdate = false;
-            }
-        }
-
-        public string Version
-        {
-            get
-            {
-                var version = Assembly.GetExecutingAssembly().GetName().Version;
-                return $"Version {version.Major}.{version.Minor}.{version.Build}";
-            }
-        }
+        }     
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Squirrel;
 
@@ -55,6 +57,12 @@ namespace EFTHelper.Services
             }
 #pragma warning restore CS0162
         }
+
+        /// <summary>
+        /// Get the AssemblyVersion of this instance.
+        /// </summary>
+        /// <returns></returns>
+        public Version GetVersion() => Assembly.GetExecutingAssembly().GetName().Version;
 
         public void HandleSquirrel()
         {
