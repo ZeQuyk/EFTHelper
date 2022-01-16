@@ -7,7 +7,13 @@ namespace EFTHelper.Services
 {
     public class SettingsService
     {
+        #region Fields
+
         private Settings _settings;
+
+        #endregion
+
+        #region Constructors
 
         public SettingsService()
         {
@@ -37,6 +43,10 @@ namespace EFTHelper.Services
             }
         }
 
+        #endregion
+
+        #region Properties
+
         public WindowInformations LocationSelectorInformations
         {
             get
@@ -49,6 +59,10 @@ namespace EFTHelper.Services
                 _settings.LocationSelectorInformations = value;
             }
         }
+
+        #endregion
+
+        #region Methods
 
         private string FolderName => "TarkovUtility";
 
@@ -65,5 +79,7 @@ namespace EFTHelper.Services
             var jsonValue = JsonSerializer.Serialize(_settings, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(SettingsFilePath, jsonValue);
         }
+
+        #endregion
     }
 }

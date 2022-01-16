@@ -9,8 +9,14 @@ namespace EFTHelper
 {
     class AppBootstrapper : BootstrapperBase
     {
+        #region Fields
+
         private SimpleContainer container;
         private UpdateManagerService _updateManager;
+
+        #endregion
+
+        #region Constructors
 
         public AppBootstrapper()
         {
@@ -19,13 +25,16 @@ namespace EFTHelper
             Initialize();
         }
 
+        #endregion
+
+        #region Methods
+
         protected override void Configure()
         {
             this.container = new SimpleContainer();
-
+            AddServices();
             AddViewModels();
-            container.Singleton<IWindowManager, WindowManager>();
-            container.Singleton<SettingsService, SettingsService>();
+            container.Singleton<IWindowManager, WindowManager>();          
             container.Instance(Application);
             container.Instance(_updateManager);
         }
@@ -57,5 +66,13 @@ namespace EFTHelper
             container.Singleton<LocationViewModel, LocationViewModel>();
             container.Singleton<VersionViewModel, VersionViewModel>();
         }
+
+        private void AddServices()
+        {
+            container.Singleton<SettingsService, SettingsService>();
+            container.Singleton<TarkovToolsService, TarkovToolsService>();
+        }
+
+        #endregion
     }
 }

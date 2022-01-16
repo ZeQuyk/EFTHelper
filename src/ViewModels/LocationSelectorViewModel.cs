@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
+using EFTHelper.Enums;
 using EFTHelper.Helpers;
 using EFTHelper.Services;
 using MahApps.Metro.Controls;
@@ -13,22 +14,31 @@ namespace EFTHelper.ViewModels
 {
     public class LocationSelectorViewModel : Screen, IViewAware
     {
-        private bool _needUpdate;
+        #region Fields
+
         private SettingsService _settingsService;
         private LocationViewModel _selectedLocation;
         private string _selectedLocationName;
         private UpdateManagerService _updateManagerService;
+
+        #endregion
+
+        #region Constructors
 
         public LocationSelectorViewModel(SettingsService settingsService, UpdateManagerService updateManagerService, VersionViewModel versionViewModel)
         {
             VersionViewModel = versionViewModel;
             _updateManagerService = updateManagerService;
             _settingsService = settingsService;
-            LocationViewModels = LocationsHelper.GetLocations().Select(x => new LocationViewModel(x)).OrderBy(x => x.Name).ToList();
+            LocationViewModels = EnumHelper.GetEnumValues<Locations>().Select(x => new LocationViewModel(x)).OrderBy(x => x.Name).ToList();
             SelectedLocationName = LocationViewModels.FirstOrDefault().Name;
             LocationNames = new ObservableCollection<string>(LocationViewModels.Select(x => x.Name));
             DisplayName = "EFTHelper";
         }
+
+        #endregion
+
+        #region Properties
 
         public string SelectedLocationName 
         {
@@ -58,6 +68,10 @@ namespace EFTHelper.ViewModels
         public ObservableCollection<string> LocationNames { get; set; }        
 
         public VersionViewModel VersionViewModel { get; set; }
+
+        #endregion
+
+        #region Methods
 
         public void MenuSelectionChanged(object value, ItemClickEventArgs args)
         {
@@ -89,6 +103,7 @@ namespace EFTHelper.ViewModels
             _settingsService.LocationSelectorInformations.Copy(window);
             _settingsService.Save();
             return base.OnDeactivateAsync(close, cancellationToken);
-        }     
+        }
+        #endregion
     }
 }

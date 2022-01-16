@@ -6,6 +6,19 @@ namespace EFTHelper.ViewModels
 {
     public class LocationViewModel : PropertyChangedBase, IMenuItem
     {
+        #region Constructors
+
+        public LocationViewModel(Enums.Locations location)
+        {
+            var locationName = location.ToString();
+            Name = locationName.ToSentence();
+            ImagePath = $"pack://application:,,,/Images/{locationName.ToLower()}.png";
+        }
+
+        #endregion
+
+        #region Properties
+
         public string Name { get; set; }
 
         public string ImagePath { get; set; }
@@ -14,11 +27,6 @@ namespace EFTHelper.ViewModels
 
         public string Title => Name;
 
-        public LocationViewModel(Enums.Locations location)
-        {
-            var locationName = location.ToString();
-            Name = locationName.ToSentence();
-            ImagePath = $"pack://application:,,,/Images/{locationName.ToLower()}.png";
-        }
+        #endregion
     }
 }

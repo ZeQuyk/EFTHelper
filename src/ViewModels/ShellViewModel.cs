@@ -9,12 +9,18 @@ namespace EFTHelper.ViewModels
 {
     public class ShellViewModel : Conductor<Screen>.Collection.OneActive
     {
+        #region Fields
+
         private LocationSelectorViewModel _locationSelectorViewModel;
         private VersionViewModel _versionViewModel;
         private IWindowManager _windowManager;
         private ProcessService _processService;
         private IKeyboardMouseEvents _globalHook;
         private UpdateManagerService _updateManagerService;
+
+        #endregion
+
+        #region Constructors
 
         public ShellViewModel(LocationSelectorViewModel locationSelectorViewModel, IWindowManager windowManager, UpdateManagerService updateManagerService, VersionViewModel versionViewModel)
         {
@@ -29,6 +35,10 @@ namespace EFTHelper.ViewModels
             _ = WaitForTarkov();
         }
 
+        #endregion
+
+        #region Properties
+
         public DoubleClickCommand ShowLocations => new DoubleClickCommand(ShowActiveItem);
 
         public string Version
@@ -39,6 +49,10 @@ namespace EFTHelper.ViewModels
                 return $"{version}";
             }
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Closes this instance.
@@ -92,5 +106,7 @@ namespace EFTHelper.ViewModels
             _globalHook?.Dispose();
             _ = WaitForTarkov();
         }
+
+        #endregion
     }
 }

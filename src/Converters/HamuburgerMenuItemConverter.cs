@@ -10,6 +10,8 @@ namespace EFTHelper.Converters
 {
     public class HamuburgerMenuItemConverter : IValueConverter
     {
+        #region Methods
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is IEnumerable<IMenuItem> nmItemCollection)
@@ -28,10 +30,14 @@ namespace EFTHelper.Converters
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 
     public class SelectedItemConverter : IValueConverter
     {
+        #region Methods
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value;
@@ -41,5 +47,7 @@ namespace EFTHelper.Converters
         {
             return value is HamburgerMenuIconItem menuItem ? menuItem.Tag : value;
         }
+
+        #endregion
     }
 }

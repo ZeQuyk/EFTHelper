@@ -5,13 +5,23 @@ namespace EFTHelper.ViewModels
 {
     public class VersionViewModel : Screen
     {
-        bool _needUpdate;
-        UpdateManagerService _updateManagerService;
+        #region Fields
+
+        private bool _needUpdate;
+        private UpdateManagerService _updateManagerService;
+
+        #endregion
+
+        #region Constructors
 
         public VersionViewModel(UpdateManagerService updateManagerService)
         {
             _updateManagerService = updateManagerService;
         }
+
+        #endregion
+
+        #region Properties
 
         public string Version
         {
@@ -37,7 +47,11 @@ namespace EFTHelper.ViewModels
             }
         }
 
-        public bool UpToDate => !NeedUpdate;        
+        public bool UpToDate => !NeedUpdate;
+
+        #endregion
+
+        #region Methods
 
         public async void UpdateApplication()
         {
@@ -56,5 +70,7 @@ namespace EFTHelper.ViewModels
         {
             NeedUpdate = await _updateManagerService.CheckForUpdate();
         }
+
+        #endregion
     }
 }
