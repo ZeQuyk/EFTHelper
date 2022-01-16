@@ -6,5 +6,5 @@ This project is intended to help Escape From Tarkov players. <br>
 [Clowd.Squirrel](https://github.com/clowd/Clowd.Squirrel) <br>
 [GlobalMouseKeyHook](https://github.com/gmamaladze/globalmousekeyhook) <br>
 [Caliburn.Micro](https://caliburnmicro.com/) <br>
-[Hardcodet.NotifyIcon.Wpf](https://github.com/hardcodet/wpf-notifyicon)
+[Hardcodet.NotifyIcon.Wpf](https://github.com/hardcodet/wpf-notifyicon)<br>
 [Tarkov-Data-Api](https://github.com/kokarn/tarkov-data-api)
