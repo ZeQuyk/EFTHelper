@@ -20,7 +20,7 @@ namespace EFTHelper.Converters
                 {
                     Tag = item,
                     Label = item.Title,
-                    Icon = item.Label
+                    Icon = item.Icon
                 });
             }
             return value;

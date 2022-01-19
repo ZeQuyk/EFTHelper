@@ -19,6 +19,18 @@
             DoubleClickCommand="{Binding ShowLocations}">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
+                    <MenuItem cal:Message.Attach="[Event Click] = [Action ShowItemsView]">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock>Items</TextBlock>
+                                <TextBlock Foreground="DarkGray" Margin="15,0,0,0" Grid.Column="1" Text="F3"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
                     <MenuItem cal:Message.Attach="[Event Click] = [Action Close]">
                         <MenuItem.Header>
                             <Grid>

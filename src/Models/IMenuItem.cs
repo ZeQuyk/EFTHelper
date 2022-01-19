@@ -8,6 +8,8 @@
 
         public string Title { get; }
 
+        public string Icon { get; }
+
         #endregion
     }
 }

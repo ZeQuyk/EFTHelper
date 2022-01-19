@@ -65,6 +65,8 @@ namespace EFTHelper
             container.Singleton<LocationSelectorViewModel, LocationSelectorViewModel>();
             container.Singleton<LocationViewModel, LocationViewModel>();
             container.Singleton<VersionViewModel, VersionViewModel>();
+            container.Singleton<ItemsListViewModel, ItemsListViewModel>();
+            container.Singleton<ItemTypeViewModel, ItemTypeViewModel>();
         }
 
         private void AddServices()

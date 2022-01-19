@@ -19,16 +19,14 @@ namespace EFTHelper.ViewModels
         private SettingsService _settingsService;
         private LocationViewModel _selectedLocation;
         private string _selectedLocationName;
-        private UpdateManagerService _updateManagerService;
 
         #endregion
 
         #region Constructors
 
-        public LocationSelectorViewModel(SettingsService settingsService, UpdateManagerService updateManagerService, VersionViewModel versionViewModel)
+        public LocationSelectorViewModel(SettingsService settingsService, VersionViewModel versionViewModel)
         {
             VersionViewModel = versionViewModel;
-            _updateManagerService = updateManagerService;
             _settingsService = settingsService;
             LocationViewModels = EnumHelper.GetEnumValues<Locations>().Select(x => new LocationViewModel(x)).OrderBy(x => x.Name).ToList();
             SelectedLocationName = LocationViewModels.FirstOrDefault().Name;

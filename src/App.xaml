@@ -23,6 +23,7 @@
                 <ResourceDictionary>
                     <FontFamily x:Key="Bender">pack://application:,,,/Fonts/#Bender Regular</FontFamily>
                 </ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/BusyIndicator;component/Theme/Default.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

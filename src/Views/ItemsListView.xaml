@@ -1,0 +1,87 @@
+﻿<mah:MetroWindow x:Class="EFTHelper.Views.ItemsListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EFTHelper.Views"                      
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:busyIndicator="https://github.com/Peoky/BusyIndicator"
+             mc:Ignorable="d" 
+             Topmost="True"
+             WindowStartupLocation="CenterScreen"
+             FontFamily="{StaticResource Bender}">
+    <mah:MetroWindow.Resources>
+
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="IndicatorForeground" Color="{DynamicResource MahApps.Colors.Accent2}" />
+
+            <!-- Menu Header Template -->
+            <DataTemplate x:Key="MenuHeaderTemplate">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="16"  Foreground="White"  Text="Item types" />
+            </DataTemplate>
+
+            <!-- Menu Item Template -->
+            <DataTemplate x:Key="MenuItemTemplate">
+                <Grid x:Name="RootGrid" Height="48" Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Icon}"/>
+                    <TextBlock Grid.Column="1"
+           VerticalAlignment="Center"
+           FontSize="16"
+           Text="{Binding Label}" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
+
+    <Grid Margin="0,0" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" BorderThickness="1" CornerRadius="4" Margin="5,5" Width="500" MaxHeight="50" HorizontalAlignment="Center">
+            <DockPanel Width="auto">
+                <Button DockPanel.Dock="Right" Background="{DynamicResource MahApps.Brushes.Accent2}" FontSize="20" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action Search($eventArgs)]">Search</Button>
+                <TextBox DockPanel.Dock="Left" x:Name="Query" FontSize="20"></TextBox>
+            </DockPanel>
+
+        </Border>
+
+        <busyIndicator:BusyMask x:Name="BusyIndicator" IsBusy="{Binding IsBusy}" IndicatorType="ThreeDots" BusyContent="Loading, please wait..." FontSize="25" Background="Transparent" Grid.Row="1" Grid.RowSpan="1" >
+
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" cal:Message.Attach="[Event ScrollChanged] = [Action OnScroll($eventArgs)]">
+                    <ItemsControl x:Name="DisplayedItems" Margin="50,0,0,0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+
+        </busyIndicator:BusyMask>
+
+        <mah:HamburgerMenu 
+           x:Name="Menu" 
+           DisplayMode="CompactOverlay" 
+           cal:Message.Attach="[Event ItemClick]=[Action MenuSelectionChanged($source,$eventArgs)]"
+           SelectedItem="{Binding SelectedType,Converter={StaticResource SelectedItemConverter}}"                
+           ItemsSource="{Binding ItemTypes,Converter={StaticResource HamuburgerMenuItemConverter}}"           
+           HamburgerMenuHeaderTemplate="{StaticResource MenuHeaderTemplate}"
+           ItemTemplate="{StaticResource MenuItemTemplate}"
+            Grid.Row="0"
+            Grid.RowSpan="2">
+        </mah:HamburgerMenu>
+
+        <ContentControl x:Name="VersionViewModel" Grid.Row="2" Height="auto"/>
+    </Grid>
+
+
+</mah:MetroWindow>
