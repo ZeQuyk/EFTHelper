@@ -16,9 +16,21 @@
         <tb:TaskbarIcon
             IconSource="pack://application:,,,/Images/icon.ico"
             ToolTipText="EFTHelper" 
-            DoubleClickCommand="{Binding ShowLocations}">
+            DoubleClickCommand="{Binding ShowActiveScreen}">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
+                    <MenuItem cal:Message.Attach="[Event Click] = [Action ShowLocationsView]">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock>Locations</TextBlock>
+                                <TextBlock Foreground="DarkGray" Margin="15,0,0,0" Grid.Column="1" Text="F2"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
                     <MenuItem cal:Message.Attach="[Event Click] = [Action ShowItemsView]">
                         <MenuItem.Header>
                             <Grid>

@@ -218,24 +218,15 @@ namespace EFTHelper.ViewModels
 
         private Task<List<ItemBaseViewModel>> GetItemsAsync()
         {
-            if (!string.IsNullOrEmpty(Query))
-            {
-                return GetItemsByQueryAsync();
-            }
-            else
-            {
-                return GetItemsByTypeAsync();
-            }          
+            return !string.IsNullOrEmpty(Query) ?
+                GetItemsByQueryAsync() :
+                GetItemsByTypeAsync();
         }
 
         private async Task<List<ItemBaseViewModel>> GetItemsByQueryAsync()
         {
-            var items = new List<ItemBase>();
-
             var itemsByNameResponse = await _tarkovToolsService.GetItemsByNameAsync(Query);
-            items = itemsByNameResponse.ItemsByName;
-
-            var itemViewModels = items.Select(x => new ItemBaseViewModel(x)).ToList();
+            var itemViewModels = itemsByNameResponse.ItemsByName.Select(x => new ItemBaseViewModel(x)).ToList();
 
             if (SelectedType.ItemType != Enums.ItemTypes.Any)
             {

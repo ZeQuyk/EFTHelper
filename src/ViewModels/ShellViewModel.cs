@@ -48,7 +48,7 @@ namespace EFTHelper.ViewModels
 
         #region Properties
 
-        public DoubleClickCommand ShowLocations => new DoubleClickCommand(ShowLocationsView);
+        public DoubleClickCommand ShowActiveScreen => new DoubleClickCommand(ShowActiveItem);
 
         public string Version
         {
@@ -76,7 +76,12 @@ namespace EFTHelper.ViewModels
             await TryCloseAsync();
         }
 
-        private async void ShowLocationsView()
+        public async void ShowActiveItem()
+        {
+            await ShowItem(ActiveItem);
+        }
+
+        public async void ShowLocationsView()
         {
             await ShowItem(_locationSelectorViewModel);
         }
