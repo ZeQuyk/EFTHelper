@@ -8,7 +8,7 @@
 
         public string Title { get; }
 
-        public string Icon { get; }
+        public object Icon { get; }
 
         #endregion
     }

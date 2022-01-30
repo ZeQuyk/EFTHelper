@@ -27,7 +27,7 @@ namespace EFTHelper.ViewModels
 
         public string Title => Name;
 
-        public string Icon => Label;
+        public object Icon => null;
 
         #endregion
     }
