@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="EFTHelper.Views.ItemDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EFTHelper.Views"                      
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             FontSize="25">
+    <Grid Height="auto" Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock x:Name="Name" HorizontalAlignment="Center" Margin="10,0" Grid.Column="1" Grid.RowSpan="2" TextWrapping="Wrap"></TextBlock>
+
+        <Image x:Name="ImageLink" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="2" MaxWidth="200" Margin="4"></Image>
+
+        <TextBlock Text="Base price" Grid.Row="2"></TextBlock>
+        <TextBlock x:Name="BasePrice" Grid.Row="2" Grid.Column="1" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
+
+        <TextBlock Text="Types" Grid.Row="3"></TextBlock>
+        <TextBlock x:Name="TypesValue" Grid.Row="3" Grid.Column="1" Margin="10,0" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+
+        <TextBlock Text="Accuracy modifier" Grid.Row="4" Visibility="{Binding AccuracyModifier, Converter={StaticResource IntToVisibilityConverter}}"></TextBlock>
+        <TextBlock x:Name="AccuracyModifier" Grid.Row="4" Grid.Column="1" Visibility="{Binding AccuracyModifier, Converter={StaticResource IntToVisibilityConverter}}" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
+
+        <TextBlock Text="Recoil modifier" Grid.Row="5" Visibility="{Binding RecoilModifier, Converter={StaticResource IntToVisibilityConverter}}"></TextBlock>
+        <TextBlock x:Name="RecoilModifier" Grid.Row="5" Grid.Column="1" Visibility="{Binding RecoilModifier, Converter={StaticResource IntToVisibilityConverter}}" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
+
+        <TextBlock Text="Ergonomics modifier" Grid.Row="6" Visibility="{Binding ErgonomicsModifier, Converter={StaticResource IntToVisibilityConverter}}"></TextBlock>
+        <TextBlock x:Name="ErgonomicsModifier" Grid.Row="6" Grid.Column="1" Visibility="{Binding ErgonomicsModifier, Converter={StaticResource IntToVisibilityConverter}}" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
+
+        <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" Background="{DynamicResource MahApps.Brushes.Accent4}" BorderThickness="3" CornerRadius="15" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" Margin="0,10">
+            <StackPanel >
+                <TextBlock Text="Buy" HorizontalAlignment="Center"></TextBlock>
+                <ItemsControl x:Name="BuyFor">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+        <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" Background="{DynamicResource MahApps.Brushes.Accent4}" BorderThickness="3" CornerRadius="15" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10">
+            <StackPanel >
+                <TextBlock Text="Sell" HorizontalAlignment="Center"></TextBlock>
+                <ItemsControl x:Name="SellFor" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</UserControl>

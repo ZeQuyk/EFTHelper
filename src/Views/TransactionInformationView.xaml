@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="EFTHelper.Views.TransactionInformationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EFTHelper.Views"
+             mc:Ignorable="d" >
+
+    <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" Background="{DynamicResource MahApps.Brushes.Accent3}" BorderThickness="2" CornerRadius="4"  Margin="5" Width="250">
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <Image x:Name="TraderImageSource" MaxHeight="50" Grid.RowSpan="2"></Image>
+
+            <TextBlock x:Name="TraderName" Grid.Column="1"></TextBlock>
+
+            <DockPanel Grid.Row="1" Grid.Column="1">
+                <TextBlock x:Name="DisplayPrice" ></TextBlock>
+                <TextBlock x:Name="Currency"></TextBlock>
+            </DockPanel>
+
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Visibility="{Binding HasRequirements, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="Requirements:"></TextBlock>
+                <ItemsControl x:Name="Requirements">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+
+        </Grid>
+    </Border>
+</UserControl>

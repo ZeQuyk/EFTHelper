@@ -8,7 +8,6 @@ using System.Windows;
 using Caliburn.Micro;
 using EFTHelper.Enums;
 using EFTHelper.Helpers;
-using EFTHelper.Models.TarkovTools;
 using EFTHelper.Services;
 using MahApps.Metro.Controls;
 
@@ -30,7 +29,8 @@ namespace EFTHelper.ViewModels
         private ItemTypeViewModel _selectedType;
         private ObservableCollection<ItemBaseViewModel> _displayedItems;
         private List<ItemBaseViewModel> _items;
-
+        private ItemDetailViewModel _itemDetailViewModel;
+        private bool _isFlyoutOpen;
         #endregion
 
         #region Constructors
@@ -44,6 +44,7 @@ namespace EFTHelper.ViewModels
             _tarkovToolsService = tarkovToolsService;
             _settingsService = settingsService;
             ItemTypes = EnumHelper.GetEnumValues<ItemTypes>().Select(x => new ItemTypeViewModel(x)).ToList();
+            ItemTypes.Remove(ItemTypes.FirstOrDefault(x => x.ItemType.Equals(Enums.ItemTypes.Disabled)));
             SelectedType = ItemTypes.First();
             DisplayedItems = new ObservableCollection<ItemBaseViewModel>();
             DisplayName = "EFTHelper";
@@ -109,6 +110,27 @@ namespace EFTHelper.ViewModels
             }
         }
 
+        public ItemDetailViewModel ItemDetailViewModel
+        {
+            get => _itemDetailViewModel;
+            set
+            {
+                _itemDetailViewModel = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public bool IsFlyoutOpen
+        {
+            get => _isFlyoutOpen;
+            set
+            {
+                _isFlyoutOpen = value;
+                NotifyOfPropertyChange();
+            }
+        }
+        
+
         #endregion
 
         #region Methods
@@ -122,6 +144,19 @@ namespace EFTHelper.ViewModels
             }
 
             await RefreshDisplayedItemsAsync(clearQuery:true);
+        }
+
+        public async void OnItemClicked(ItemBaseViewModel itemClicked)
+        {
+            if (itemClicked == null || ItemDetailViewModel != null && IsFlyoutOpen && itemClicked.Id == ItemDetailViewModel.Id)
+            {
+                return;
+            }
+            IsBusy = true;
+            var itemById = await _tarkovToolsService.GetItemByIdAsync(itemClicked.Id);
+            ItemDetailViewModel = new ItemDetailViewModel(itemById.Item);
+            IsFlyoutOpen = true;
+            IsBusy = false;
         }
 
         public void OnScroll(System.Windows.Controls.ScrollChangedEventArgs scrollEvent)
@@ -212,7 +247,7 @@ namespace EFTHelper.ViewModels
         {
             IsBusy = true;
             Clear(clearQuery);
-            _items = await GetItemsAsync();
+            _items = await GetItemsAsync();            
             DisplayNextPage();
         }
 
@@ -226,11 +261,12 @@ namespace EFTHelper.ViewModels
         private async Task<List<ItemBaseViewModel>> GetItemsByQueryAsync()
         {
             var itemsByNameResponse = await _tarkovToolsService.GetItemsByNameAsync(Query);
-            var itemViewModels = itemsByNameResponse.ItemsByName.Select(x => new ItemBaseViewModel(x)).ToList();
-
+            var items = itemsByNameResponse.ItemsByName;
+            var itemViewModels = items.Select(x => new ItemBaseViewModel(x, OnItemClicked)).ToList();
+            var disabledTypes = GetDefaultDisabledTypes();
             if (SelectedType.ItemType != Enums.ItemTypes.Any)
             {
-                itemViewModels.RemoveAll(x => !x.Types.Contains(SelectedType.ItemType));
+                itemViewModels = RemoveItemsWithoutType(itemViewModels, SelectedType.ItemType);
             }
 
             return itemViewModels;
@@ -238,9 +274,29 @@ namespace EFTHelper.ViewModels
 
         private async Task<List<ItemBaseViewModel>> GetItemsByTypeAsync()
         {
-            var itemsByTypeResponse = await _tarkovToolsService.GetItemsByTypeAsync(SelectedType.ItemType);            
+            var itemsByTypeResponse = await _tarkovToolsService.GetItemsByTypeAsync(SelectedType.ItemType);
 
-            return itemsByTypeResponse.ItemsByType.Select(x => new ItemBaseViewModel(x)).ToList();
+            var items = itemsByTypeResponse.ItemsByType;
+
+            return RemoveItemsWithTypes(items.Select(x => new ItemBaseViewModel(x, OnItemClicked)).ToList(), GetDefaultDisabledTypes());
+        }
+
+        private List<ItemBaseViewModel> RemoveItemsWithTypes(List<ItemBaseViewModel> items, List<ItemTypes> itemTypes)
+        {
+            return items.Except(items.Where(x => x.Types.Any(z => itemTypes.Contains(z)))).ToList();
+        }
+
+        private List<ItemBaseViewModel> RemoveItemsWithoutType(List<ItemBaseViewModel> items, ItemTypes itemType)
+        {
+            return RemoveItemsWithTypes(items.Except(items.Where(x => !x.Types.Any(z => z == itemType))).ToList(), GetDefaultDisabledTypes());
+        }
+
+        private List<ItemTypes> GetDefaultDisabledTypes()
+        {
+            return new List<ItemTypes> 
+            { 
+                Enums.ItemTypes.Disabled
+            };
         }
 
         #endregion

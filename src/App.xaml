@@ -7,10 +7,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
-            
-        <converters:HamuburgerMenuItemConverter x:Key="HamuburgerMenuItemConverter"/>
-        <converters:SelectedItemConverter x:Key="SelectedItemConverter"/>
-        </ResourceDictionary>
+                    <converters:HamuburgerMenuItemConverter x:Key="HamuburgerMenuItemConverter"/>
+                    <converters:SelectedItemConverter x:Key="SelectedItemConverter"/>
+                    <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+                </ResourceDictionary>
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="bootstrapper" />
                     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>

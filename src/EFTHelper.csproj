@@ -14,6 +14,7 @@
     <None Remove="Fonts\bender.regular.otf" />
     <None Remove="Images\customs.png" />
     <None Remove="Images\factory.png" />
+    <None Remove="Images\incognito.png" />
     <None Remove="Images\interchange.png" />
     <None Remove="Images\lighthouse.png" />
     <None Remove="Images\reserve.png" />
@@ -44,6 +45,7 @@
   <ItemGroup>
     <Resource Include="Images\customs.png" />
     <Resource Include="Images\factory.png" />
+    <Resource Include="Images\incognito.png" />
     <Resource Include="Images\interchange.png" />
     <Resource Include="Images\thelab.png" />
     <Resource Include="Images\lighthouse.png" />

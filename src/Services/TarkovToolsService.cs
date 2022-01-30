@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EFTHelper.Enums;
 using EFTHelper.Extensions;
+using EFTHelper.Models.TarkovTools;
 using EFTHelper.Models.TarkovTools.Requests;
 using EFTHelper.Models.TarkovTools.Responses;
 

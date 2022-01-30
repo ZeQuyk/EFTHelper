@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using EFTHelper.Enums;
 
 namespace EFTHelper.Extensions
 {
@@ -30,6 +33,20 @@ namespace EFTHelper.Extensions
             }
 
             return char.ToUpper(input[0]) + (input.Length > 1 ? input[1..] : string.Empty);
+        }
+
+        public static List<ItemTypes> ToItemTypes(this List<string> input)
+        {
+            var types = new List<ItemTypes>();
+            foreach (var item in input)
+            {
+                if (Enum.TryParse<ItemTypes>(item, ignoreCase:true, out var result))
+                {
+                    types.Add(result);
+                }
+            }
+
+            return types;
         }
 
         #endregion

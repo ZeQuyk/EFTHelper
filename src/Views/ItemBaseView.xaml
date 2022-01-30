@@ -9,7 +9,7 @@
         mc:Ignorable="d"        
         Margin="5,5"
         FontSize="20" Width="400">
-    <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" BorderThickness="1" CornerRadius="4" Cursor="Hand">
+    <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" BorderThickness="1" CornerRadius="4" Cursor="Hand" cal:Message.Attach="[Event MouseDown] = [Action OnItemClicked]">
         <Border.Style>
             <Style TargetType="Border">
                 <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent4}"></Setter>
