@@ -28,11 +28,13 @@
                         <ColumnDefinition Width="48" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Icon}"/>
+                    <ContentControl HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" 
+                               Content="{Binding Icon}"/>
                     <TextBlock Grid.Column="1"
-           VerticalAlignment="Center"
-           FontSize="16"
-           Text="{Binding Label}" />
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Text="{Binding Label}" />
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
