@@ -21,7 +21,7 @@ namespace EFTHelper.ViewModels
         private readonly SettingsService _settingsService;
         private bool _isBusy = false;
         private int _pageIndex = 0;
-        private int _pageSize = 80;
+        private int _pageSize = 50;
         private bool _listenScroll = true;
         private string _query;
         private readonly object pageLock = new();
@@ -44,10 +44,10 @@ namespace EFTHelper.ViewModels
             _tarkovToolsService = tarkovToolsService;
             _settingsService = settingsService;
             ItemTypes = EnumHelper.GetEnumValues<ItemTypes>().Select(x => new ItemTypeViewModel(x)).ToList();
-            ItemTypes.Remove(ItemTypes.FirstOrDefault(x => x.ItemType.Equals(Enums.ItemTypes.Disabled)));
+            ItemTypes = ItemTypes.Except(ItemTypes.Where(x => GetDisabledTypes().Contains(x.ItemType))).ToList();
             SelectedType = ItemTypes.First();
             DisplayedItems = new ObservableCollection<ItemBaseViewModel>();
-            DisplayName = "EFTHelper";
+            DisplayName = string.Empty;
         }
 
         #endregion
@@ -69,10 +69,13 @@ namespace EFTHelper.ViewModels
             get => _selectedType;
             set
             {
-                _selectedType = value;                
+                _selectedType = value;            
                 NotifyOfPropertyChange();
+                NotifyOfPropertyChange(() => SelectedTypeName);
             }
         }
+
+        public string SelectedTypeName => SelectedType.Title;
 
         public ObservableCollection<ItemBaseViewModel> DisplayedItems
         {
@@ -247,7 +250,7 @@ namespace EFTHelper.ViewModels
         {
             IsBusy = true;
             Clear(clearQuery);
-            _items = await GetItemsAsync();            
+            _items = await GetItemsAsync();
             DisplayNextPage();
         }
 
@@ -263,13 +266,12 @@ namespace EFTHelper.ViewModels
             var itemsByNameResponse = await _tarkovToolsService.GetItemsByNameAsync(Query);
             var items = itemsByNameResponse.ItemsByName;
             var itemViewModels = items.Select(x => new ItemBaseViewModel(x, OnItemClicked)).ToList();
-            var disabledTypes = GetDefaultDisabledTypes();
             if (SelectedType.ItemType != Enums.ItemTypes.Any)
             {
                 itemViewModels = RemoveItemsWithoutType(itemViewModels, SelectedType.ItemType);
             }
 
-            return itemViewModels;
+            return RemoveItemsWithDisabledTypes(itemViewModels);
         }
 
         private async Task<List<ItemBaseViewModel>> GetItemsByTypeAsync()
@@ -278,7 +280,12 @@ namespace EFTHelper.ViewModels
 
             var items = itemsByTypeResponse.ItemsByType;
 
-            return RemoveItemsWithTypes(items.Select(x => new ItemBaseViewModel(x, OnItemClicked)).ToList(), GetDefaultDisabledTypes());
+            return RemoveItemsWithDisabledTypes(items.Select(x => new ItemBaseViewModel(x, OnItemClicked)).ToList());
+        }
+
+        private List<ItemBaseViewModel> RemoveItemsWithDisabledTypes(List<ItemBaseViewModel> items)
+        {
+            return RemoveItemsWithTypes(items, GetDisabledTypes());
         }
 
         private List<ItemBaseViewModel> RemoveItemsWithTypes(List<ItemBaseViewModel> items, List<ItemTypes> itemTypes)
@@ -288,14 +295,16 @@ namespace EFTHelper.ViewModels
 
         private List<ItemBaseViewModel> RemoveItemsWithoutType(List<ItemBaseViewModel> items, ItemTypes itemType)
         {
-            return RemoveItemsWithTypes(items.Except(items.Where(x => !x.Types.Any(z => z == itemType))).ToList(), GetDefaultDisabledTypes());
+            return items.Except(items.Where(x => !x.Types.Any(z => z == itemType))).ToList();
         }
 
-        private List<ItemTypes> GetDefaultDisabledTypes()
+        private List<ItemTypes> GetDisabledTypes()
         {
             return new List<ItemTypes> 
             { 
-                Enums.ItemTypes.Disabled
+                Enums.ItemTypes.Disabled,
+                Enums.ItemTypes.UnLootable,
+                Enums.ItemTypes.Preset
             };
         }
 

@@ -8,68 +8,81 @@
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              FontSize="25">
-    <Grid Height="auto" Margin="5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+    <ScrollViewer Margin="5">
+        <Grid Height="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
 
 
-        <TextBlock x:Name="Name" HorizontalAlignment="Center" Margin="10,0" Grid.Column="1" Grid.RowSpan="2" TextWrapping="Wrap"></TextBlock>
+            <TextBlock x:Name="Name" HorizontalAlignment="Center" Margin="10,0" Grid.Column="1" Grid.RowSpan="2" TextWrapping="Wrap"></TextBlock>
 
-        <Image x:Name="ImageLink" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="2" MaxWidth="200" Margin="4"></Image>
+            <Border Grid.Row="0" Grid.RowSpan="2" Margin="4" Height="200" CornerRadius="8">
+                <Border.Background>
+                    <SolidColorBrush Color="White" Opacity="0.05">
+                    </SolidColorBrush>
+                </Border.Background>
+                <Image x:Name="ImageLink" VerticalAlignment="Center" HorizontalAlignment="Center"  MaxWidth="200" ></Image>
+            </Border>
 
-        <TextBlock Text="Base price" Grid.Row="2"></TextBlock>
-        <TextBlock x:Name="BasePrice" Grid.Row="2" Grid.Column="1" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="Base price" HorizontalAlignment="Center" Grid.Row="2"></TextBlock>
+            <TextBlock x:Name="BasePrice" Grid.Row="2" Grid.Column="1" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
 
-        <TextBlock Text="Types" Grid.Row="3"></TextBlock>
-        <TextBlock x:Name="TypesValue" Grid.Row="3" Grid.Column="1" Margin="10,0" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Text="Types" HorizontalAlignment="Center" Grid.Row="3"></TextBlock>
+            <TextBlock x:Name="TypesValue" Grid.Row="3" Grid.Column="1" Margin="10,0" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
 
-        <TextBlock Text="Accuracy modifier" Grid.Row="4" Visibility="{Binding AccuracyModifier, Converter={StaticResource IntToVisibilityConverter}}"></TextBlock>
-        <TextBlock x:Name="AccuracyModifier" Grid.Row="4" Grid.Column="1" Visibility="{Binding AccuracyModifier, Converter={StaticResource IntToVisibilityConverter}}" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="Accuracy modifier" HorizontalAlignment="Center" Grid.Row="4" Visibility="{Binding AccuracyModifier, Converter={StaticResource IntToVisibilityConverter}}"></TextBlock>
+            <TextBlock x:Name="AccuracyModifier" Grid.Row="4" Grid.Column="1" Visibility="{Binding AccuracyModifier, Converter={StaticResource IntToVisibilityConverter}}" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
 
-        <TextBlock Text="Recoil modifier" Grid.Row="5" Visibility="{Binding RecoilModifier, Converter={StaticResource IntToVisibilityConverter}}"></TextBlock>
-        <TextBlock x:Name="RecoilModifier" Grid.Row="5" Grid.Column="1" Visibility="{Binding RecoilModifier, Converter={StaticResource IntToVisibilityConverter}}" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="Recoil modifier" HorizontalAlignment="Center" Grid.Row="5" Visibility="{Binding RecoilModifier, Converter={StaticResource IntToVisibilityConverter}}"></TextBlock>
+            <TextBlock x:Name="RecoilModifier" Grid.Row="5" Grid.Column="1" Visibility="{Binding RecoilModifier, Converter={StaticResource IntToVisibilityConverter}}" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
 
-        <TextBlock Text="Ergonomics modifier" Grid.Row="6" Visibility="{Binding ErgonomicsModifier, Converter={StaticResource IntToVisibilityConverter}}"></TextBlock>
-        <TextBlock x:Name="ErgonomicsModifier" Grid.Row="6" Grid.Column="1" Visibility="{Binding ErgonomicsModifier, Converter={StaticResource IntToVisibilityConverter}}" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="Ergonomics modifier" HorizontalAlignment="Center" Grid.Row="6" Visibility="{Binding ErgonomicsModifier, Converter={StaticResource IntToVisibilityConverter}}"></TextBlock>
+            <TextBlock x:Name="ErgonomicsModifier" Grid.Row="6" Grid.Column="1" Visibility="{Binding ErgonomicsModifier, Converter={StaticResource IntToVisibilityConverter}}" Margin="10,0" HorizontalAlignment="Center"></TextBlock>
 
-        <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" Background="{DynamicResource MahApps.Brushes.Accent4}" BorderThickness="3" CornerRadius="15" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" Margin="0,10">
-            <StackPanel >
-                <TextBlock Text="Buy" HorizontalAlignment="Center"></TextBlock>
-                <ItemsControl x:Name="BuyFor">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </StackPanel>
-        </Border>
-        <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" Background="{DynamicResource MahApps.Brushes.Accent4}" BorderThickness="3" CornerRadius="15" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10">
-            <StackPanel >
-                <TextBlock Text="Sell" HorizontalAlignment="Center"></TextBlock>
-                <ItemsControl x:Name="SellFor" >
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </StackPanel>
-        </Border>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" Background="{DynamicResource MahApps.Brushes.Accent4}" BorderThickness="3" CornerRadius="15" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" Margin="0,10" Visibility="{Binding CanBuy, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel >
+                    <TextBlock Text="Buy" HorizontalAlignment="Center"></TextBlock>
+                    <ItemsControl x:Name="BuyFor">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
 
-    </Grid>
+            <TextBlock Text="Can not buy this item" TextWrapping="Wrap" Visibility="{Binding CanNotBuy, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" Margin="0,10"></TextBlock>
+
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" Background="{DynamicResource MahApps.Brushes.Accent4}" BorderThickness="3" CornerRadius="15" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10" Visibility="{Binding CanSell, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel >
+                    <TextBlock Text="Sell" HorizontalAlignment="Center"></TextBlock>
+                    <ItemsControl x:Name="SellFor" >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="Can not sell this item" TextWrapping="Wrap" Visibility="{Binding CanNotSell, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10"></TextBlock>
+
+        </Grid>
+    </ScrollViewer>
 </UserControl>

@@ -10,38 +10,47 @@
              Topmost="True"
              WindowStartupLocation="CenterScreen"
              FontFamily="{StaticResource Bender}">
+    
     <mah:MetroWindow.Resources>
-        
-        <ResourceDictionary>
-            
-        <!-- Menu Header Template -->
-        <DataTemplate x:Key="MenuHeaderTemplate">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="16"  Foreground="White"  Text="Locations" />
-        </DataTemplate>
 
-        <!-- Menu Item Template -->
-        <DataTemplate x:Key="MenuItemTemplate">
-            <Grid x:Name="RootGrid" Height="48" Background="Transparent">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="48" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Icon}"/>
+        <ResourceDictionary>
+
+            <!-- Menu Header Template -->
+            <DataTemplate x:Key="MenuHeaderTemplate">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="16"  Foreground="White"  Text="Locations" />
+            </DataTemplate>
+
+            <!-- Menu Item Template -->
+            <DataTemplate x:Key="MenuItemTemplate">
+                <Grid x:Name="RootGrid" Height="48" Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ContentControl HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" 
+                               Content="{Binding Icon}"/>
                     <TextBlock Grid.Column="1"
            VerticalAlignment="Center"
            FontSize="16"
            Text="{Binding Label}" />
-            </Grid>
-        </DataTemplate>
+                </Grid>
+            </DataTemplate>
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
-    
+
     <Grid Margin="0,0" >
 
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
+
+        <TextBlock x:Name="SelectedLocationName" FontSize="25" Margin="65,-30,0,0" IsHitTestVisible="False"/>
+
+        <ContentControl x:Name="SelectedLocation" HorizontalAlignment="Center" Margin="48,0,0,25"  Grid.Row="0"  />
+
+        <ContentControl x:Name="VersionViewModel" Grid.Row="1" Height="auto" Margin="48,0,0,0"/>
         <mah:HamburgerMenu 
            x:Name="Menu" 
            DisplayMode="CompactOverlay" 
@@ -50,15 +59,10 @@
            ItemsSource="{Binding LocationViewModels,Converter={StaticResource HamuburgerMenuItemConverter}}"           
            HamburgerMenuHeaderTemplate="{StaticResource MenuHeaderTemplate}"
            ItemTemplate="{StaticResource MenuItemTemplate}"
-            Grid.Row="0">
-
-            <mah:HamburgerMenu.Content>
-                <ContentControl x:Name="SelectedLocation" HorizontalAlignment="Center" Margin="0,0,0,25" Grid.Column="0" Grid.Row="1"  />
-            </mah:HamburgerMenu.Content>
+            Grid.RowSpan="2"
+            Margin="0,-30,0,0">
 
         </mah:HamburgerMenu>
-
-            <ContentControl x:Name="VersionViewModel" Grid.Row="1" Height="auto"/>
 
     </Grid>
 </mah:MetroWindow>

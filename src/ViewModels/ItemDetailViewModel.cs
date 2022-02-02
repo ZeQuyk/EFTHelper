@@ -64,7 +64,15 @@ namespace EFTHelper.ViewModels
 
         public List<TransactionInformationViewModel> BuyFor { get; set; }
 
+        public bool CanBuy => BuyFor != null && BuyFor.Any();
+
+        public bool CanNotBuy => !CanBuy;
+
         public List<TransactionInformationViewModel> SellFor { get; set; }
+
+        public bool CanSell => SellFor != null && SellFor.Any();
+
+        public bool CanNotSell => !CanSell;
 
         public int AccuracyModifier { get; set; }
 

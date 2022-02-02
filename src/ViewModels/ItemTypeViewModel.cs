@@ -58,6 +58,63 @@ namespace EFTHelper.ViewModels
                 case ItemTypes.Backpack:
                     icon = new PackIconUnicons() { Kind = PackIconUniconsKind.Backpack };
                     break;
+                case ItemTypes.Barter:
+                    icon = new PackIconForkAwesome() { Kind = PackIconForkAwesomeKind.Exchange };
+                    break;
+                case ItemTypes.Container:
+                    icon = new PackIconZondicons() { Kind = PackIconZondiconsKind.Box };
+                    break;
+                case ItemTypes.Glasses:
+                    icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Glasses };
+                    break;
+                case ItemTypes.Grenade:
+                    icon = new PackIconRPGAwesome() { Kind = PackIconRPGAwesomeKind.Grenade };
+                    break;
+                case ItemTypes.Gun:
+                    icon = new PackIconRPGAwesome() { Kind = PackIconRPGAwesomeKind.CrossedPistols };
+                    break;
+                case ItemTypes.Headphones:
+                    icon = new PackIconUnicons() { Kind = PackIconUniconsKind.Headphones };
+                    break;
+                case ItemTypes.Helmet:
+                    icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.HardHatSolid };
+                    break;
+                case ItemTypes.Injectors:
+                    icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Needle };
+                    break;
+                case ItemTypes.Keys:
+                    icon = new PackIconCodicons { Kind = PackIconCodiconsKind.Key };
+                    break;
+                case ItemTypes.MarkedOnly:
+                    icon = new PackIconMaterial { Kind = PackIconMaterialKind.CheckboxMarkedCircle }; 
+                    break;
+                case ItemTypes.Meds:
+                    icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.BriefcaseMedicalSolid };
+                    break;
+                case ItemTypes.Mods:
+                    icon = new PackIconMaterial() { Kind = PackIconMaterialKind.MagazineRifle };
+                    break;
+                case ItemTypes.NoFlea:
+                    icon = new PackIconUnicons() { Kind = PackIconUniconsKind.Ban };
+                    break;
+                case ItemTypes.PistolGrip:
+                    icon = new PackIconRadixIcons() { Kind = PackIconRadixIconsKind.DragHandleVertical };
+                    break;
+                case ItemTypes.Preset:
+                    icon = new PackIconVaadinIcons() { Kind = PackIconVaadinIconsKind.Tools };
+                        break;
+                case ItemTypes.Provisions:
+                    icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FridgeIndustrialOutline };
+                    break;
+                case ItemTypes.Rig:
+                    icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.VestSolid };
+                    break;
+                case ItemTypes.Suppressor:
+                    icon = new PackIconMicrons() { Kind = PackIconMicronsKind.MuteVolume };
+                    break;
+                case ItemTypes.Wearable: 
+                    icon = new PackIconModern() { Kind = PackIconModernKind.ClothesShirt };
+                    break;
             }
 
             if (icon != null) 

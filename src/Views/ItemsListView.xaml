@@ -46,8 +46,8 @@
                 <ContentControl cal:View.Model="{Binding Path=ItemDetailViewModel}"></ContentControl>
             </mah:Flyout>
         </mah:FlyoutsControl>
-    </mah:MetroWindow.Flyouts>    
-    
+    </mah:MetroWindow.Flyouts>
+
     <Grid Margin="0,0" >
 
         <Grid.RowDefinitions>
@@ -55,29 +55,34 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
+        <TextBlock x:Name="SelectedTypeName" FontSize="25" Margin="65,-30,0,0" IsHitTestVisible="False"/>
         <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" BorderThickness="0,0,0,1" CornerRadius="4" Margin="5,5" Width="500" MaxHeight="50" HorizontalAlignment="Center">
             <DockPanel Width="auto">
-                <Button DockPanel.Dock="Right" Background="{DynamicResource MahApps.Brushes.Accent2}" FontSize="20" Cursor="Hand" cal:Message.Attach="[Event Click] = [Action Search($eventArgs)]">Search</Button>
-                <TextBox DockPanel.Dock="Left" x:Name="Query" FontSize="20" Margin="0,0,-2,0"></TextBox>
+                <Button DockPanel.Dock="Right" Background="{DynamicResource MahApps.Brushes.Accent2}" FontSize="20" Cursor="Hand" IsDefault="True" cal:Message.Attach="[Event Click] = [Action Search($eventArgs)]">Search</Button>
+                <TextBox DockPanel.Dock="Left" x:Name="Query" FontSize="20" Margin="0,0,-2,0" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"></TextBox>
             </DockPanel>
 
         </Border>
 
-        <busyIndicator:BusyMask x:Name="BusyIndicator" IsBusy="{Binding IsBusy}" IndicatorType="ThreeDots" BusyContent="Loading, please wait..." FontSize="25" Background="Transparent" Grid.Row="1" Grid.RowSpan="1" >
-
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" cal:Message.Attach="[Event ScrollChanged] = [Action OnScroll($eventArgs)]">
-                    <ItemsControl x:Name="DisplayedItems" Margin="50,0,0,0">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                            <WrapPanel/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </ScrollViewer>
-
-        </busyIndicator:BusyMask>
-
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" cal:Message.Attach="[Event ScrollChanged] = [Action OnScroll($eventArgs)]" Grid.Row="1" Grid.RowSpan="1">
+            <ItemsControl x:Name="DisplayedItems" Margin="50,0,0,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+        <busyIndicator:BusyMask x:Name="BusyIndicator"
+                IsBusy="{Binding IsBusy}"
+                IndicatorType="ThreeDots"
+                BusyContent="Loading, please wait..."
+                FontSize="25"
+                Background="Transparent"
+                Grid.Row="1" Grid.RowSpan="1"/>
+        
+        <ContentControl x:Name="VersionViewModel" Grid.Row="2" Height="auto" Margin="48,0,0,0"/>
         <mah:HamburgerMenu 
            x:Name="Menu" 
            DisplayMode="CompactOverlay" 
@@ -87,10 +92,11 @@
            HamburgerMenuHeaderTemplate="{StaticResource MenuHeaderTemplate}"
            ItemTemplate="{StaticResource MenuItemTemplate}"
             Grid.Row="0"
-            Grid.RowSpan="2">
+            Grid.RowSpan="3"
+            Margin="0,-30,0,0">
         </mah:HamburgerMenu>
 
-        <ContentControl x:Name="VersionViewModel" Grid.Row="2" Height="auto"/>
+        
     </Grid>
 
 

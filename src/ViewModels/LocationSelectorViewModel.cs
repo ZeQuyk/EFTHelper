@@ -29,24 +29,16 @@ namespace EFTHelper.ViewModels
             VersionViewModel = versionViewModel;
             _settingsService = settingsService;
             LocationViewModels = EnumHelper.GetEnumValues<Locations>().Select(x => new LocationViewModel(x)).OrderBy(x => x.Name).ToList();
-            SelectedLocationName = LocationViewModels.FirstOrDefault().Name;
+            SelectedLocation = LocationViewModels.FirstOrDefault();
             LocationNames = new ObservableCollection<string>(LocationViewModels.Select(x => x.Name));
-            DisplayName = "EFTHelper";
+            DisplayName = string.Empty;
         }
 
         #endregion
 
         #region Properties
 
-        public string SelectedLocationName 
-        {
-            get => _selectedLocationName;
-            set
-            {
-                _selectedLocationName = value;
-                SelectedLocation = LocationViewModels.FirstOrDefault(x => x.Name == value);
-            }
-        }
+        public string SelectedLocationName => SelectedLocation.Name;
 
         public LocationViewModel SelectedLocation 
         { 
@@ -56,7 +48,8 @@ namespace EFTHelper.ViewModels
                 if (_selectedLocation != value)
                 {
                     _selectedLocation = value;
-                    NotifyOfPropertyChange(() => SelectedLocation);
+                    NotifyOfPropertyChange();
+                    NotifyOfPropertyChange(() => SelectedLocationName);
                 }
             }
         }
