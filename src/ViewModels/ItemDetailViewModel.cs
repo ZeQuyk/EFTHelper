@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Caliburn.Micro;
 using EFTHelper.Enums;
 using EFTHelper.Extensions;
@@ -83,6 +85,23 @@ namespace EFTHelper.ViewModels
         public bool HasGrid { get; set; }
 
         public bool BlocksHeadphones { get; set; }
+
+        public bool HasWikiLink => !string.IsNullOrEmpty(WikiLink);
+
+        #endregion
+
+        #region Methods
+
+        public void OpenWiki()
+        {
+            var processStartInfo = new ProcessStartInfo
+            {
+                UseShellExecute = true,
+                FileName = WikiLink
+            };
+
+            Process.Start(processStartInfo);
+        }
 
         #endregion
     }
