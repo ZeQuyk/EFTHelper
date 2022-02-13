@@ -1,4 +1,6 @@
-﻿namespace EFTHelper.Models
+﻿using System;
+
+namespace EFTHelper.Models
 {
     public interface IMenuItem
     {
@@ -9,6 +11,8 @@
         public string Title { get; }
 
         public object Icon { get; }
+
+        public Action? OnClick { get; }
 
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿<mah:MetroWindow x:Class="EFTHelper.Views.LocationSelectorView"
+﻿<UserControl x:Class="EFTHelper.Views.LocationSelectorView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,38 +6,8 @@
              xmlns:local="clr-namespace:EFTHelper.Views"                      
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:cal="http://www.caliburnproject.org"
-             mc:Ignorable="d" 
-             Topmost="True"
-             WindowStartupLocation="CenterScreen"
+             mc:Ignorable="d"
              FontFamily="{StaticResource Bender}">
-    
-    <mah:MetroWindow.Resources>
-
-        <ResourceDictionary>
-
-            <!-- Menu Header Template -->
-            <DataTemplate x:Key="MenuHeaderTemplate">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="16"  Foreground="White"  Text="Locations" />
-            </DataTemplate>
-
-            <!-- Menu Item Template -->
-            <DataTemplate x:Key="MenuItemTemplate">
-                <Grid x:Name="RootGrid" Height="48" Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="48" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <ContentControl HorizontalAlignment="Center" 
-                               VerticalAlignment="Center" 
-                               Content="{Binding Icon}"/>
-                    <TextBlock Grid.Column="1"
-           VerticalAlignment="Center"
-           FontSize="16"
-           Text="{Binding Label}" />
-                </Grid>
-            </DataTemplate>
-        </ResourceDictionary>
-    </mah:MetroWindow.Resources>
 
     <Grid Margin="0,0" >
 
@@ -46,23 +16,9 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="SelectedLocationName" FontSize="25" Margin="65,-30,0,0" IsHitTestVisible="False"/>
+        <TextBlock x:Name="SelectedLocationName" FontSize="25" Margin="15,-30,0,0" IsHitTestVisible="False"/>
 
-        <ContentControl x:Name="SelectedLocation" HorizontalAlignment="Center" Margin="48,0,0,25"  Grid.Row="0"  />
-
-        <ContentControl x:Name="VersionViewModel" Grid.Row="1" Height="auto" Margin="48,0,0,0"/>
-        <mah:HamburgerMenu 
-           x:Name="Menu" 
-           DisplayMode="CompactOverlay" 
-           cal:Message.Attach="[Event ItemClick]=[Action MenuSelectionChanged($source,$eventArgs)]"
-           SelectedItem="{Binding SelectedLocation,Converter={StaticResource SelectedItemConverter}}"                
-           ItemsSource="{Binding LocationViewModels,Converter={StaticResource HamuburgerMenuItemConverter}}"           
-           HamburgerMenuHeaderTemplate="{StaticResource MenuHeaderTemplate}"
-           ItemTemplate="{StaticResource MenuItemTemplate}"
-            Grid.RowSpan="2"
-            Margin="0,-30,0,0">
-
-        </mah:HamburgerMenu>
+        <ContentControl x:Name="SelectedLocation" HorizontalAlignment="Center"  />
 
     </Grid>
-</mah:MetroWindow>
+</UserControl>

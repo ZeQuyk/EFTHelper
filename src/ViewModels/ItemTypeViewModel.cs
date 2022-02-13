@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using EFTHelper.Enums;
 using EFTHelper.Extensions;
 using EFTHelper.Models;
@@ -33,6 +34,8 @@ namespace EFTHelper.ViewModels
         public object Icon { get; }
 
         public ItemTypes ItemType => _itemType;
+
+        public System.Action OnClick => null;
 
         #endregion
 

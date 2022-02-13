@@ -4,16 +4,16 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using Caliburn.Micro;
 using EFTHelper.Enums;
 using EFTHelper.Helpers;
+using EFTHelper.Models;
 using EFTHelper.Services;
 using MahApps.Metro.Controls;
 
 namespace EFTHelper.ViewModels
 {
-    public class ItemsListViewModel : Screen, IViewAware
+    public class ItemsListViewModel : ScreenBase
     {
         #region Fields
 
@@ -37,22 +37,21 @@ namespace EFTHelper.ViewModels
 
         public ItemsListViewModel(
             TarkovToolsService tarkovToolsService,
-            VersionViewModel versionViewModel,
             SettingsService settingsService)
         {
-            VersionViewModel = versionViewModel;
             _tarkovToolsService = tarkovToolsService;
             _settingsService = settingsService;
             ItemTypes = EnumHelper.GetEnumValues<ItemTypes>().Select(x => new ItemTypeViewModel(x)).ToList();
             ItemTypes = ItemTypes.Except(ItemTypes.Where(x => GetDisabledTypes().Contains(x.ItemType))).ToList();
             SelectedType = ItemTypes.First();
             DisplayedItems = new ObservableCollection<ItemBaseViewModel>();
-            DisplayName = string.Empty;
         }
 
         #endregion
 
         #region Properties
+
+        public bool TopMost => _settingsService.TopMost;
 
         public List<ItemTypeViewModel> ItemTypes
         {
@@ -101,8 +100,6 @@ namespace EFTHelper.ViewModels
             }
         }
 
-        public VersionViewModel VersionViewModel { get; set; }
-
         public string Query
         {
             get => _query;
@@ -138,9 +135,9 @@ namespace EFTHelper.ViewModels
 
         #region Methods
 
-        public async void MenuSelectionChanged(object value, ItemClickEventArgs args)
+        public override async void MenuSelectionChanged(IMenuItem item)
         {
-            var clickedType = args.ClickedItem as ItemTypeViewModel;
+            var clickedType = item as ItemTypeViewModel;
             if (clickedType != null)
             {
                 SelectedType = clickedType;
@@ -155,10 +152,11 @@ namespace EFTHelper.ViewModels
             {
                 return;
             }
+
             IsBusy = true;
             var itemById = await _tarkovToolsService.GetItemByIdAsync(itemClicked.Id);
             ItemDetailViewModel = new ItemDetailViewModel(itemById.Item);
-            IsFlyoutOpen = true;
+            IoC.Get<FlyoutService>().Show(ItemDetailViewModel.ShortName, ItemDetailViewModel, Position.Right);
             IsBusy = false;
         }
 
@@ -189,6 +187,15 @@ namespace EFTHelper.ViewModels
             }
         }
 
+        public override HamburgerMenuInformation GetHamburgerMenuInformation()
+        {
+            return new HamburgerMenuInformation
+            {
+                Items = ItemTypes.Cast<IMenuItem>(),
+                Header = "Item types",
+            };
+        }
+
         public async void Search(EventArgs args)
         {
             if (!string.IsNullOrEmpty(Query))
@@ -211,23 +218,7 @@ namespace EFTHelper.ViewModels
             }           
             
             _pageIndex++;
-        }
-
-        protected override void OnViewLoaded(object view)
-        {
-            var window = view as Window;
-            var informations = _settingsService.LocationSelectorInformations;
-            RefreshDisplayedItemsAsync(!string.IsNullOrEmpty(Query));
-
-            // Todo: Check if out off screen
-            Execute.OnUIThread(() =>
-            {
-                window.Width = informations.Width;
-                window.Height = informations.Height;
-                window.Left = informations.Position.Left;
-                window.Top = informations.Position.Top;
-            });
-        }
+        }       
 
         private void Clear(bool clearQuery)
         {    

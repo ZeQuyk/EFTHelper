@@ -1,37 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using Caliburn.Micro;
 using EFTHelper.Enums;
 using EFTHelper.Helpers;
+using EFTHelper.Models;
 using EFTHelper.Services;
-using MahApps.Metro.Controls;
 
 namespace EFTHelper.ViewModels
 {
-    public class LocationSelectorViewModel : Screen, IViewAware
+    public class LocationSelectorViewModel : ScreenBase
     {
         #region Fields
 
         private SettingsService _settingsService;
         private LocationViewModel _selectedLocation;
-        private string _selectedLocationName;
 
         #endregion
 
         #region Constructors
 
-        public LocationSelectorViewModel(SettingsService settingsService, VersionViewModel versionViewModel)
+        public LocationSelectorViewModel(
+            SettingsService settingsService,
+            SettingsViewModel settingsViewModel)
         {
-            VersionViewModel = versionViewModel;
+            SettingsViewModel = settingsViewModel;
             _settingsService = settingsService;
             LocationViewModels = EnumHelper.GetEnumValues<Locations>().Select(x => new LocationViewModel(x)).OrderBy(x => x.Name).ToList();
             SelectedLocation = LocationViewModels.FirstOrDefault();
             LocationNames = new ObservableCollection<string>(LocationViewModels.Select(x => x.Name));
-            DisplayName = string.Empty;
         }
 
         #endregion
@@ -39,6 +35,8 @@ namespace EFTHelper.ViewModels
         #region Properties
 
         public string SelectedLocationName => SelectedLocation.Name;
+
+        public bool TopMost => _settingsService.TopMost;
 
         public LocationViewModel SelectedLocation 
         { 
@@ -58,43 +56,30 @@ namespace EFTHelper.ViewModels
 
         public ObservableCollection<string> LocationNames { get; set; }        
 
-        public VersionViewModel VersionViewModel { get; set; }
+        public SettingsViewModel SettingsViewModel { get; set; }
 
         #endregion
 
         #region Methods
 
-        public void MenuSelectionChanged(object value, ItemClickEventArgs args)
+        public override HamburgerMenuInformation GetHamburgerMenuInformation()
         {
-            var location = args.ClickedItem as LocationViewModel;
+            return new HamburgerMenuInformation
+            {
+                Items = LocationViewModels.Cast<IMenuItem>(),
+                Header = "Locations",
+            };
+        }
+
+        public override void MenuSelectionChanged(IMenuItem item)
+        {
+            var location = item as LocationViewModel;
             if (location != null)
             {
                 SelectedLocation = location;
             }
         }
 
-        protected override async void OnViewLoaded(object view)
-        {            
-            var window = view as Window;
-            var informations = _settingsService.LocationSelectorInformations;
-
-            // Todo: Check if out off screen
-            Execute.OnUIThread(() =>
-            {
-                window.Width = informations.Width;
-                window.Height = informations.Height;
-                window.Left = informations.Position.Left;
-                window.Top = informations.Position.Top;
-            });
-        }
-
-        protected override Task OnDeactivateAsync(bool close, CancellationToken cancellationToken)
-        {
-            var window = GetView() as Window;
-            _settingsService.LocationSelectorInformations.Copy(window);
-            _settingsService.Save();
-            return base.OnDeactivateAsync(close, cancellationToken);
-        }
         #endregion
     }
 }

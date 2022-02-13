@@ -8,7 +8,7 @@ namespace EFTHelper.Models
 
         public WindowInformations()
         {
-            Position = new Position();
+            Position = new WindowPosition();
             Height = 800;
             Width = 1200;
         }
@@ -20,7 +20,7 @@ namespace EFTHelper.Models
 
         public double Width { get; set; }
 
-        public Position Position { get; set; }
+        public WindowPosition Position { get; set; }
 
         #endregion
 

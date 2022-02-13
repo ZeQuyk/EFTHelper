@@ -32,6 +32,8 @@ namespace EFTHelper.ViewModels
 
         public object Icon { get; set; }
 
+        public System.Action OnClick => null;
+
         #endregion
 
         private static PackIconBase BuildIcon(Locations location)

@@ -2,3 +2,6 @@
 
 # CA1416: Validate platform compatibility
 dotnet_diagnostic.CA1416.severity = none
+
+# CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+dotnet_diagnostic.CS8632.severity = none

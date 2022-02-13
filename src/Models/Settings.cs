@@ -1,4 +1,6 @@
-﻿namespace EFTHelper.Models
+﻿using EFTHelper.Enums;
+
+namespace EFTHelper.Models
 {
     public class Settings
     {
@@ -6,14 +8,23 @@
 
         public Settings()
         {
-            LocationSelectorInformations = new WindowInformations();
+            WindowInformation = new WindowInformations();
+            Theme = Theme.Dark;
+            Scheme = Scheme.Amber;
+            TopMost = true;
         }
 
         #endregion
 
         #region Properties
 
-        public WindowInformations LocationSelectorInformations { get; set; }
+        public WindowInformations WindowInformation { get; set; }
+
+        public Theme Theme { get; set; }
+
+        public Scheme Scheme { get; set; }
+
+        public bool TopMost { get; set; }
 
         #endregion
     }

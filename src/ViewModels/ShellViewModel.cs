@@ -1,61 +1,165 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using Caliburn.Micro;
 using EFTHelper.Models;
 using EFTHelper.Services;
-using Gma.System.MouseKeyHook;
+using MahApps.Metro.Controls;
 
 namespace EFTHelper.ViewModels
 {
-    public class ShellViewModel : Conductor<Screen>.Collection.OneActive
+    public class ShellViewModel : Screen
     {
         #region Fields
 
-        private LocationSelectorViewModel _locationSelectorViewModel;
+        private bool _isFlyoutOpen;
+        private bool _isBusy;
+        private ScreenBase _content;
+        private PropertyChangedBase _flyoutContent;
+        private string _flyoutHeader;
+        private Position _flyoutPosition;
         private VersionViewModel _versionViewModel;
-        private IWindowManager _windowManager;
-        private ProcessService _processService;
-        private IKeyboardMouseEvents _globalHook;
-        private UpdateManagerService _updateManagerService;
-        private ItemsListViewModel _itemsListViewModel;
-        private System.Windows.Forms.Keys[] _hotkeys = { System.Windows.Forms.Keys.F2, System.Windows.Forms.Keys.F3 };
+        private ObservableCollection<IMenuItem> _items;
+        private ObservableCollection<IMenuItem> _optionItems;
+        private IMenuItem _selectedItem;
+        private readonly SettingsService _settingsService;
+        private readonly FlyoutService _flyoutService;
 
         #endregion
 
         #region Constructors
 
         public ShellViewModel(
-            LocationSelectorViewModel locationSelectorViewModel,
-            IWindowManager windowManager,
-            UpdateManagerService updateManagerService,
+            SettingsService settingsService,
             VersionViewModel versionViewModel,
-            ItemsListViewModel itemsListViewModel)
+            FlyoutService flyoutService,
+            SettingMenuItem settingMenuItem)
         {
-            _locationSelectorViewModel = locationSelectorViewModel;
-            _versionViewModel = versionViewModel;
-            _windowManager = windowManager;
-            _updateManagerService = updateManagerService;
-            _itemsListViewModel = itemsListViewModel;
-            DisplayName = "EFTHelper";
-            ChangeActiveItemAsync(_locationSelectorViewModel, true, CancellationToken.None);
-            _processService = new ProcessService("EscapeFromTarkov");
-            _processService.ProcessClosed += Service_ProcessClosed;
-            _ = WaitForTarkov();
+            _settingsService = settingsService;
+            _settingsService.OnSaved += SettingsService_OnSaved;
+            _flyoutService = flyoutService;
+            VersionViewModel = versionViewModel;
+            Items = new ObservableCollection<IMenuItem>();
+            DisplayName = string.Empty;
+            OptionItems = new ObservableCollection<IMenuItem>();
+            OptionItems.Add(settingMenuItem);
         }
 
         #endregion
 
         #region Properties
 
-        public DoubleClickCommand ShowActiveScreen => new DoubleClickCommand(ShowActiveItem);
-
-        public string Version
-        {
-            get
+        public bool IsFlyoutOpen 
+        { 
+            get => _isFlyoutOpen;
+            set
             {
-                var version = _updateManagerService.GetVersion().ToString(3);
-                return $"{version}";
+                _isFlyoutOpen = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                _isBusy = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public bool IsTopMost => _settingsService.TopMost;
+
+        public ScreenBase Content
+        {
+            get => _content;
+            set
+            {
+                if (_content != value && value != null)
+                {
+                    _content = value;
+                    NotifyOfPropertyChange();
+                }
+            }
+        }
+
+        public PropertyChangedBase FlyoutContent
+        {
+            get => _flyoutContent;
+            set
+            {
+                if (_flyoutContent != value && value != null)
+                {
+                    _flyoutContent = value;
+                    NotifyOfPropertyChange();
+                }
+            }
+        }
+
+        public string FlyoutHeader
+        {
+            get => _flyoutHeader;
+            set
+            {
+                _flyoutHeader = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public Position FlyoutPosition
+        {
+            get => _flyoutPosition;
+            set
+            {
+                _flyoutPosition = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public VersionViewModel VersionViewModel
+        {
+            get => _versionViewModel;
+            set
+            {
+                _versionViewModel = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public ObservableCollection<IMenuItem> Items
+        {
+            get => _items;
+
+            set
+            {
+                _items = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public ObservableCollection<IMenuItem> OptionItems
+        {
+            get => _optionItems;
+
+            set
+            {
+                _optionItems = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public IMenuItem SelectedItem
+        {
+            get => _selectedItem;
+
+            set
+            {
+                _selectedItem = value;
+                NotifyOfPropertyChange();
             }
         }
 
@@ -63,87 +167,101 @@ namespace EFTHelper.ViewModels
 
         #region Methods
 
-        /// <summary>
-        /// Closes this instance.
-        /// </summary>
-        public async void Close()
+        public async void SetContent(ScreenBase screen)
         {
-            if (ActiveItem != null)
+            Content = screen;
+            var menuInformation = screen.GetHamburgerMenuInformation();
+            Items.Clear();
+
+            foreach (var item in menuInformation.Items)
             {
-                await ActiveItem.TryCloseAsync();
+                Items.Add(item);
             }
 
-            await TryCloseAsync();
+            SelectedItem = Items.FirstOrDefault();
+            NotifyOfPropertyChange(() => Items);
+            Content.MenuSelectionChanged(SelectedItem);
         }
 
-        public async void ShowActiveItem()
+        public void MenuSelectionChanged(object value, ItemClickEventArgs args)
         {
-            await ShowItem(ActiveItem);
+            var clickedItem = args.ClickedItem as IMenuItem;
+
+            Content.MenuSelectionChanged(clickedItem);
         }
 
-        public async void ShowLocationsView()
+        public void OptionMenuSelectionChanged(object value, ItemClickEventArgs args)
         {
-            await ShowItem(_locationSelectorViewModel);
-        }
-
-        public async void ShowItemsView()
-        {
-            await ShowItem(_itemsListViewModel);
-        }
-
-        private async Task ShowItem(Screen item)
-        {
-            ActiveItem = item ?? _locationSelectorViewModel;
-
-            await _windowManager.ShowWindowAsync(ActiveItem);
-        }
-
-        private void ShowItem(System.Windows.Forms.Keys key)
-        {
-            switch (key)
+            var iconItem = args.ClickedItem as HamburgerMenuIconItem;
+            if (iconItem != null)
             {
-                case System.Windows.Forms.Keys.F2:
-                    ShowLocationsView();
-                    break;
-                case System.Windows.Forms.Keys.F3:
-                    ShowItemsView();
-                    break;
-            }
-        }
-
-        private async Task HandleKeyboard(System.Windows.Forms.Keys key)
-        {
-            if (_hotkeys.Contains(key))
-            {
-                if (ActiveItem != null)
+                var optionItem = iconItem.Tag as IMenuItem;
+                if (optionItem != null)
                 {
-                    await ActiveItem.TryCloseAsync();
-                }
-                else
-                {
-                    ShowItem(key);
+                    optionItem.OnClick?.Invoke();
                 }
             }
+
+            args.Handled = true;
         }
 
-        private async Task WaitForTarkov()
+        protected override void OnViewLoaded(object view)
         {
-            var processId = await _processService.WaitForProcess();
-            _globalHook = Hook.GlobalEvents();
-            _globalHook.KeyDown += _globalHook_KeyDown;
+            var window = view as Window;
+            var informations = _settingsService.WindowInformation;
+
+            // Todo: Check if out off screen
+            Execute.OnUIThread(() =>
+            {
+                window.Width = informations.Width;
+                window.Height = informations.Height;
+                window.Left = informations.Position.Left;
+                window.Top = informations.Position.Top;
+            });
         }
 
-        private async void _globalHook_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        protected override Task OnActivateAsync(CancellationToken cancellationToken)
         {
-            await HandleKeyboard(e.KeyCode);
+            _flyoutService.ShowFlyoutRequested += _flyoutService_ShowFlyoutRequested;
+            _flyoutService.CloseFlyoutRequested += _flyoutService_CloseFlyoutRequested;
+            _flyoutService.FlyoutClosed += _flyoutService_FlyoutClosed;
+            return base.OnActivateAsync(cancellationToken);
         }
 
-        private async void Service_ProcessClosed(object sender, System.EventArgs e)
+        private void _flyoutService_FlyoutClosed(object sender, System.EventArgs e)
         {
-            await ActiveItem.TryCloseAsync();
-            _globalHook.KeyDown -= _globalHook_KeyDown;
-            _globalHook?.Dispose();
-            _ = WaitForTarkov();
+            
+        }
+
+        private void _flyoutService_CloseFlyoutRequested(object sender, System.EventArgs e)
+        {
+            IsFlyoutOpen = false;
+            FlyoutContent = null;
+            FlyoutHeader = null;
+        }
+
+        private void _flyoutService_ShowFlyoutRequested(object sender, FlyoutRequest e)
+        {
+            FlyoutContent = e.Content;
+            FlyoutPosition = e.Position;
+            FlyoutHeader = e.Header;
+            IsFlyoutOpen = true;
+        }
+
+        protected override Task OnDeactivateAsync(bool close, CancellationToken cancellationToken)
+        {
+            var window = GetView() as Window;
+            _settingsService.WindowInformation.Copy(window);
+            _settingsService.Save();
+            _flyoutService.ShowFlyoutRequested -= _flyoutService_ShowFlyoutRequested;
+            _flyoutService.CloseFlyoutRequested -= _flyoutService_CloseFlyoutRequested;
+            _flyoutService.FlyoutClosed -= _flyoutService_FlyoutClosed;
+            return base.OnDeactivateAsync(close, cancellationToken);
+        }
+
+        private void SettingsService_OnSaved(object sender, System.EventArgs e)
+        {
+            NotifyOfPropertyChange(() => IsTopMost);
         }
 
         #endregion

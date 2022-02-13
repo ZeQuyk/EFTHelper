@@ -1,0 +1,62 @@
+﻿<Window x:Class="EFTHelper.Views.TaskBarIconView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
+        xmlns:local="clr-namespace:EFTHelper.Views"       
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d"
+        Title="EFTHelper" Height="450" Width="800"
+        AllowsTransparency="True"
+        Visibility="Hidden"
+        WindowStyle="None" 
+        FontFamily="{StaticResource Bender}">
+    <Grid Background="Transparent">
+        <tb:TaskbarIcon
+            IconSource="pack://application:,,,/Images/icon.ico"
+            ToolTipText="EFTHelper" 
+            DoubleClickCommand="{Binding ShowActiveScreen}">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem cal:Message.Attach="[Event Click] = [Action ShowLocationsView]">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock>Locations</TextBlock>
+                                <TextBlock Foreground="DarkGray" Margin="15,0,0,0" Grid.Column="1" Text="F2"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem cal:Message.Attach="[Event Click] = [Action ShowItemsView]">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock>Items</TextBlock>
+                                <TextBlock Foreground="DarkGray" Margin="15,0,0,0" Grid.Column="1" Text="F3"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem cal:Message.Attach="[Event Click] = [Action Close]">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock>Close</TextBlock>
+                                <TextBlock Foreground="DarkGray" Margin="15,0,0,0" Grid.Column="1" Text="{Binding Version}"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+    </Grid>
+</Window>
