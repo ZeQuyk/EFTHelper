@@ -55,6 +55,13 @@ namespace EFTHelper.Services
             return ExecutePostRequestAsync(request, new ItemByIdResponse());
         }
 
+        public Task<QuestsResponse> GetEFTTasks()
+        {
+            var request = new GraphQLRequest(TarkovToolsRequestTypes.Quests, new QuestsRequest(), string.Empty);
+
+            return ExecutePostRequestAsync(request, new QuestsResponse());
+        }
+
         private async Task<TResponse> ExecutePostRequestAsync<TResponse>(GraphQLRequest request, TResponse defaultValue)
         {
             var response = await ExecutePostRequestAsync<GraphQLRequest, TarkovToolsResponse>(apiEndpoint, request);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using Caliburn.Micro;
+using EFTHelper.Helpers;
 using EFTHelper.Models;
 using EFTHelper.Services;
 using EFTHelper.ViewModels;
@@ -12,7 +13,7 @@ namespace EFTHelper
     {
         #region Fields
 
-        private SimpleContainer container;
+        private SimpleContainer _container;
         private UpdateManagerService _updateManager;
         private SettingsService _settingsService;
 
@@ -35,14 +36,16 @@ namespace EFTHelper
 
         protected override void Configure()
         {
-            this.container = new SimpleContainer();
+            this._container = new SimpleContainer();
             AddServices();
             AddViewModels();
-            container.Singleton<IWindowManager, WindowManager>();
-            container.Singleton<SettingMenuItem, SettingMenuItem>();
-            container.Instance(Application);
-            container.Instance(_updateManager);
-            container.Instance(_settingsService);
+            _container.Singleton<IWindowManager, WindowManager>();
+            _container.Singleton<SettingMenuItem, SettingMenuItem>();
+            _container.Singleton<EFTTasksHelper, EFTTasksHelper>();
+            _ = _container.GetInstance<EFTTasksHelper>().LoadEFTTasks();
+            _container.Instance(Application);
+            _container.Instance(_updateManager);
+            _container.Instance(_settingsService);
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
@@ -52,36 +55,37 @@ namespace EFTHelper
 
         protected override object GetInstance(Type service, string key)
         {
-            return container.GetInstance(service, key);
+            return _container.GetInstance(service, key);
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service)
         {
-            return container.GetAllInstances(service);
+            return _container.GetAllInstances(service);
         }
 
         protected override void BuildUp(object instance)
         {
-            container.BuildUp(instance);
+            _container.BuildUp(instance);
         }
 
         private void AddViewModels()
         {
-            container.Singleton<ShellViewModel, ShellViewModel>();
-            container.Singleton<TaskBarIconViewModel, TaskBarIconViewModel>();
-            container.Singleton<LocationSelectorViewModel, LocationSelectorViewModel>();
-            container.Singleton<LocationViewModel, LocationViewModel>();
-            container.Singleton<VersionViewModel, VersionViewModel>();
-            container.Singleton<ItemsListViewModel, ItemsListViewModel>();
-            container.Singleton<ItemTypeViewModel, ItemTypeViewModel>();
-            container.Singleton<SettingsViewModel, SettingsViewModel>();
+            _container.Singleton<ShellViewModel, ShellViewModel>();
+            _container.Singleton<TaskBarIconViewModel, TaskBarIconViewModel>();
+            _container.Singleton<LocationSelectorViewModel, LocationSelectorViewModel>();
+            _container.Singleton<LocationViewModel, LocationViewModel>();
+            _container.Singleton<VersionViewModel, VersionViewModel>();
+            _container.Singleton<ItemsListViewModel, ItemsListViewModel>();
+            _container.Singleton<ItemTypeViewModel, ItemTypeViewModel>();
+            _container.Singleton<SettingsViewModel, SettingsViewModel>();
         }
 
         private void AddServices()
         {
-            container.Singleton<ThemeService, ThemeService>();
-            container.Singleton<TarkovToolsService, TarkovToolsService>();
-            container.Singleton<FlyoutService, FlyoutService>();
+            _container.Singleton<ThemeService, ThemeService>();
+            _container.Singleton<TarkovToolsService, TarkovToolsService>();
+            _container.Singleton<FlyoutService, FlyoutService>();
+            _container.PerRequest<DialogService, DialogService>();
         }
 
         #endregion

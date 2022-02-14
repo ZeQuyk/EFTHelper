@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:EFTHelper.Views"       
         xmlns:cal="http://www.caliburnproject.org"                                 
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        Dialog:DialogParticipation.Register="{Binding}"
         mc:Ignorable="d"
         Topmost="{Binding IsTopMost}"
         WindowStartupLocation="CenterScreen"

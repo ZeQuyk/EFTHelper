@@ -30,18 +30,15 @@ namespace EFTHelper.Models.TarkovTools.Requests
             var query = "{ ";
             var filterName = requestType.AssociatedFilterName();
 
-            query += $"{requestType.ToString().FirstCharToLower()} (";
+            query += $"{requestType.ToString().FirstCharToLower()} ";
 
             if (!string.IsNullOrEmpty(filterName))
             {
                 var filter = requestType == TarkovToolsRequestTypes.ItemsByType ? filterValue : $"\"{filterValue}\"";
-                query += $"{filterName}: {filter}";
+                query += $"({filterName}: {filter}) ";
             }
 
-            query += ") ";
-
-            query += GraphQLHelper.SerializeToGraphQL(request);
-            
+            query += GraphQLHelper.SerializeToGraphQL(request);            
             query += "}";
 
             return query;

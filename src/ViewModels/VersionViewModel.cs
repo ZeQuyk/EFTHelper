@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
+using EFTHelper.Helpers;
 using EFTHelper.Services;
 
 namespace EFTHelper.ViewModels
@@ -18,6 +20,12 @@ namespace EFTHelper.ViewModels
         {
             _updateManagerService = updateManagerService;
         }
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler OnUpdateRequested;
 
         #endregion
 
@@ -53,17 +61,14 @@ namespace EFTHelper.ViewModels
 
         #region Methods
 
-        public async void UpdateApplication()
+        public void UpdateApplication()
         {
-            _needUpdate = await _updateManagerService.CheckForUpdate();
-            if (_needUpdate)
-            {
-                await _updateManagerService.Update();
-            }
-            else
-            {
-                _needUpdate = false;
-            }
+            OnUpdateRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void OpenReleasePage()
+        {
+            ProcessHelper.StartProcess(_updateManagerService.ReleaseUrl);
         }
 
         protected override async void OnViewLoaded(object view)

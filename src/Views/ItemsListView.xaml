@@ -9,44 +9,6 @@
              xmlns:busyIndicator="https://github.com/Peoky/BusyIndicator"
              mc:Ignorable="d" 
              FontFamily="{StaticResource Bender}">
-    <!--<mah:MetroWindow.Resources>
-
-        <ResourceDictionary>
-            <SolidColorBrush x:Key="IndicatorForeground" Color="{DynamicResource MahApps.Colors.Accent2}" />
-
-            --><!-- Menu Header Template --><!--
-            <DataTemplate x:Key="MenuHeaderTemplate">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="16"  Foreground="White"  Text="Item types" />
-            </DataTemplate>
-
-            --><!-- Menu Item Template --><!--
-            <DataTemplate x:Key="MenuItemTemplate">
-                <Grid x:Name="RootGrid" Height="48" Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="48" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <ContentControl HorizontalAlignment="Center" 
-                               VerticalAlignment="Center" 
-                               Content="{Binding Icon}"/>
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               FontSize="16"
-                               Text="{Binding Label}" />
-                </Grid>
-            </DataTemplate>
-        </ResourceDictionary>
-    </mah:MetroWindow.Resources>
-
-    <mah:MetroWindow.Flyouts>
-        <mah:FlyoutsControl>
-            <mah:Flyout Width="600" IsOpen="{Binding IsFlyoutOpen}" Position="Right" Header="{Binding ItemDetailViewModel.ShortName}">
-                <ContentControl cal:View.Model="{Binding Path=ItemDetailViewModel}"></ContentControl>
-            </mah:Flyout>
-        </mah:FlyoutsControl>
-    </mah:MetroWindow.Flyouts>-->
-
-
 
     <Grid Margin="0,0">
 
@@ -81,20 +43,6 @@
                 FontSize="25"
                 Background="Transparent"
                 Grid.Row="1" Grid.RowSpan="1"/>
-
-        <!--<mah:HamburgerMenu 
-           x:Name="Menu" 
-           DisplayMode="CompactOverlay" 
-           cal:Message.Attach="[Event ItemClick]=[Action MenuSelectionChanged($source,$eventArgs)]"
-           SelectedItem="{Binding SelectedType,Converter={StaticResource SelectedItemConverter}}"                
-           ItemsSource="{Binding ItemTypes,Converter={StaticResource HamuburgerMenuItemConverter}}"           
-           HamburgerMenuHeaderTemplate="{StaticResource MenuHeaderTemplate}"
-           ItemTemplate="{StaticResource MenuItemTemplate}"
-            Grid.Row="0"
-            Grid.RowSpan="3"
-            Margin="0,-30,0,0">
-        </mah:HamburgerMenu>-->
-
 
     </Grid>
 

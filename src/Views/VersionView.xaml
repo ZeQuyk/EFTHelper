@@ -11,19 +11,35 @@
              Width="auto">
     <Grid>
         <StackPanel Margin ="5" Orientation="Horizontal"  VerticalAlignment="Center">
-            <TextBlock Text="{Binding Version}" Margin="15,0" FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding Version}" Margin="15,0" FontSize="25" cal:Message.Attach="[Event MouseDown] = [Action OpenReleasePage]" Cursor="Hand"></TextBlock>
             <Button Cursor="Hand" BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" 
-                    cal:Message.Attach="[Event Click] = [Action UpdateApplication]" 
-                    Background="{DynamicResource MahApps.Brushes.Badged.Background}"
+                    cal:Message.Attach="[Event Click] = [Action UpdateApplication]"
                     Visibility="{Binding NeedUpdate, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>
                     </Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent3}"></Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent2}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
                 </Button.Resources>
-                <TextBlock                                                           
-                   Text="Update" FontFamily="{StaticResource Bender}" FontSize="15"/>
+                <TextBlock Margin="5" Text="Update" FontFamily="{StaticResource Bender}" FontSize="20"/>
             </Button>
+
         </StackPanel>
     </Grid>
 </UserControl>

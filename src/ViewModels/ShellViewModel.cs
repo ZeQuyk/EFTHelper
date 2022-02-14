@@ -27,6 +27,8 @@ namespace EFTHelper.ViewModels
         private IMenuItem _selectedItem;
         private readonly SettingsService _settingsService;
         private readonly FlyoutService _flyoutService;
+        private readonly DialogService _dialogService;
+        private readonly UpdateManagerService _updateManagerService;
 
         #endregion
 
@@ -36,7 +38,9 @@ namespace EFTHelper.ViewModels
             SettingsService settingsService,
             VersionViewModel versionViewModel,
             FlyoutService flyoutService,
-            SettingMenuItem settingMenuItem)
+            SettingMenuItem settingMenuItem,
+            DialogService dialogService,
+            UpdateManagerService updateManagerService)
         {
             _settingsService = settingsService;
             _settingsService.OnSaved += SettingsService_OnSaved;
@@ -46,6 +50,9 @@ namespace EFTHelper.ViewModels
             DisplayName = string.Empty;
             OptionItems = new ObservableCollection<IMenuItem>();
             OptionItems.Add(settingMenuItem);
+            _dialogService = dialogService;
+            _updateManagerService = updateManagerService;
+            _dialogService.Register(this);
         }
 
         #endregion
@@ -205,6 +212,19 @@ namespace EFTHelper.ViewModels
             args.Handled = true;
         }
 
+        public async Task UpdateApplication()
+        {
+            var needUpdate = await _updateManagerService.CheckForUpdate();
+            if (needUpdate)
+            {
+                await _updateManagerService.Update();
+            }
+            else
+            {
+                needUpdate = false;
+            }
+        }
+
         protected override void OnViewLoaded(object view)
         {
             var window = view as Window;
@@ -225,6 +245,7 @@ namespace EFTHelper.ViewModels
             _flyoutService.ShowFlyoutRequested += _flyoutService_ShowFlyoutRequested;
             _flyoutService.CloseFlyoutRequested += _flyoutService_CloseFlyoutRequested;
             _flyoutService.FlyoutClosed += _flyoutService_FlyoutClosed;
+            VersionViewModel.OnUpdateRequested += VersionViewModel_OnUpdateRequested;
             return base.OnActivateAsync(cancellationToken);
         }
 
@@ -256,12 +277,18 @@ namespace EFTHelper.ViewModels
             _flyoutService.ShowFlyoutRequested -= _flyoutService_ShowFlyoutRequested;
             _flyoutService.CloseFlyoutRequested -= _flyoutService_CloseFlyoutRequested;
             _flyoutService.FlyoutClosed -= _flyoutService_FlyoutClosed;
+            VersionViewModel.OnUpdateRequested -= VersionViewModel_OnUpdateRequested;
             return base.OnDeactivateAsync(close, cancellationToken);
         }
 
         private void SettingsService_OnSaved(object sender, System.EventArgs e)
         {
             NotifyOfPropertyChange(() => IsTopMost);
+        }
+
+        private async void VersionViewModel_OnUpdateRequested(object sender, System.EventArgs e)
+        {
+            await _dialogService.ShowProgressAsync("Updating", "EFTHelper will restart...", UpdateApplication());
         }
 
         #endregion

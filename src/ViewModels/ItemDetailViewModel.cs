@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Caliburn.Micro;
 using EFTHelper.Enums;
 using EFTHelper.Extensions;
@@ -94,13 +92,7 @@ namespace EFTHelper.ViewModels
 
         public void OpenWiki()
         {
-            var processStartInfo = new ProcessStartInfo
-            {
-                UseShellExecute = true,
-                FileName = WikiLink
-            };
-
-            Process.Start(processStartInfo);
+            ProcessHelper.StartProcess(WikiLink);
         }
 
         #endregion
