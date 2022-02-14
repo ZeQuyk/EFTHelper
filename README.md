@@ -1,5 +1,5 @@
-This project is intended to help Escape From Tarkov players. <br>
-[Download the current version](https://github.com/ZeQuyk/EFTHelper/releases/tag/EFTHelper) by clicking on the EFTHelperSetup.exe file
+Ease your Escape From Tarkov experience with EFTHelper. <br>
+[Download the current version](https://github.com/ZeQuyk/EFTHelper/releases) by clicking on the EFTHelperSetup.exe file
 
 ## Dependencies
 [MahApps.Metro](https://github.com/MahApps/MahApps.Metro) <br>
