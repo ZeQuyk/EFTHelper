@@ -15,6 +15,7 @@ namespace EFTHelper.Services
 
         private static readonly string GithubUrl = "https://github.com/ZeQuyk/EFTHelper";
         public string ReleaseUrl => $"{GithubUrl}/releases/tag/v{GetVersion().ToString(3)}";
+
         #endregion
 
         #region Methods
