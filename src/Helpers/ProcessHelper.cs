@@ -4,6 +4,8 @@ namespace EFTHelper.Helpers
 {
     public static class ProcessHelper
     {
+        #region Methods
+
         public static void StartProcess(string processName)
         {
             var processStartInfo = new ProcessStartInfo
@@ -15,5 +17,6 @@ namespace EFTHelper.Helpers
             Process.Start(processStartInfo);
         }
 
+        #endregion
     }
 }

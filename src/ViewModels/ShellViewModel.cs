@@ -221,8 +221,8 @@ namespace EFTHelper.ViewModels
             }
             else
             {
-                needUpdate = false;
-            }
+                VersionViewModel.NeedUpdate = false;
+            }           
         }
 
         protected override void OnViewLoaded(object view)

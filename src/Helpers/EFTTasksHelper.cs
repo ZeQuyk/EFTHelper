@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using EFTHelper.Models.TarkovTools;
 using EFTHelper.Services;
@@ -16,6 +15,8 @@ namespace EFTHelper.Helpers
         private List<EFTTaskBase> _EFTTasks;
 
         #endregion
+
+        #region Methods
 
         public EFTTasksHelper(TarkovToolsService tarkovToolsService)
         {
@@ -37,5 +38,7 @@ namespace EFTHelper.Helpers
 
             return _EFTTasks.FirstOrDefault(x => x.Id.Equals(taskId, StringComparison.InvariantCultureIgnoreCase));
         }
+
+        #endregion
     }
 }

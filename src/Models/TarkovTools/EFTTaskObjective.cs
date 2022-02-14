@@ -4,6 +4,17 @@ namespace EFTHelper.Models.TarkovTools
 {
     public class EFTTaskObjective
     {
+        #region Constructors
+
+        public EFTTaskObjective()
+        {
+            Target = new List<string>();
+        }
+
+        #endregion
+
+        #region Properties
+
         public string Id { get; set; }
 
         public string Type { get; set; }
@@ -15,5 +26,7 @@ namespace EFTHelper.Models.TarkovTools
         public int Number { get; set; }
 
         public string Location { get; set; }
+
+        #endregion
     }
 }

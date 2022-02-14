@@ -2,6 +2,8 @@
 {
     public class EFTTaskBase
     {
+        #region Constructors
+
         //public EFTTaskBase()
         //{
         //    Requirements = new List<EFTTaskRequirement>();
@@ -9,6 +11,10 @@
         //    Reputation = new List<EFTTaskRewardReputation>();
         //    Objectives = new List<EFTTaskObjective>();
         //}
+
+        #endregion
+
+        #region Properties
 
         public string Id { get; set; }
 
@@ -29,5 +35,7 @@
         //public List<EFTTaskRewardReputation> Reputation {get;set;}
 
         //public List<EFTTaskObjective> Objectives { get; set; }
+
+        #endregion
     }
 }

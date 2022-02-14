@@ -100,11 +100,18 @@ namespace EFTHelper.ViewModels
         {
             ActiveItem = item ?? _locationSelectorViewModel;
 
-            _shellViewModel.SetContent(ActiveItem);
-
-            if (!_shellViewModel.IsActive)
+            if (_shellViewModel.IsActive && _shellViewModel.Content == ActiveItem)
             {
-                await _windowManager.ShowWindowAsync(_shellViewModel);
+                await _shellViewModel.TryCloseAsync();
+            }
+            else
+            {
+                _shellViewModel.SetContent(ActiveItem);
+
+                if (!_shellViewModel.IsActive)
+                {
+                    await _windowManager.ShowWindowAsync(_shellViewModel);
+                }
             }
         }
 
@@ -121,18 +128,11 @@ namespace EFTHelper.ViewModels
             }
         }
 
-        private async Task HandleKeyboard(System.Windows.Forms.Keys key)
+        private void HandleKeyboard(System.Windows.Forms.Keys key)
         {
             if (_hotkeys.Contains(key))
             {
-                if (ActiveItem != null)
-                {
-                   await _shellViewModel.TryCloseAsync(false);
-                }
-                else
-                {
-                    ShowItem(key);
-                }
+                ShowItem(key);
             }
         }
 
@@ -145,7 +145,7 @@ namespace EFTHelper.ViewModels
 
         private async void _globalHook_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            await HandleKeyboard(e.KeyCode);
+            HandleKeyboard(e.KeyCode);
         }
 
         private void Service_ProcessClosed(object sender, System.EventArgs e)

@@ -47,7 +47,7 @@ namespace EFTHelper.ViewModels
                 return _needUpdate;
             }
 
-            private set
+            set
             {
                 _needUpdate = value;
                 NotifyOfPropertyChange();
