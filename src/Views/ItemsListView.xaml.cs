@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace EFTHelper.Views
 {
@@ -10,6 +13,14 @@ namespace EFTHelper.Views
         public ItemsListView()
         {
             InitializeComponent();
+        }
+
+        private void Query_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(delegate ()
+            {
+                Keyboard.Focus(Query);
+            }));
         }
     }
 }

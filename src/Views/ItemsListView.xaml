@@ -22,7 +22,7 @@
         <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" BorderThickness="0,0,0,1" CornerRadius="4" Margin="5,5" Width="500" MaxHeight="50" HorizontalAlignment="Center">
             <DockPanel Width="auto">
                 <Button DockPanel.Dock="Right" Background="{DynamicResource MahApps.Brushes.Accent2}" FontSize="20" Cursor="Hand" IsDefault="True" cal:Message.Attach="[Event Click] = [Action Search($eventArgs)]">Search</Button>
-                <TextBox DockPanel.Dock="Left" x:Name="Query" FontSize="20" Margin="0,0,-2,0" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"></TextBox>
+                <TextBox DockPanel.Dock="Left" x:Name="Query" FontSize="20" Margin="0,0,-2,0" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}" Loaded="Query_Loaded"></TextBox>
             </DockPanel>
 
         </Border>

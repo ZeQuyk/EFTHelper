@@ -74,6 +74,16 @@ namespace EFTHelper.ViewModels
         protected override async void OnViewLoaded(object view)
         {
             NeedUpdate = await _updateManagerService.CheckForUpdate();
+            if (!NeedUpdate)
+            {
+                _updateManagerService.UpdateAvailable += UpdateManagerService_UpdateAvailable;
+                _updateManagerService.Watch();
+            }
+        }
+
+        private void UpdateManagerService_UpdateAvailable(object sender, EventArgs e)
+        {
+            NeedUpdate = true;
         }
 
         #endregion

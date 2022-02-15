@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Timers;
 using Squirrel;
 
 namespace EFTHelper.Services
@@ -14,6 +15,18 @@ namespace EFTHelper.Services
         #region Fields
 
         private static readonly string GithubUrl = "https://github.com/ZeQuyk/EFTHelper";
+        private Timer _timer;
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler UpdateAvailable;
+
+        #endregion
+
+        #region Properties
+
         public string ReleaseUrl => $"{GithubUrl}/releases/tag/v{GetVersion().ToString(3)}";
 
         #endregion
@@ -68,6 +81,36 @@ namespace EFTHelper.Services
         public void HandleSquirrel()
         {
             SquirrelAwareApp.HandleEvents(onInitialInstall: OnInstall, onAppUninstall: OnUninstall);
+        }
+
+        public void Watch()
+        {
+            if (_timer != null)
+            {
+                DisposeTimer();
+            }
+
+            _timer = new Timer(TimeSpan.FromMinutes(5).TotalMilliseconds);
+            _timer.Elapsed += Timer_Elapsed;
+            _timer.Start();
+        }
+
+        private async void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            var needUpdate = await CheckForUpdate();
+            if (needUpdate)
+            {
+                UpdateAvailable?.Invoke(this, EventArgs.Empty);
+                DisposeTimer();
+            }
+        }
+
+        private void DisposeTimer()
+        {
+            _timer.Stop();
+            _timer.Elapsed -= Timer_Elapsed;
+            _timer.Dispose();
+            _timer = null;
         }
 
         private async void OnInstall(System.Version version)
