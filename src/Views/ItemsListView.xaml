@@ -19,13 +19,12 @@
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="SelectedTypeName" FontSize="25" Margin="15,-30,0,0" IsHitTestVisible="False"/>
-        <Border BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" BorderThickness="0,0,0,1" CornerRadius="4" Margin="5,5" Width="500" MaxHeight="50" HorizontalAlignment="Center">
-            <DockPanel Width="auto">
-                <Button DockPanel.Dock="Right" Background="{DynamicResource MahApps.Brushes.Accent2}" FontSize="20" Cursor="Hand" IsDefault="True" cal:Message.Attach="[Event Click] = [Action Search($eventArgs)]">Search</Button>
-                <TextBox DockPanel.Dock="Left" x:Name="Query" FontSize="20" Margin="0,0,-2,0" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}" Loaded="Query_Loaded"></TextBox>
-            </DockPanel>
-
-        </Border>
+        <DockPanel Margin="5,5" Width="500" MaxHeight="50" HorizontalAlignment="Center">
+            <Button DockPanel.Dock="Right" Background="{DynamicResource MahApps.Brushes.Accent2}" Margin="2,0,0,0" FontSize="20" Cursor="Hand" IsDefault="True" cal:Message.Attach="[Event Click] = [Action Search($eventArgs)]">Search</Button>
+            <Border DockPanel.Dock="Left" BorderBrush="{DynamicResource MahApps.Brushes.Badged.Background}" BorderThickness="0,0,0,1" CornerRadius="4" >
+                <TextBox  x:Name="Query" FontSize="25" Margin="0,0,-2,0" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}" Loaded="Query_Loaded" BorderThickness="0" mah:TextBoxHelper.Watermark="Search" mah:TextBoxHelper.SelectAllOnFocus="True"></TextBox>
+            </Border>
+        </DockPanel>
 
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" cal:Message.Attach="[Event ScrollChanged] = [Action OnScroll($eventArgs)]" Grid.Row="1" Grid.RowSpan="1">
             <ItemsControl x:Name="DisplayedItems" Margin="50,0,0,0">

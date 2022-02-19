@@ -193,6 +193,7 @@ namespace EFTHelper.ViewModels
             {
                 Items = ItemTypes.Cast<IMenuItem>(),
                 Header = "Item types",
+                SelectedItem = SelectedType,
             };
         }
 

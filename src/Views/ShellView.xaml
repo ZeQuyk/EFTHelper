@@ -67,6 +67,17 @@
             </mah:Flyout>
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
+
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Cursor="Hand" cal:Message.Attach="[Event Click]=[Action ShowLocations]">
+                <TextBlock Text="Locations" FontSize="15"></TextBlock>
+            </Button>
+            <Button Cursor="Hand" cal:Message.Attach="[Event Click]=[Action ShowItems]">
+                <TextBlock Text="Items" FontSize="15"></TextBlock>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>

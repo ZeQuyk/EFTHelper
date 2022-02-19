@@ -68,6 +68,7 @@ namespace EFTHelper.ViewModels
             {
                 Items = LocationViewModels.Cast<IMenuItem>(),
                 Header = "Locations",
+                SelectedItem = SelectedLocation,
             };
         }
 

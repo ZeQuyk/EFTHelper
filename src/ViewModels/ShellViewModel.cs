@@ -174,7 +174,17 @@ namespace EFTHelper.ViewModels
 
         #region Methods
 
-        public async void SetContent(ScreenBase screen)
+        public void ShowLocations()
+        {
+            ShowContent<LocationSelectorViewModel>();
+        }
+
+        public void ShowItems()
+        {
+            ShowContent<ItemsListViewModel>();
+        }
+
+        public void SetContent(ScreenBase screen)
         {
             Content = screen;
             var menuInformation = screen.GetHamburgerMenuInformation();
@@ -185,7 +195,7 @@ namespace EFTHelper.ViewModels
                 Items.Add(item);
             }
 
-            SelectedItem = Items.FirstOrDefault();
+            SelectedItem = menuInformation.SelectedItem ?? Items.FirstOrDefault();
             NotifyOfPropertyChange(() => Items);
             Content.MenuSelectionChanged(SelectedItem);
         }
@@ -289,6 +299,18 @@ namespace EFTHelper.ViewModels
         private async void VersionViewModel_OnUpdateRequested(object sender, System.EventArgs e)
         {
             await _dialogService.ShowProgressAsync("Updating", "EFTHelper will restart...", UpdateApplication());
+        }
+
+        private void ShowContent<TScreenBase>()
+            where TScreenBase:ScreenBase
+        {
+            if (Content is TScreenBase)
+            {
+                return;
+            }
+
+            var viewModel = IoC.Get<TScreenBase>();
+            SetContent(viewModel);
         }
 
         #endregion
