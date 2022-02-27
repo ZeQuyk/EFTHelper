@@ -16,19 +16,7 @@ namespace EFTHelper.Controls
 
         #endregion
 
-        #region Methods
-
-        private TranslateTransform GetTranslateTransform(UIElement element)
-        {
-            return (TranslateTransform)((TransformGroup)element.RenderTransform)
-              .Children.First(tr => tr is TranslateTransform);
-        }
-
-        private ScaleTransform GetScaleTransform(UIElement element)
-        {
-            return (ScaleTransform)((TransformGroup)element.RenderTransform)
-              .Children.First(tr => tr is ScaleTransform);
-        }
+        #region Properties
 
         public override UIElement Child
         {
@@ -42,6 +30,22 @@ namespace EFTHelper.Controls
 
                 base.Child = value;
             }
+        }
+
+        #endregion
+
+        #region Methods
+
+        private TranslateTransform GetTranslateTransform(UIElement element)
+        {
+            return (TranslateTransform)((TransformGroup)element.RenderTransform)
+              .Children.First(tr => tr is TranslateTransform);
+        }
+
+        private ScaleTransform GetScaleTransform(UIElement element)
+        {
+            return (ScaleTransform)((TransformGroup)element.RenderTransform)
+              .Children.First(tr => tr is ScaleTransform);
         }
 
         public void Initialize(UIElement element)
