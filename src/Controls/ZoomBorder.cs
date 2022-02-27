@@ -35,7 +35,7 @@ namespace EFTHelper.Controls
             get { return base.Child; }
             set
             {
-                if (value != null && value != this.Child)
+                if (value != null && value != Child)
                 {
                     Initialize(value);
                 }
@@ -56,11 +56,11 @@ namespace EFTHelper.Controls
                 group.Children.Add(tt);
                 child.RenderTransform = group;
                 child.RenderTransformOrigin = new Point(0.0, 0.0);
-                MouseWheel += child_MouseWheel;
-                MouseLeftButtonDown += child_MouseLeftButtonDown;
-                MouseLeftButtonUp += child_MouseLeftButtonUp;
-                MouseMove += child_MouseMove;
-                PreviewMouseRightButtonDown += new MouseButtonEventHandler(child_PreviewMouseRightButtonDown);
+                MouseWheel += Child_MouseWheel;
+                MouseLeftButtonDown += Child_MouseLeftButtonDown;
+                MouseLeftButtonUp += Child_MouseLeftButtonUp;
+                MouseMove += Child_MouseMove;
+                PreviewMouseRightButtonDown += new MouseButtonEventHandler(Child_PreviewMouseRightButtonDown);
             }
         }
 
@@ -80,7 +80,7 @@ namespace EFTHelper.Controls
             }
         }
 
-        private void child_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void Child_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (child != null)
             {
@@ -108,7 +108,7 @@ namespace EFTHelper.Controls
             }
         }
 
-        private void child_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Child_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (child != null)
             {
@@ -120,7 +120,7 @@ namespace EFTHelper.Controls
             }
         }
 
-        private void child_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void Child_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (child != null)
             {
@@ -129,12 +129,12 @@ namespace EFTHelper.Controls
             }
         }
 
-        void child_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void Child_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Reset();
         }
 
-        private void child_MouseMove(object sender, MouseEventArgs e)
+        private void Child_MouseMove(object sender, MouseEventArgs e)
         {
             if (child != null)
             {
