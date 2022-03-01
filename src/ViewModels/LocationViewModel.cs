@@ -20,7 +20,7 @@ namespace EFTHelper.ViewModels
         {
             var locationName = location.ToString();
             Name = locationName.ToSentence();
-            ImagePath = $"{ImageUrlBase}/{locationName.ToLower()}.png";
+            ImagePath = $"{ImageUrlBase}/{locationName.ToLower()}.jpg";
             Icon = BuildIcon(location);
         }
 
