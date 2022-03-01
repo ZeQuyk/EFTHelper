@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
+using EFTHelper.Enums;
+using EFTHelper.Helpers;
 using EFTHelper.Models;
 using EFTHelper.Services;
 using MahApps.Metro.Controls;
@@ -15,6 +16,8 @@ namespace EFTHelper.ViewModels
     {
         #region Fields
 
+        private string _USDollarValue;
+        private string _EuroValue;
         private bool _isFlyoutOpen;
         private bool _isBusy;
         private ScreenBase _content;
@@ -170,6 +173,26 @@ namespace EFTHelper.ViewModels
             }
         }
 
+        public string USDollarValue
+        {
+            get => _USDollarValue; 
+            set
+            {
+                _USDollarValue = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string EuroValue
+        {
+            get => _EuroValue;
+            set
+            {
+                _EuroValue = value;
+                NotifyOfPropertyChange();
+            }
+        }         
+
         #endregion
 
         #region Methods
@@ -186,6 +209,7 @@ namespace EFTHelper.ViewModels
 
         public void SetContent(ScreenBase screen)
         {
+            _ = SetCurrencyValues();
             Content = screen;
             var menuInformation = screen.GetHamburgerMenuInformation();
             Items.Clear();
@@ -300,6 +324,14 @@ namespace EFTHelper.ViewModels
         {
             await _dialogService.ShowProgressAsync("Updating", "EFTHelper will restart...", UpdateApplication());
         }
+
+        private async Task SetCurrencyValues()
+        {
+            USDollarValue = await GetCurrencyValue(Currencies.USDollar);
+            EuroValue = await GetCurrencyValue(Currencies.Euro);
+        }
+
+        private async Task<string> GetCurrencyValue(Currencies currency) => $"1{CurrencyHelper.GetCurrencySymbol(currency)} = {await CurrencyHelper.GetValueInRoublesAsync(currency):N0}{CurrencyHelper.GetCurrencySymbol(Currencies.Rouble)}";
 
         private void ShowContent<TScreenBase>()
             where TScreenBase:ScreenBase

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Caliburn.Micro;
+using EFTHelper.Enums;
 using EFTHelper.Extensions;
 using EFTHelper.Helpers;
 using EFTHelper.Models.TarkovTools;
@@ -16,6 +19,7 @@ namespace EFTHelper.ViewModels
             Price = transactionInformation.Price;
             Source = transactionInformation.Source;
             Currency = CurrencyHelper.GetCurrencySymbol(transactionInformation.Currency);
+            CurrencyType = CurrencyHelper.GetCurrencyByShortName(transactionInformation.Currency);
             Requirements = transactionInformation.Requirements.Select(x => new RequirementViewModel(x)).ToList();
             if (Source.Equals("fleamarket", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -50,7 +54,14 @@ namespace EFTHelper.ViewModels
 
         public string JoinedRequirements => HasRequirements ? string.Join(',', Requirements.Select(x => $"{x.Type} {x.Value}".ToSentence())) : string.Empty;
 
+        public Currencies CurrencyType { get; set; }
+
         #endregion
 
+        #region Methods
+
+        public long GetPriceInRoubles() => CurrencyHelper.GetPriceInRoubles(CurrencyType, Price);
+
+        #endregion
     }
 }

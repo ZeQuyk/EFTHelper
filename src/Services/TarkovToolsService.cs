@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using EFTHelper.Enums;
 using EFTHelper.Extensions;
@@ -29,11 +28,12 @@ namespace EFTHelper.Services
 
         #region Methods
 
-        public Task<ItemsByNameResponse> GetItemsByNameAsync(string name)
+        public Task<ItemsByNameResponse<TItem>> GetItemsByNameAsync<TItem>(string name)
+            where TItem : ItemBase, new()
         {
-            var request = new GraphQLRequest(Enums.TarkovToolsRequestTypes.ItemsByName, new ItemBaseRequest(), name);
+            var request = new GraphQLRequest(TarkovToolsRequestTypes.ItemsByName, new TItem(), name);
 
-            return ExecutePostRequestAsync(request, new ItemsByNameResponse());
+            return ExecutePostRequestAsync(request, new ItemsByNameResponse<TItem>());
         }
 
         public Task<ItemsByTypeResponse> GetItemsByTypeAsync(ItemTypes itemType)

@@ -8,6 +8,7 @@ using Caliburn.Micro;
 using EFTHelper.Enums;
 using EFTHelper.Helpers;
 using EFTHelper.Models;
+using EFTHelper.Models.TarkovTools;
 using EFTHelper.Services;
 using MahApps.Metro.Controls;
 
@@ -255,7 +256,7 @@ namespace EFTHelper.ViewModels
 
         private async Task<List<ItemBaseViewModel>> GetItemsByQueryAsync()
         {
-            var itemsByNameResponse = await _tarkovToolsService.GetItemsByNameAsync(Query);
+            var itemsByNameResponse = await _tarkovToolsService.GetItemsByNameAsync<ItemBase>(Query);
             var items = itemsByNameResponse.ItemsByName;
             var itemViewModels = items.Select(x => new ItemBaseViewModel(x, OnItemClicked)).ToList();
             if (SelectedType.ItemType != Enums.ItemTypes.Any)

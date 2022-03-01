@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Caliburn.Micro;
 using EFTHelper.Enums;
 using EFTHelper.Extensions;
@@ -30,8 +31,10 @@ namespace EFTHelper.ViewModels
             ErgonomicsModifier = item.ErgonomicsModifier;
             HasGrid = item.HasGrid;
             BlocksHeadphones = item.BlocksHeadphones;
-            BuyFor = item.BuyFor.Select(x => new TransactionInformationViewModel(x)).OrderBy(x => x.Price).ToList();
-            SellFor = item.SellFor.Select(x => new TransactionInformationViewModel(x)).OrderByDescending(x=> x.Price).ToList();
+            BuyFor = item.BuyFor.Select(x => new TransactionInformationViewModel(x)).OrderBy(x => x.GetPriceInRoubles()).ToList();
+            SellFor = item.SellFor.Select(x => new TransactionInformationViewModel(x)).OrderByDescending(x => x.GetPriceInRoubles()).ToList();
+            BuyFor.RemoveAll(x => x.Price == 0);
+            SellFor.RemoveAll(x => x.Price == 0);
         }
 
         #endregion

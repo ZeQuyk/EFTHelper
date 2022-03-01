@@ -2,20 +2,21 @@
 
 namespace EFTHelper.Models.TarkovTools.Responses
 {
-    public class ItemsByNameResponse
+    public class ItemsByNameResponse<TItem>
+        where TItem : ItemBase
     {
         #region Constructors
 
         public ItemsByNameResponse()
         {
-            ItemsByName = new List<ItemBase>();
+            ItemsByName = new List<TItem>();
         }
 
         #endregion
 
         #region Properties
 
-        public List<ItemBase> ItemsByName { get; set; }
+        public List<TItem> ItemsByName { get; set; }
 
         #endregion
     }
