@@ -12,15 +12,11 @@
 
   <ItemGroup>
     <None Remove="Fonts\bender.regular.otf" />
-    <None Remove="Images\customs.png" />
-    <None Remove="Images\factory.png" />
     <None Remove="Images\incognito.png" />
-    <None Remove="Images\interchange.png" />
-    <None Remove="Images\lighthouse.png" />
-    <None Remove="Images\reserve.png" />
-    <None Remove="Images\shoreline.png" />
-    <None Remove="Images\thelab.png" />
-    <None Remove="Images\woods.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\incognito.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,18 +41,6 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="MouseKeyHook" Version="5.6.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\customs.png" />
-    <Resource Include="Images\factory.png" />
-    <Resource Include="Images\incognito.png" />
-    <Resource Include="Images\interchange.png" />
-    <Resource Include="Images\thelab.png" />
-    <Resource Include="Images\lighthouse.png" />
-    <Resource Include="Images\reserve.png" />
-    <Resource Include="Images\shoreline.png" />
-    <Resource Include="Images\woods.png" />
   </ItemGroup>
 
 </Project>

@@ -8,13 +8,19 @@ namespace EFTHelper.ViewModels
 {
     public class LocationViewModel : PropertyChangedBase, IMenuItem
     {
+        #region Constants
+
+        private const string ImageUrlBase = "https://raw.githubusercontent.com/ZeQuyk/EFTHelper/main/src/Images";
+
+        #endregion
+
         #region Constructors
 
         public LocationViewModel(Locations location)
         {
             var locationName = location.ToString();
             Name = locationName.ToSentence();
-            ImagePath = $"pack://application:,,,/Images/{locationName.ToLower()}.png";
+            ImagePath = $"{ImageUrlBase}/{locationName.ToLower()}.png";
             Icon = BuildIcon(location);
         }
 
