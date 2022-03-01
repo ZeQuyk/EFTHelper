@@ -22,18 +22,19 @@
             </Grid.RowDefinitions>
 
 
-            <Image x:Name="TraderImageSource" MaxHeight="50" Grid.RowSpan="2"></Image>
-
-            <TextBlock x:Name="TraderName" Grid.Column="1"></TextBlock>
-
-            <DockPanel Grid.Row="1" Grid.Column="1">
-                <TextBlock x:Name="DisplayPrice" ></TextBlock>
-                <TextBlock x:Name="Currency"></TextBlock>
+            <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                <TextBlock x:Name="DisplayPrice" FontSize="27" ></TextBlock>
+                <TextBlock x:Name="Currency" FontSize="27"></TextBlock>
             </DockPanel>
+            
+            <Image x:Name="TraderImageSource" MaxHeight="50" Grid.Row="1"></Image>
 
-            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Visibility="{Binding HasRequirements, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock Text="Requirements:"></TextBlock>
-                <ItemsControl x:Name="Requirements">
+            <TextBlock x:Name="TraderName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+
+
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Visibility="{Binding HasRequirements, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,10,0,0">
+                <TextBlock Text="Requirements:" FontSize="20"></TextBlock>
+                <ItemsControl x:Name="Requirements" FontSize="17">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel/>
