@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EFTHelper.Enums
+﻿namespace EFTHelper.Enums
 {
     public enum Locations
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using EFTHelper.Enums;
 using EFTHelper.Extensions;
 using EFTHelper.Models;

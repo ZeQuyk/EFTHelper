@@ -42,6 +42,8 @@ namespace EFTHelper.ViewModels
 
         #endregion
 
+        #region Methods
+
         private static PackIconBase BuildIcon(Locations location)
         {
             PackIconBase icon = null;
@@ -82,5 +84,6 @@ namespace EFTHelper.ViewModels
             return icon;
         }
 
+        #endregion
     }
 }
