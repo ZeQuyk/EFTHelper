@@ -73,9 +73,9 @@
             <Button Cursor="Hand" cal:Message.Attach="[Event Click]=[Action ShowLocations]">
                 <TextBlock Text="Locations" FontSize="15"></TextBlock>
             </Button>
-            <Button Cursor="Hand" cal:Message.Attach="[Event Click]=[Action ShowItems]">
+            <!--<Button Cursor="Hand" cal:Message.Attach="[Event Click]=[Action ShowItems]">
                 <TextBlock Text="Items" FontSize="15"></TextBlock>
-            </Button>
+            </Button>-->
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid>
