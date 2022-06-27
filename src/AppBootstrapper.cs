@@ -50,7 +50,7 @@ namespace EFTHelper
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewFor<TaskBarIconViewModel>();
+            DisplayRootViewForAsync<TaskBarIconViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)
