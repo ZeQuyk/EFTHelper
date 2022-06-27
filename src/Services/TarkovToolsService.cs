@@ -66,7 +66,7 @@ namespace EFTHelper.Services
         {
             var response = await ExecutePostRequestAsync<GraphQLRequest, TarkovToolsResponse>(apiEndpoint, request);
 
-            return TryDeserialize(response.Data.ToString(), defaultValue);
+            return TryDeserialize(response?.Data?.ToString(), defaultValue);
         }
 
         #endregion
