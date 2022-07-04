@@ -85,10 +85,10 @@
         </Grid.RowDefinitions>
         <ContentControl x:Name="Content"  Margin="48,0,0,25"  Grid.Row="0" />
         <ContentControl x:Name="VersionViewModel" Grid.Row="1" Height="auto" Margin="48,0,0,0" />
-        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,15,0">
+        <!--<StackPanel Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,15,0">
             <TextBlock Grid.Row="1" Text="{Binding USDollarValue}" FontSize="20" VerticalAlignment="Center" Margin="3,0"></TextBlock>
             <TextBlock Grid.Row="1" Text="{Binding EuroValue}" FontSize="20" VerticalAlignment="Center"></TextBlock>
-        </StackPanel>
+        </StackPanel>-->
         <mah:HamburgerMenu 
            x:Name="Menu" 
            DisplayMode="CompactOverlay" 
