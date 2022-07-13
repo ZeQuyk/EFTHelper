@@ -79,6 +79,10 @@ namespace EFTHelper.ViewModels
             }
         }
 
+        public int OpacityMinimum => SettingsService.OPACITY_MIN;
+
+        public int OpacityMaximum => SettingsService.OPACITY_MAX;
+
         #endregion
 
         #region Methods
@@ -92,14 +96,14 @@ namespace EFTHelper.ViewModels
 
         private void SetOpacity(int value)
         {
-            if (value < SettingsService.OPACITY_MIN)
+            if (value < OpacityMinimum)
             {
-                value = SettingsService.OPACITY_MIN;
+                value = OpacityMinimum;
             }
 
-            if (value > SettingsService.OPACITY_MAX)
+            if (value > OpacityMaximum)
             {
-                value = SettingsService.OPACITY_MAX;
+                value = OpacityMaximum;
             }
 
             _opacity = value;

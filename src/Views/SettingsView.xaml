@@ -39,8 +39,8 @@
                     <TextBlock>Opacity</TextBlock>
                     <mah:NumericUpDown Value="{Binding Opacity}"
                                        FontSize="20"
-                                       Minimum="20"
-                                       Maximum="100"
+                                       Minimum="{Binding OpacityMinimum}"
+                                       Maximum="{Binding OpacityMaximum}"
                                        Margin="10,0">
                     </mah:NumericUpDown>
                 </WrapPanel>
