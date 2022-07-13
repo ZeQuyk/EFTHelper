@@ -27,7 +27,7 @@ namespace EFTHelper.Models
 
         public bool TopMost { get; set; }
 
-        public double Opacity { get; set; }
+        public int Opacity { get; set; }
 
         #endregion
     }

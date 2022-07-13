@@ -7,12 +7,6 @@ namespace EFTHelper.ViewModels
 {
     public class SettingsViewModel : PropertyChangedBase
     {
-        #region Constants
-
-        private const int OPACITY_MULTIPLIER = 100;
-
-        #endregion
-
         #region Fields
 
         private SettingsService _settingsService;
@@ -33,7 +27,7 @@ namespace EFTHelper.ViewModels
             _selectedScheme = _themeService.Scheme;
             _selectedTheme = _themeService.Theme;
             _topMost = _settingsService.TopMost;
-            _opacity = (int)_settingsService.Opacity * OPACITY_MULTIPLIER;
+            _opacity = _settingsService.Opacity;
             PropertyChanged += SettingsViewModel_PropertyChanged;
         }
 
@@ -80,13 +74,8 @@ namespace EFTHelper.ViewModels
             get => _opacity;
             set
             {
-                if (value < 20 || value > 100)
-                {
-                    return;
-                }
-
-                _opacity = value;
-                NotifyOfPropertyChange();
+               SetOpacity(value);
+               NotifyOfPropertyChange();
             }
         }
 
@@ -97,8 +86,23 @@ namespace EFTHelper.ViewModels
         private void SettingsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             _settingsService.TopMost = TopMost;
-            _settingsService.Opacity = (double)Opacity / OPACITY_MULTIPLIER;
+            _settingsService.Opacity = Opacity;
             _themeService.Change(SelectedTheme, SelectedScheme);
+        }
+
+        private void SetOpacity(int value)
+        {
+            if (value < SettingsService.OPACITY_MIN)
+            {
+                value = SettingsService.OPACITY_MIN;
+            }
+
+            if (value > SettingsService.OPACITY_MAX)
+            {
+                value = SettingsService.OPACITY_MAX;
+            }
+
+            _opacity = value;
         }
 
         #endregion

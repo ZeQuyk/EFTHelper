@@ -193,7 +193,7 @@ namespace EFTHelper.ViewModels
             }
         }
 
-        public double Opacity => _settingsService.Opacity;
+        public double Opacity => (double)_settingsService.Opacity / 100;
 
         #endregion
 

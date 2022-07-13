@@ -8,6 +8,13 @@ namespace EFTHelper.Services
 {
     public class SettingsService: AppDataFileBase<Settings>
     {
+        #region Constants
+
+        public const int OPACITY_MIN = 20;
+        public const int OPACITY_MAX = 100;
+
+        #endregion
+
         #region Events
 
         public event EventHandler OnSaved;
@@ -52,7 +59,7 @@ namespace EFTHelper.Services
             }
         }
 
-        public double Opacity
+        public int Opacity
         {
             get => Entity.Opacity;
             set
