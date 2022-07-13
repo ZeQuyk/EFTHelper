@@ -11,7 +11,9 @@
         mc:Ignorable="d"
         Topmost="{Binding IsTopMost}"
         WindowStartupLocation="CenterScreen"
-        FontFamily="{StaticResource Bender}">
+        FontFamily="{StaticResource Bender}"
+        AllowsTransparency="True"
+        Opacity="{Binding Opacity}">
     <mah:MetroWindow.Resources>
 
         <ResourceDictionary>

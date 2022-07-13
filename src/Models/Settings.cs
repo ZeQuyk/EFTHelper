@@ -12,6 +12,7 @@ namespace EFTHelper.Models
             Theme = Theme.Dark;
             Scheme = Scheme.Amber;
             TopMost = true;
+            Opacity = 100;
         }
 
         #endregion
@@ -25,6 +26,8 @@ namespace EFTHelper.Models
         public Scheme Scheme { get; set; }
 
         public bool TopMost { get; set; }
+
+        public double Opacity { get; set; }
 
         #endregion
     }

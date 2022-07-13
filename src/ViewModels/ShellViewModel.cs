@@ -191,7 +191,9 @@ namespace EFTHelper.ViewModels
                 _EuroValue = value;
                 NotifyOfPropertyChange();
             }
-        }         
+        }
+
+        public double Opacity => _settingsService.Opacity;
 
         #endregion
 
@@ -317,6 +319,7 @@ namespace EFTHelper.ViewModels
 
         private void SettingsService_OnSaved(object sender, System.EventArgs e)
         {
+            NotifyOfPropertyChange(() => Opacity);
             NotifyOfPropertyChange(() => IsTopMost);
         }
 

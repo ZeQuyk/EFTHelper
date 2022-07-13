@@ -18,11 +18,7 @@ namespace EFTHelper.Services
 
         public WindowInformations WindowInformation
         {
-            get
-            {
-                return Entity.WindowInformation;
-            }
-
+            get => Entity.WindowInformation;
             set
             {
                 Entity.WindowInformation = value;
@@ -31,11 +27,7 @@ namespace EFTHelper.Services
 
         public Theme Theme
         {
-            get
-            {
-                return Entity.Theme;
-            }
-
+            get => Entity.Theme;
             set
             {
                 Entity.Theme = value;
@@ -44,11 +36,7 @@ namespace EFTHelper.Services
 
         public Scheme Scheme
         {
-            get
-            {
-                return Entity.Scheme;
-            }
-
+            get => Entity.Scheme;
             set
             {
                 Entity.Scheme = value;
@@ -57,14 +45,19 @@ namespace EFTHelper.Services
 
         public bool TopMost
         {
-            get
-            {
-                return Entity.TopMost;
-            }
-
+            get => Entity.TopMost;
             set
             {
                 Entity.TopMost = value;
+            }
+        }
+
+        public double Opacity
+        {
+            get => Entity.Opacity;
+            set
+            {
+                Entity.Opacity = value;
             }
         }
 
