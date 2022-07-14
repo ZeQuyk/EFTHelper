@@ -32,6 +32,7 @@ namespace EFTHelper.ViewModels
         private readonly FlyoutService _flyoutService;
         private readonly DialogService _dialogService;
         private readonly UpdateManagerService _updateManagerService;
+        private double _opacity;
 
         #endregion
 
@@ -56,6 +57,7 @@ namespace EFTHelper.ViewModels
             _dialogService = dialogService;
             _updateManagerService = updateManagerService;
             _dialogService.Register(this);
+            Opacity = 1;
         }
 
         #endregion
@@ -193,7 +195,15 @@ namespace EFTHelper.ViewModels
             }
         }
 
-        public double Opacity => (double)_settingsService.Opacity / 100;
+        public double Opacity 
+        {
+            get => _opacity;
+            set
+            {
+                _opacity = value;
+                NotifyOfPropertyChange();
+            }
+        } 
 
         #endregion
 
@@ -259,6 +269,16 @@ namespace EFTHelper.ViewModels
             {
                 VersionViewModel.NeedUpdate = false;
             }           
+        }
+
+        public void GotFocus()
+        {
+            Opacity = 1;
+        }
+
+        public void LostFocus()
+        {
+            Opacity = (double)_settingsService.Opacity / 100;
         }
 
         protected override void OnViewLoaded(object view)

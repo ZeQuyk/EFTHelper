@@ -13,7 +13,8 @@
         WindowStartupLocation="CenterScreen"
         FontFamily="{StaticResource Bender}"
         AllowsTransparency="True"
-        Opacity="{Binding Opacity}">
+        Opacity="{Binding Opacity}"
+        cal:Message.Attach="[Event Activated]=[Action GotFocus];[Event Deactivated]=[Action LostFocus]">
     <mah:MetroWindow.Resources>
 
         <ResourceDictionary>
