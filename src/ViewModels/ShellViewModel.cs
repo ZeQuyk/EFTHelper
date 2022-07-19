@@ -33,6 +33,7 @@ namespace EFTHelper.ViewModels
         private readonly DialogService _dialogService;
         private readonly UpdateManagerService _updateManagerService;
         private double _opacity;
+        private bool _isLocked;
 
         #endregion
 
@@ -63,6 +64,19 @@ namespace EFTHelper.ViewModels
         #endregion
 
         #region Properties
+
+        public bool IsNotLocked => !IsLocked;
+
+        public bool IsLocked
+        {
+            get => _isLocked;
+            set
+            {
+                _isLocked = value;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(() => IsNotLocked);
+            }
+        }
 
         public bool IsFlyoutOpen 
         { 
@@ -279,6 +293,11 @@ namespace EFTHelper.ViewModels
         public void LostFocus()
         {
             Opacity = (double)_settingsService.Opacity / 100;
+        }
+
+        public void ToggleLock()
+        {
+            IsLocked = !IsLocked;
         }
 
         protected override void OnViewLoaded(object view)
