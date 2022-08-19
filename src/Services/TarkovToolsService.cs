@@ -19,9 +19,9 @@ namespace EFTHelper.Services
 
         #region Constructors
 
-        public TarkovToolsService() : base()
+        public TarkovToolsService()
         {
-            _httpClient.BaseAddress = new Uri(apiUrl);
+            HttpClient.BaseAddress = new Uri(apiUrl);
         }
 
         #endregion

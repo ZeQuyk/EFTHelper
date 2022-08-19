@@ -7,25 +7,25 @@ namespace EFTHelper.Services
 {
     public abstract class HttpServiceBase
     {
-        #region Fields
+        #region Constructors
 
-        protected readonly HttpClient _httpClient;
-        protected JsonSerializerOptions _options
+        public HttpServiceBase()
+        {
+            HttpClient = new HttpClient();
+        }
+
+        #endregion
+
+        #region Properties
+
+        protected readonly HttpClient HttpClient;
+        
+        protected JsonSerializerOptions Options
         {
             get { return GetDefaultOptions(); }
         }
 
         #endregion
-
-        #region Constructors
-
-        public HttpServiceBase()
-        {
-            _httpClient = new HttpClient();
-        }
-
-        #endregion
-
         #region Methods
 
         protected Task<TResponse> ExecutePostRequestAsync<TRequest, TResponse>(string url, TRequest request)
@@ -35,14 +35,14 @@ namespace EFTHelper.Services
 
         protected Task<TResponse> ExecutePostRequestAsync<TRequest, TResponse>(string url, TRequest request, TResponse defaultValue)
         {
-            return ExecutePostRequestAsync(url, request, defaultValue, _options);
+            return ExecutePostRequestAsync(url, request, defaultValue, Options);
         }
 
         protected async Task<TResponse> ExecutePostRequestAsync<TRequest, TResponse>(string url, TRequest request, TResponse defaultValue, JsonSerializerOptions options)
         {
-            var content = new StringContent(JsonSerializer.Serialize(request));
+            using var content = new StringContent(JsonSerializer.Serialize(request));
 
-            var result = await _httpClient.PostAsync(url, content);
+            using var result = await HttpClient.PostAsync(url, content);
 
             return await HandleResponse(result, defaultValue, options);
         }
@@ -54,7 +54,7 @@ namespace EFTHelper.Services
 
         protected Task<TResponse> HandleResponse<TResponse>(HttpResponseMessage response, TResponse defaultValue)
         {
-            return HandleResponse(response, defaultValue, _options);
+            return HandleResponse(response, defaultValue, Options);
         }
 
         protected async Task<TResponse> HandleResponse<TResponse>(HttpResponseMessage response, TResponse defaultValue, JsonSerializerOptions options)
@@ -82,7 +82,7 @@ namespace EFTHelper.Services
 
         protected TResponse TryDeserialize<TResponse>(string jsonData, TResponse defaultValue)
         {
-            return TryDeserialize(jsonData, defaultValue, _options);
+            return TryDeserialize(jsonData, defaultValue, Options);
         }
 
         protected TResponse TryDeserialize<TResponse>(string jsonData, TResponse defaultValue, JsonSerializerOptions options)
