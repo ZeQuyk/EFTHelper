@@ -143,7 +143,7 @@ namespace EFTHelper.ViewModels
             _globalHook.KeyDown += _globalHook_KeyDown;
         }
 
-        private async void _globalHook_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void _globalHook_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             HandleKeyboard(e.KeyCode);
         }
