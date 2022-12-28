@@ -7,5 +7,5 @@ Ease your Escape From Tarkov experience with EFTHelper. <br>
 [GlobalMouseKeyHook](https://github.com/gmamaladze/globalmousekeyhook) <br>
 [Caliburn.Micro](https://caliburnmicro.com/) <br>
 [Hardcodet.NotifyIcon.Wpf](https://github.com/hardcodet/wpf-notifyicon)<br>
-[Tarkov-Data-Api](https://github.com/kokarn/tarkov-data-api)<br>
+[Tarkov.dev API](https://github.com/the-hideout/tarkov-api)<br>
 [BusyIndicator](https://github.com/Peoky/BusyIndicator)
