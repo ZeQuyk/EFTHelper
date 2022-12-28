@@ -9,6 +9,7 @@
         Lighthouse,
         Interchange,
         Reserve,
-        TheLab
+        TheLab,
+        StreetsOfTarkov,
     }
 }

@@ -46,34 +46,19 @@ namespace EFTHelper.ViewModels
 
         private static PackIconBase BuildIcon(Locations location)
         {
-            PackIconBase icon = null;
-            switch (location)
+            PackIconBase icon = location switch
             {
-                case Locations.Customs:
-                    icon = new PackIconMaterial() { Kind = PackIconMaterialKind.PoliceBadgeOutline };
-                    break;
-                case Locations.Factory:
-                    icon = new PackIconMaterialLight() { Kind = PackIconMaterialLightKind.Factory };
-                    break;
-                case Locations.Interchange:
-                    icon = new PackIconUnicons() { Kind = PackIconUniconsKind.ShoppingCart };
-                    break;
-                case Locations.Lighthouse:
-                    icon = new PackIconRPGAwesome() { Kind = PackIconRPGAwesomeKind.Lighthouse };
-                    break;
-                case Locations.Reserve:
-                    icon = new PackIconBoxIcons() { Kind = PackIconBoxIconsKind.RegularTrain };
-                    break;
-                case Locations.Shoreline:
-                    icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.HotelSolid };
-                    break;
-                case Locations.TheLab:
-                    icon = new PackIconUnicons() { Kind = PackIconUniconsKind.Flask };
-                    break;
-                case Locations.Woods:
-                    icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Forest };
-                    break;
-            }
+                Locations.Customs => new PackIconMaterial() { Kind = PackIconMaterialKind.PoliceBadgeOutline },
+                Locations.Factory => new PackIconMaterialLight() { Kind = PackIconMaterialLightKind.Factory },
+                Locations.Interchange => new PackIconUnicons() { Kind = PackIconUniconsKind.ShoppingCart },
+                Locations.Lighthouse => new PackIconRPGAwesome() { Kind = PackIconRPGAwesomeKind.Lighthouse },
+                Locations.Reserve => new PackIconBoxIcons() { Kind = PackIconBoxIconsKind.RegularTrain },
+                Locations.Shoreline => new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.HotelSolid },
+                Locations.TheLab => new PackIconUnicons() { Kind = PackIconUniconsKind.Flask },
+                Locations.Woods => new PackIconMaterial() { Kind = PackIconMaterialKind.Forest },
+                Locations.StreetsOfTarkov => new PackIconMaterial { Kind = PackIconMaterialKind.Road },
+                _ => null,
+            };           
 
             if (icon != null)
             {
