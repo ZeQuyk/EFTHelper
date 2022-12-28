@@ -26,6 +26,7 @@ namespace EFTHelper.Services
         }
 
         #endregion
+
         #region Methods
 
         protected Task<TResponse> ExecutePostRequestAsync<TRequest, TResponse>(string url, TRequest request)

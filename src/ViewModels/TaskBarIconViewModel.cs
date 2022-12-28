@@ -91,9 +91,9 @@ namespace EFTHelper.ViewModels
             await ShowItem(_locationSelectorViewModel);
         }
 
-        public void ShowItemsView()
+        public async void ShowItemsView()
         {
-            //await ShowItem(_itemsListViewModel);
+            await ShowItem(_itemsListViewModel);
         }
 
         private async Task ShowItem(ScreenBase item)

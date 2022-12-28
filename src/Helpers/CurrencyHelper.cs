@@ -80,8 +80,15 @@ namespace EFTHelper.Helpers
                 return 1;
             }
 
-            var result = items.ItemsByName.FirstOrDefault(x => x.ShortName.Equals(shortName, StringComparison.InvariantCultureIgnoreCase))?.BuyFor?.FirstOrDefault()?.Price ?? 0;
+            var item = items.ItemsByName.FirstOrDefault(x => x.ShortName.Equals(shortName, StringComparison.InvariantCultureIgnoreCase));
+            var result = default(long);
+            if (item != null)
+            {
+                result = item.BuyFor?.FirstOrDefault()?.Price ?? item.BasePrice;
+            }
+           
             SaveValueInRoubles(currency, result);
+
             return result;
         }
 

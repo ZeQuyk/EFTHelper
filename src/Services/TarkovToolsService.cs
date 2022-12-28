@@ -12,7 +12,7 @@ namespace EFTHelper.Services
     {
         #region Fields
 
-        private const string apiUrl = "https://tarkov-tools.com/";
+        private const string apiUrl = "https://api.tarkov.dev/";
         private const string apiEndpoint = "graphql";
 
         #endregion
