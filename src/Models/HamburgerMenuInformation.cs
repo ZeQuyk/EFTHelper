@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace EFTHelper.Models
+namespace EFTHelper.Models;
+
+public class HamburgerMenuInformation
 {
-    public class HamburgerMenuInformation
-    {
-        public IEnumerable<IMenuItem> Items { get; set; }
+    public IEnumerable<IMenuItem> Items { get; set; }
 
-        public string Header { get; set; }
+    public string Header { get; set; }
 
-        public IMenuItem SelectedItem { get; set; }
-    }
+    public IMenuItem SelectedItem { get; set; }
 }

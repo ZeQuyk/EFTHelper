@@ -3,48 +3,47 @@ using Caliburn.Micro;
 using EFTHelper.Models;
 using MahApps.Metro.Controls;
 
-namespace EFTHelper.Services
+namespace EFTHelper.Services;
+
+public class FlyoutService
 {
-    public class FlyoutService
+    #region Events
+
+    public event EventHandler<FlyoutRequest> ShowFlyoutRequested;
+    public event EventHandler CloseFlyoutRequested;
+    public event EventHandler FlyoutClosed;
+
+    #endregion
+
+    #region Methods
+
+    public Position CurrentPosition { get; private set; }
+
+    #endregion
+
+    #region Methods
+
+    public void Show(string header, PropertyChangedBase content, Position position)
     {
-        #region Events
-
-        public event EventHandler<FlyoutRequest> ShowFlyoutRequested;
-        public event EventHandler CloseFlyoutRequested;
-        public event EventHandler FlyoutClosed;
-
-        #endregion
-
-        #region Methods
-
-        public Position CurrentPosition { get; private set; }
-
-        #endregion
-
-        #region Methods
-
-        public void Show(string header, PropertyChangedBase content, Position position)
+        CurrentPosition = position;
+        var request = new FlyoutRequest
         {
-            CurrentPosition = position;
-            var request = new FlyoutRequest
-            {
-                Header = header,
-                Content = content,
-                Position = position
-            };
-            ShowFlyoutRequested?.Invoke(this, request);
-        }
-
-        public void Close()
-        {
-            CloseFlyoutRequested?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void NotifyFlyoutClosed()
-        {
-            FlyoutClosed?.Invoke(this, EventArgs.Empty);
-        }
-
-        #endregion
+            Header = header,
+            Content = content,
+            Position = position
+        };
+        ShowFlyoutRequested?.Invoke(this, request);
     }
+
+    public void Close()
+    {
+        CloseFlyoutRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void NotifyFlyoutClosed()
+    {
+        FlyoutClosed?.Invoke(this, EventArgs.Empty);
+    }
+
+    #endregion
 }

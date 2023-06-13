@@ -1,22 +1,21 @@
 ﻿using System.Collections.Generic;
 
-namespace EFTHelper.Models.TarkovTools.Responses
+namespace EFTHelper.Models.TarkovTools.Responses;
+
+public class QuestsResponse
 {
-    public class QuestsResponse
+    #region Constructors
+
+    public QuestsResponse()
     {
-        #region Constructors
-
-        public QuestsResponse()
-        {
-            Quests = new List<EFTTaskBase>();
-        }
-
-        #endregion
-
-        #region Properties
-
-        public List<EFTTaskBase> Quests { get; set; }
-
-        #endregion
+        Quests = new List<EFTTaskBase>();
     }
+
+    #endregion
+
+    #region Properties
+
+    public List<EFTTaskBase> Quests { get; set; }
+
+    #endregion
 }

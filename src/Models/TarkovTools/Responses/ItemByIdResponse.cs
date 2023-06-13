@@ -1,11 +1,10 @@
-﻿namespace EFTHelper.Models.TarkovTools.Responses
+﻿namespace EFTHelper.Models.TarkovTools.Responses;
+
+public class ItemByIdResponse
 {
-    public class ItemByIdResponse
-    {
-        #region Properties
+    #region Properties
 
-        public Item Item { get; set; }
+    public Item Item { get; set; }
 
-        #endregion
-    }
+    #endregion
 }

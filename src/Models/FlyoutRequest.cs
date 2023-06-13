@@ -1,18 +1,17 @@
 ﻿using Caliburn.Micro;
 using MahApps.Metro.Controls;
 
-namespace EFTHelper.Models
+namespace EFTHelper.Models;
+
+public class FlyoutRequest
 {
-    public class FlyoutRequest
-    {
-        #region Properties
+    #region Properties
 
-        public string Header { get; set; }
+    public string Header { get; set; }
 
-        public Position Position { get; set; }
+    public Position Position { get; set; }
 
-        public PropertyChangedBase Content { get; set; }
+    public PropertyChangedBase Content { get; set; }
 
-        #endregion
-    }
+    #endregion
 }

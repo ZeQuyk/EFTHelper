@@ -1,13 +1,12 @@
-﻿namespace EFTHelper.Models.TarkovTools
+﻿namespace EFTHelper.Models.TarkovTools;
+
+public class EFTTaskRewardReputation
 {
-    public class EFTTaskRewardReputation
-    {
-        #region Properties
+    #region Properties
 
-        public Trader Trader { get; set; }
+    public Trader Trader { get; set; }
 
-        public double Amount { get; set; }
+    public double Amount { get; set; }
 
-        #endregion
-    }
+    #endregion
 }

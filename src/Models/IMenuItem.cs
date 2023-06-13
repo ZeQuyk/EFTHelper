@@ -1,19 +1,18 @@
 ﻿using System;
 
-namespace EFTHelper.Models
+namespace EFTHelper.Models;
+
+public interface IMenuItem
 {
-    public interface IMenuItem
-    {
-        #region Properties
+    #region Properties
 
-        public string Label { get; }
+    public string Label { get; }
 
-        public string Title { get; }
+    public string Title { get; }
 
-        public object Icon { get; }
+    public object Icon { get; }
 
-        public Action? OnClick { get; }
+    public Action? OnClick { get; }
 
-        #endregion
-    }
+    #endregion
 }

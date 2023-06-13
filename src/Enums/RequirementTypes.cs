@@ -1,9 +1,8 @@
-﻿namespace EFTHelper.Enums
+﻿namespace EFTHelper.Enums;
+
+public enum RequirementTypes
 {
-    public enum RequirementTypes
-    {
-        QuestCompleted,
-        PlayerLevel,
-        LoyaltyLevel
-    }
+    QuestCompleted,
+    PlayerLevel,
+    LoyaltyLevel
 }

@@ -1,14 +1,13 @@
-﻿namespace EFTHelper.Models.TarkovTools.Responses
+﻿namespace EFTHelper.Models.TarkovTools.Responses;
+
+public class TarkovToolsResponse
 {
-    public class TarkovToolsResponse
-    {
-        #region Properties
+    #region Properties
 
-        /// <summary>
-        /// Json representation of the response returned by TarkovTools
-        /// </summary>
-        public object Data { get; set; }
+    /// <summary>
+    /// Json representation of the response returned by TarkovTools
+    /// </summary>
+    public object Data { get; set; }
 
-        #endregion
-    }
+    #endregion
 }

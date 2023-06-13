@@ -2,30 +2,29 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace EFTHelper.Converters
+namespace EFTHelper.Converters;
+
+class JsonNullToBoolConverter : JsonConverter<bool>
 {
-    class JsonNullToBoolConverter : JsonConverter<bool>
+    #region Methods
+
+    public override bool Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        #region Methods
-
-        public override bool Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        try
         {
-            try
-            {
-                var result = reader.GetBoolean();
-                return result;
-            }
-            catch
-            {
-                return default(bool);
-            }
+            var result = reader.GetBoolean();
+            return result;
         }
-
-        public override void Write(Utf8JsonWriter writer, bool value, JsonSerializerOptions options)
+        catch
         {
-            writer.WriteBooleanValue(value);
+            return default(bool);
         }
-
-        #endregion
     }
+
+    public override void Write(Utf8JsonWriter writer, bool value, JsonSerializerOptions options)
+    {
+        writer.WriteBooleanValue(value);
+    }
+
+    #endregion
 }

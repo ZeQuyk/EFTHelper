@@ -2,30 +2,29 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace EFTHelper.Converters
+namespace EFTHelper.Converters;
+
+class JsonNullToIntConverter : JsonConverter<int>
 {
-    class JsonNullToIntConverter : JsonConverter<int>
+    #region Methods
+
+    public override int Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        #region Methods
-
-        public override int Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        try
         {
-            try
-            {
-                var isRead = reader.TryGetInt32(out var value);
-                return isRead ? value : default(int);
-            }
-            catch
-            {
-                return default(int);
-            }
+            var isRead = reader.TryGetInt32(out var value);
+            return isRead ? value : default(int);
         }
-
-        public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options)
+        catch
         {
-             writer.WriteNumberValue(value);
+            return default(int);
         }
-
-        #endregion
     }
+
+    public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options)
+    {
+         writer.WriteNumberValue(value);
+    }
+
+    #endregion
 }

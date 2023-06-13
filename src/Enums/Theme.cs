@@ -1,8 +1,7 @@
-﻿namespace EFTHelper.Enums
+﻿namespace EFTHelper.Enums;
+
+public enum Theme
 {
-    public enum Theme
-    {
-        Light,
-        Dark
-    }
+    Light,
+    Dark
 }

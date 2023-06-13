@@ -1,13 +1,12 @@
-﻿namespace EFTHelper.Models.TarkovTools
+﻿namespace EFTHelper.Models.TarkovTools;
+
+public class Requirement
 {
-    public class Requirement
-    {
-        #region Properties
+    #region Properties
 
-        public string Type { get; set; }
+    public string Type { get; set; }
 
-        public int Value { get; set; }
+    public int Value { get; set; }
 
-        #endregion
-    }
+    #endregion
 }

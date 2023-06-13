@@ -1,13 +1,12 @@
-﻿namespace EFTHelper.Models.TarkovTools
+﻿namespace EFTHelper.Models.TarkovTools;
+
+public class Trader
 {
-    public class Trader
-    {
-        #region Properties
+    #region Properties
 
-        public string Id { get; set; }
+    public string Id { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        #endregion
-    }
+    #endregion
 }

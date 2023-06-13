@@ -4,222 +4,221 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace EFTHelper.Services
+namespace EFTHelper.Services;
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+/// <summary>
+/// Represents the process lurker.
+/// </summary>
+/// <seealso cref="System.IDisposable" />
+public class ProcessService : IDisposable
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
+    #region Fields
+
+    private static readonly int WaitingTime = 2000;
+    private IEnumerable<string> _processNames;
+    private CancellationTokenSource _tokenSource;
+    private Process _activeProcess;
+    private int _processId;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
-    /// Represents the process lurker.
+    /// Initializes a new instance of the <see cref="ProcessService"/> class.
     /// </summary>
-    /// <seealso cref="System.IDisposable" />
-    public class ProcessService : IDisposable
+    /// <param name="processName">Name of the process.</param>
+    public ProcessService(string processName)
+        : this(new string[] { processName })
     {
-        #region Fields
+    }
 
-        private static readonly int WaitingTime = 2000;
-        private IEnumerable<string> _processNames;
-        private CancellationTokenSource _tokenSource;
-        private Process _activeProcess;
-        private int _processId;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ProcessService"/> class.
+    /// </summary>
+    /// <param name="processNames">The process names.</param>
+    public ProcessService(IEnumerable<string> processNames)
+    {
+        this._processNames = processNames;
+        this._tokenSource = new CancellationTokenSource();
+    }
 
-        #endregion
+    #endregion
 
-        #region Constructors
+    #region Events
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProcessService"/> class.
-        /// </summary>
-        /// <param name="processName">Name of the process.</param>
-        public ProcessService(string processName)
-            : this(new string[] { processName })
+    /// <summary>
+    /// The process ended
+    /// </summary>
+    public event EventHandler ProcessClosed;
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Gets my process by identifier.
+    /// </summary>
+    /// <param name="processId">The process identifier.</param>
+    /// <returns>The process.</returns>
+    public static Process GetProcessById(int processId)
+    {
+        try
         {
+            return Process.GetProcessById(processId);
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProcessService"/> class.
-        /// </summary>
-        /// <param name="processNames">The process names.</param>
-        public ProcessService(IEnumerable<string> processNames)
+        catch
         {
-            this._processNames = processNames;
-            this._tokenSource = new CancellationTokenSource();
+            return null;
         }
+    }
 
-        #endregion
+    /// <summary>
+    /// Gets the current process identifier.
+    /// </summary>
+    public static int CurrentProcessId => Process.GetCurrentProcess().Id;
 
-        #region Events
+    /// <summary>
+    /// Waits for process.
+    /// </summary>
+    /// <returns>The process.</returns>
+    public virtual async Task<int> WaitForProcess()
+    {
+        var process = this.GetProcess();
 
-        /// <summary>
-        /// The process ended
-        /// </summary>
-        public event EventHandler ProcessClosed;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Gets my process by identifier.
-        /// </summary>
-        /// <param name="processId">The process identifier.</param>
-        /// <returns>The process.</returns>
-        public static Process GetProcessById(int processId)
+        while (process is null)
         {
-            try
-            {
-                return Process.GetProcessById(processId);
-            }
-            catch
-            {
-                return null;
-            }
+            await Task.Delay(WaitingTime);
+            process = this.GetProcess();
         }
+        
+        this.WaitForExit();
+        return this.WaitForWindowHandle();
+    }
 
-        /// <summary>
-        /// Gets the current process identifier.
-        /// </summary>
-        public static int CurrentProcessId => Process.GetCurrentProcess().Id;
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+    /// </summary>
+    public void Dispose()
+    {
+        this.Dispose(true);
+    }
 
-        /// <summary>
-        /// Waits for process.
-        /// </summary>
-        /// <returns>The process.</returns>
-        public virtual async Task<int> WaitForProcess()
+    /// <summary>
+    /// Called when [exit].
+    /// </summary>
+    protected virtual void OnExit()
+    {
+    }
+
+    /// <summary>
+    /// Releases unmanaged and - optionally - managed resources.
+    /// </summary>
+    /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            var process = this.GetProcess();
+            this._tokenSource.Cancel();
 
-            while (process is null)
-            {
-                await Task.Delay(WaitingTime);
-                process = this.GetProcess();
-            }
-            
-            this.WaitForExit();
-            return this.WaitForWindowHandle();
-        }
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            this.Dispose(true);
-        }
-
-        /// <summary>
-        /// Called when [exit].
-        /// </summary>
-        protected virtual void OnExit()
-        {
-        }
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                this._tokenSource.Cancel();
-
-                if (this._activeProcess != null)
-                {
-                    this._activeProcess.Dispose();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets the process.
-        /// </summary>
-        /// <returns>The process.</returns>
-        private Process GetProcess()
-        {
             if (this._activeProcess != null)
             {
                 this._activeProcess.Dispose();
             }
+        }
+    }
 
-            foreach (var processName in this._processNames)
+    /// <summary>
+    /// Gets the process.
+    /// </summary>
+    /// <returns>The process.</returns>
+    private Process GetProcess()
+    {
+        if (this._activeProcess != null)
+        {
+            this._activeProcess.Dispose();
+        }
+
+        foreach (var processName in this._processNames)
+        {
+            var process = Process.GetProcessesByName(processName).FirstOrDefault();
+            if (process != null)
             {
-                var process = Process.GetProcessesByName(processName).FirstOrDefault();
-                if (process != null)
-                {
-                    this._activeProcess = process;
-                    return process;
-                }
+                this._activeProcess = process;
+                return process;
             }
-
-            return null;
         }
 
-        /// <summary>
-        /// Waits for exit.
-        /// </summary>
-        private async void WaitForExit()
+        return null;
+    }
+
+    /// <summary>
+    /// Waits for exit.
+    /// </summary>
+    private async void WaitForExit()
+    {
+        await Task.Run(() =>
         {
-            await Task.Run(() =>
-            {
-                try
-                {
-                    var token = this._tokenSource.Token;
-                    if (token.IsCancellationRequested)
-                    {
-                        return;
-                    }
-
-                    var process = this.GetProcess();
-                    while (process != null)
-                    {
-                        process.WaitForExit(WaitingTime);
-                        process = this.GetProcess();
-                    }
-                }
-                catch
-                {
-                }
-
-                this.OnExit();
-                this.ProcessClosed?.Invoke(this, EventArgs.Empty);
-            });
-        }
-
-        /// <summary>
-        /// Gets the window handle.
-        /// </summary>
-        /// <returns>
-        /// The process id.
-        /// </returns>
-        private int WaitForWindowHandle()
-        {
-            Process currentProcess;
-
             try
             {
-                do
+                var token = this._tokenSource.Token;
+                if (token.IsCancellationRequested)
                 {
-                    var process = this.GetProcess();
-                    Thread.Sleep(200);
-                    currentProcess = process ?? throw new InvalidOperationException();
+                    return;
                 }
-                while (currentProcess.MainWindowHandle == IntPtr.Zero);
 
-                this._processId = currentProcess.Id;
+                var process = this.GetProcess();
+                while (process != null)
+                {
+                    process.WaitForExit(WaitingTime);
+                    process = this.GetProcess();
+                }
             }
             catch
             {
-                this._processId = this.WaitForWindowHandle();
             }
 
-            return this._processId;
+            this.OnExit();
+            this.ProcessClosed?.Invoke(this, EventArgs.Empty);
+        });
+    }
+
+    /// <summary>
+    /// Gets the window handle.
+    /// </summary>
+    /// <returns>
+    /// The process id.
+    /// </returns>
+    private int WaitForWindowHandle()
+    {
+        Process currentProcess;
+
+        try
+        {
+            do
+            {
+                var process = this.GetProcess();
+                Thread.Sleep(200);
+                currentProcess = process ?? throw new InvalidOperationException();
+            }
+            while (currentProcess.MainWindowHandle == IntPtr.Zero);
+
+            this._processId = currentProcess.Id;
+        }
+        catch
+        {
+            this._processId = this.WaitForWindowHandle();
         }
 
-        #endregion
+        return this._processId;
     }
+
+    #endregion
 }

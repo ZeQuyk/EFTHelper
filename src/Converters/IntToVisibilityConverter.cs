@@ -3,20 +3,19 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace EFTHelper.Converters
+namespace EFTHelper.Converters;
+
+public class IntToVisibilityConverter : IValueConverter
 {
-    public class IntToVisibilityConverter : IValueConverter
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var val = (int)value;
+        var val = (int)value;
 
-            return val != 0 ? Visibility.Visible : Visibility.Collapsed;
-        }
+        return val != 0 ? Visibility.Visible : Visibility.Collapsed;
+    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return null;
     }
 }

@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace EFTHelper.Views
+namespace EFTHelper.Views;
+
+/// <summary>
+/// Interaction logic for RequirementsView.xaml
+/// </summary>
+public partial class RequirementView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for RequirementsView.xaml
-    /// </summary>
-    public partial class RequirementView : UserControl
+    public RequirementView()
     {
-        public RequirementView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

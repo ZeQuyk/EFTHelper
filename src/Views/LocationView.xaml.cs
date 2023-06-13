@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace EFTHelper.Views
+namespace EFTHelper.Views;
+
+/// <summary>
+/// Interaction logic for LocationView.xaml
+/// </summary>
+public partial class LocationView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for LocationView.xaml
-    /// </summary>
-    public partial class LocationView : UserControl
+    public LocationView()
     {
-        public LocationView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

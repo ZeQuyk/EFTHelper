@@ -1,13 +1,12 @@
-﻿namespace EFTHelper.Models
+﻿namespace EFTHelper.Models;
+
+public class WindowPosition
 {
-    public class WindowPosition
-    {
-        #region Properties
+    #region Properties
 
-        public double Left { get; set; }
+    public double Left { get; set; }
 
-        public double Top { get; set; }
+    public double Top { get; set; }
 
-        #endregion
-    }
+    #endregion
 }

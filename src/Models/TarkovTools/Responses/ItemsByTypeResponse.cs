@@ -1,22 +1,21 @@
 ﻿using System.Collections.Generic;
 
-namespace EFTHelper.Models.TarkovTools.Responses
+namespace EFTHelper.Models.TarkovTools.Responses;
+
+public class ItemsByTypeResponse
 {
-    public class ItemsByTypeResponse
+    #region Constructors
+
+    public ItemsByTypeResponse()
     {
-        #region Constructors
-
-        public ItemsByTypeResponse()
-        {
-            ItemsByType = new List<ItemBase>();
-        }
-
-        #endregion
-
-        #region Properties
-
-        public List<ItemBase> ItemsByType { get; set; }
-
-        #endregion
+        ItemsByType = new List<ItemBase>();
     }
+
+    #endregion
+
+    #region Properties
+
+    public List<ItemBase> ItemsByType { get; set; }
+
+    #endregion
 }

@@ -6,48 +6,47 @@ using System.Windows.Data;
 using EFTHelper.Models;
 using MahApps.Metro.Controls;
 
-namespace EFTHelper.Converters
+namespace EFTHelper.Converters;
+
+public class HamuburgerMenuItemConverter : IValueConverter
 {
-    public class HamuburgerMenuItemConverter : IValueConverter
-    {
-        #region Methods
+    #region Methods
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is IEnumerable<IMenuItem> nmItemCollection)
         {
-            if (value is IEnumerable<IMenuItem> nmItemCollection)
+            return nmItemCollection.Select(item => new HamburgerMenuIconItem
             {
-                return nmItemCollection.Select(item => new HamburgerMenuIconItem
-                {
-                    Tag = item,
-                    Label = item.Title,
-                    Icon = item.Icon
-                });
-            }
-            return value;
+                Tag = item,
+                Label = item.Title,
+                Icon = item.Icon
+            });
         }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
+        return value;
     }
 
-    public class SelectedItemConverter : IValueConverter
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        #region Methods
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value is HamburgerMenuIconItem menuItem ? menuItem.Tag : value;
-        }
-
-        #endregion
+        throw new NotImplementedException();
     }
+
+    #endregion
+}
+
+public class SelectedItemConverter : IValueConverter
+{
+    #region Methods
+
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return value;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return value is HamburgerMenuIconItem menuItem ? menuItem.Tag : value;
+    }
+
+    #endregion
 }

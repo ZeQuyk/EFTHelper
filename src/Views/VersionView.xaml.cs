@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace EFTHelper.Views
+namespace EFTHelper.Views;
+
+/// <summary>
+/// Interaction logic for VersionView.xaml
+/// </summary>
+public partial class VersionView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for VersionView.xaml
-    /// </summary>
-    public partial class VersionView : UserControl
+    public VersionView()
     {
-        public VersionView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,15 +1,14 @@
-﻿namespace EFTHelper.Enums
+﻿namespace EFTHelper.Enums;
+
+public enum Locations
 {
-    public enum Locations
-    {
-        Customs,
-        Woods,
-        Factory,
-        Shoreline,
-        Lighthouse,
-        Interchange,
-        Reserve,
-        TheLab,
-        StreetsOfTarkov,
-    }
+    Customs,
+    Woods,
+    Factory,
+    Shoreline,
+    Lighthouse,
+    Interchange,
+    Reserve,
+    TheLab,
+    StreetsOfTarkov,
 }

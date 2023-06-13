@@ -1,9 +1,8 @@
-﻿namespace EFTHelper.Enums
+﻿namespace EFTHelper.Enums;
+
+public enum Currencies
 {
-    public enum Currencies
-    {
-        Rouble,
-        Euro,
-        USDollar
-    }
+    Rouble,
+    Euro,
+    USDollar
 }

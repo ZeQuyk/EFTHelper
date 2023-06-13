@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EFTHelper.Helpers
+namespace EFTHelper.Helpers;
+
+public static class EnumHelper
 {
-    public static class EnumHelper
+    #region Methods
+
+    public static IEnumerable<TEnum> GetEnumValues<TEnum>()
     {
-        #region Methods
-
-        public static IEnumerable<TEnum> GetEnumValues<TEnum>()
+        if (typeof(TEnum).IsEnum)
         {
-            if (typeof(TEnum).IsEnum)
-            {
-                return Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
-            }
-
-            return Enumerable.Empty<TEnum>();
+            return Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
         }
 
-        #endregion
+        return Enumerable.Empty<TEnum>();
     }
+
+    #endregion
 }

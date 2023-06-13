@@ -1,22 +1,21 @@
 ﻿using System.Diagnostics;
 
-namespace EFTHelper.Helpers
+namespace EFTHelper.Helpers;
+
+public static class ProcessHelper
 {
-    public static class ProcessHelper
+    #region Methods
+
+    public static void StartProcess(string processName)
     {
-        #region Methods
-
-        public static void StartProcess(string processName)
+        var processStartInfo = new ProcessStartInfo
         {
-            var processStartInfo = new ProcessStartInfo
-            {
-                UseShellExecute = true,
-                FileName = processName
-            };
+            UseShellExecute = true,
+            FileName = processName
+        };
 
-            Process.Start(processStartInfo);
-        }
-
-        #endregion
+        Process.Start(processStartInfo);
     }
+
+    #endregion
 }

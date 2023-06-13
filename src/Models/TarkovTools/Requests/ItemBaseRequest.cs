@@ -1,6 +1,5 @@
-﻿namespace EFTHelper.Models.TarkovTools.Requests
+﻿namespace EFTHelper.Models.TarkovTools.Requests;
+
+public class ItemBaseRequest : ItemBase
 {
-    public class ItemBaseRequest : ItemBase
-    {
-    }
 }
