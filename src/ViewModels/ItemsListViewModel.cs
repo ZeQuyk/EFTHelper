@@ -69,7 +69,7 @@ public class ItemsListViewModel : ScreenBase
         get => _selectedType;
         set
         {
-            _selectedType = value;            
+            _selectedType = value;
             NotifyOfPropertyChange();
             NotifyOfPropertyChange(() => SelectedTypeName);
         }
@@ -90,10 +90,10 @@ public class ItemsListViewModel : ScreenBase
         }
     }
 
-    public bool IsBusy 
+    public bool IsBusy
     {
         get => _isBusy;
-        
+
         set
         {
             _isBusy = value;
@@ -133,7 +133,7 @@ public class ItemsListViewModel : ScreenBase
             SelectedType = clickedType;
         }
 
-        await RefreshDisplayedItemsAsync(clearQuery:true);
+        await RefreshDisplayedItemsAsync(clearQuery: true);
     }
 
     public async void OnItemClicked(ItemBaseViewModel itemClicked)
@@ -206,15 +206,15 @@ public class ItemsListViewModel : ScreenBase
         foreach (var item in newItems)
         {
             DisplayedItems.Add(item);
-        }           
-        
+        }
+
         _pageIndex++;
-    }       
+    }
 
     private void Clear(bool clearQuery)
-    {    
+    {
         DisplayedItems.Clear();
-        _listenScroll = false;            
+        _listenScroll = false;
         _pageIndex = 0;
 
         if (clearQuery)
@@ -282,8 +282,8 @@ public class ItemsListViewModel : ScreenBase
 
     private List<ItemTypes> GetDisabledTypes()
     {
-        return new List<ItemTypes> 
-        { 
+        return new List<ItemTypes>
+        {
             Enums.ItemTypes.Disabled,
             Enums.ItemTypes.UnLootable,
             Enums.ItemTypes.Preset

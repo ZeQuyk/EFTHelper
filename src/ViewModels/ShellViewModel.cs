@@ -64,8 +64,8 @@ public class ShellViewModel : Screen
 
     #region Properties
 
-    public bool IsFlyoutOpen 
-    { 
+    public bool IsFlyoutOpen
+    {
         get => _isFlyoutOpen;
         set
         {
@@ -177,7 +177,7 @@ public class ShellViewModel : Screen
 
     public string USDollarValue
     {
-        get => _USDollarValue; 
+        get => _USDollarValue;
         set
         {
             _USDollarValue = value;
@@ -195,7 +195,7 @@ public class ShellViewModel : Screen
         }
     }
 
-    public double Opacity 
+    public double Opacity
     {
         get => _opacity;
         set
@@ -203,7 +203,7 @@ public class ShellViewModel : Screen
             _opacity = value;
             NotifyOfPropertyChange();
         }
-    } 
+    }
 
     #endregion
 
@@ -268,7 +268,7 @@ public class ShellViewModel : Screen
         else
         {
             VersionViewModel.NeedUpdate = false;
-        }           
+        }
     }
 
     public void GotFocus()
@@ -307,7 +307,7 @@ public class ShellViewModel : Screen
 
     private void _flyoutService_FlyoutClosed(object sender, System.EventArgs e)
     {
-        
+
     }
 
     private void _flyoutService_CloseFlyoutRequested(object sender, System.EventArgs e)
@@ -357,7 +357,7 @@ public class ShellViewModel : Screen
     private async Task<string> GetCurrencyValue(Currencies currency) => $"1{CurrencyHelper.GetCurrencySymbol(currency)} = {await CurrencyHelper.GetValueInRoublesAsync(currency):N0}{CurrencyHelper.GetCurrencySymbol(Currencies.Rouble)}";
 
     private void ShowContent<TScreenBase>()
-        where TScreenBase:ScreenBase
+        where TScreenBase : ScreenBase
     {
         if (Content is TScreenBase)
         {

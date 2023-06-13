@@ -19,7 +19,7 @@ public abstract class HttpServiceBase
     #region Properties
 
     protected readonly HttpClient HttpClient;
-    
+
     protected JsonSerializerOptions Options
     {
         get { return GetDefaultOptions(); }
@@ -31,7 +31,7 @@ public abstract class HttpServiceBase
 
     protected Task<TResponse> ExecutePostRequestAsync<TRequest, TResponse>(string url, TRequest request)
     {
-         return ExecutePostRequestAsync<TRequest,TResponse>(url, request, default);
+        return ExecutePostRequestAsync<TRequest, TResponse>(url, request, default);
     }
 
     protected Task<TResponse> ExecutePostRequestAsync<TRequest, TResponse>(string url, TRequest request, TResponse defaultValue)

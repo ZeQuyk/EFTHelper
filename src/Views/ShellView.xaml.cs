@@ -1,6 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows.Interop;
-using System;
 using MahApps.Metro.Controls;
 
 namespace EFTHelper.Views;

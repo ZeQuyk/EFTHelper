@@ -69,13 +69,13 @@ public class SettingsViewModel : PropertyChangedBase
         }
     }
 
-    public int Opacity 
+    public int Opacity
     {
         get => _opacity;
         set
         {
-           SetOpacity(value);
-           NotifyOfPropertyChange();
+            SetOpacity(value);
+            NotifyOfPropertyChange();
         }
     }
 

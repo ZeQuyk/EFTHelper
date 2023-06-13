@@ -149,7 +149,7 @@ public class TaskBarIconViewModel : Conductor<ScreenBase>.Collection.OneActive
     }
 
     private void Service_ProcessClosed(object sender, System.EventArgs e)
-    {            
+    {
         _globalHook.KeyDown -= _globalHook_KeyDown;
         _globalHook?.Dispose();
         _ = WaitForTarkov();

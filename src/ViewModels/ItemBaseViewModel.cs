@@ -8,7 +8,7 @@ using EFTHelper.Models.TarkovTools;
 
 namespace EFTHelper.ViewModels;
 
-public class ItemBaseViewModel: Screen
+public class ItemBaseViewModel : Screen
 {
     #region Fields
 
@@ -20,11 +20,11 @@ public class ItemBaseViewModel: Screen
 
     public ItemBaseViewModel(ItemBase item, System.Action<ItemBaseViewModel> action)
     {
-        Id= item.Id;
-        Name= item.Name;
-        ShortName= item.ShortName;
+        Id = item.Id;
+        Name = item.Name;
+        ShortName = item.ShortName;
         IconLink = item.IconLink;
-        BasePrice= $"{item.BasePrice.ToString("N0")} {CurrencyHelper.GetCurrencySymbol("RUB")}";
+        BasePrice = $"{item.BasePrice.ToString("N0")} {CurrencyHelper.GetCurrencySymbol("RUB")}";
         Types = item.Types.ToItemTypes();
         _action = action;
     }

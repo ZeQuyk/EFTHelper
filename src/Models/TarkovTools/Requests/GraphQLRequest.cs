@@ -38,7 +38,7 @@ public class GraphQLRequest
             query += $"({filterName}: {filter}) ";
         }
 
-        query += GraphQLHelper.SerializeToGraphQL(request);            
+        query += GraphQLHelper.SerializeToGraphQL(request);
         query += "}";
 
         return query;

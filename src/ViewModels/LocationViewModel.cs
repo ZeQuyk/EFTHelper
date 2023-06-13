@@ -58,7 +58,7 @@ public class LocationViewModel : PropertyChangedBase, IMenuItem
             Locations.Woods => new PackIconMaterial() { Kind = PackIconMaterialKind.Forest },
             Locations.StreetsOfTarkov => new PackIconMaterial { Kind = PackIconMaterialKind.Road },
             _ => null,
-        };           
+        };
 
         if (icon != null)
         {

@@ -9,7 +9,7 @@ using EFTHelper.Models.TarkovTools;
 namespace EFTHelper.ViewModels;
 
 public class TransactionInformationViewModel
-{        
+{
     #region Constructors
 
     public TransactionInformationViewModel(TransactionInformation transactionInformation)
@@ -27,6 +27,7 @@ public class TransactionInformationViewModel
         {
             TraderImageSource = $"https://tarkov-tools.com/images/{Source}-icon.jpg";
         }
+
         TraderName = Source.ToSentence();
     }
 

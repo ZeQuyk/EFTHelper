@@ -1,5 +1,5 @@
 ﻿namespace EFTHelper.Models.TarkovTools.Requests;
 
-public class QuestsRequest: EFTTaskBase
+public class QuestsRequest : EFTTaskBase
 {
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using Caliburn.Micro;
-using EFTHelper.Services;
+﻿using EFTHelper.Services;
 using EFTHelper.ViewModels;
 using MahApps.Metro.Controls;
 using MahApps.Metro.IconPacks;
@@ -20,7 +18,7 @@ public class SettingMenuItem : IMenuItem
         _settingsViewModel = settingsViewModel;
         Label = "Settings";
         Title = "Settings";
-        Icon = new PackIconMicrons() { Kind = PackIconMicronsKind.Cog, Height = 40, Width = 40};
+        Icon = new PackIconMicrons() { Kind = PackIconMicronsKind.Cog, Height = 40, Width = 40 };
     }
 
     public string Label { get; set; }

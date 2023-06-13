@@ -23,7 +23,7 @@ class JsonNullToIntConverter : JsonConverter<int>
 
     public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options)
     {
-         writer.WriteNumberValue(value);
+        writer.WriteNumberValue(value);
     }
 
     #endregion

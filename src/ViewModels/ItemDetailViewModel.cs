@@ -8,7 +8,7 @@ using EFTHelper.Models.TarkovTools;
 
 namespace EFTHelper.ViewModels;
 
-public class ItemDetailViewModel: PropertyChangedBase
+public class ItemDetailViewModel : PropertyChangedBase
 {
     #region Constructors
 

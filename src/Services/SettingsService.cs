@@ -6,7 +6,7 @@ using EFTHelper.Models;
 
 namespace EFTHelper.Services;
 
-public class SettingsService: AppDataFileBase<Settings>
+public class SettingsService : AppDataFileBase<Settings>
 {
     #region Constants
 

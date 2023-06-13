@@ -26,7 +26,7 @@ public static class CurrencyHelper
     #region Methods
 
     public static string GetCurrencySymbol(string currency)
-    {                                     
+    {
         if (string.IsNullOrEmpty(currency) || currency.Equals(Roubles, StringComparison.InvariantCultureIgnoreCase))
         {
             return RoublesSymbol;
@@ -58,7 +58,7 @@ public static class CurrencyHelper
                 break;
             case Currencies.USDollar:
                 currencyValue = USDollars;
-                break;                    
+                break;
         }
 
         return GetCurrencySymbol(currencyValue);
@@ -75,7 +75,7 @@ public static class CurrencyHelper
         var shortName = GetCurrencyShortName(currency);
         var items = await service.GetItemsByNameAsync<Item>(shortName);
 
-        if(items is null || !items.ItemsByName.Any())
+        if (items is null || !items.ItemsByName.Any())
         {
             return 1;
         }
@@ -86,7 +86,7 @@ public static class CurrencyHelper
         {
             result = item.BuyFor?.FirstOrDefault()?.Price ?? item.BasePrice;
         }
-       
+
         SaveValueInRoubles(currency, result);
 
         return result;
@@ -127,7 +127,7 @@ public static class CurrencyHelper
         switch (currency)
         {
             case Currencies.Rouble:
-               return Roubles;
+                return Roubles;
             case Currencies.Euro:
                 return Euro;
             case Currencies.USDollar:

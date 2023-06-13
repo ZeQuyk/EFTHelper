@@ -46,8 +46,8 @@ public class ProcessService : IDisposable
     /// <param name="processNames">The process names.</param>
     public ProcessService(IEnumerable<string> processNames)
     {
-        this._processNames = processNames;
-        this._tokenSource = new CancellationTokenSource();
+        _processNames = processNames;
+        _tokenSource = new CancellationTokenSource();
     }
 
     #endregion
@@ -91,16 +91,16 @@ public class ProcessService : IDisposable
     /// <returns>The process.</returns>
     public virtual async Task<int> WaitForProcess()
     {
-        var process = this.GetProcess();
+        var process = GetProcess();
 
         while (process is null)
         {
             await Task.Delay(WaitingTime);
-            process = this.GetProcess();
+            process = GetProcess();
         }
-        
-        this.WaitForExit();
-        return this.WaitForWindowHandle();
+
+        WaitForExit();
+        return WaitForWindowHandle();
     }
 
     /// <summary>
@@ -108,7 +108,7 @@ public class ProcessService : IDisposable
     /// </summary>
     public void Dispose()
     {
-        this.Dispose(true);
+        Dispose(true);
     }
 
     /// <summary>
@@ -126,12 +126,9 @@ public class ProcessService : IDisposable
     {
         if (disposing)
         {
-            this._tokenSource.Cancel();
+            _tokenSource.Cancel();
 
-            if (this._activeProcess != null)
-            {
-                this._activeProcess.Dispose();
-            }
+            _activeProcess?.Dispose();
         }
     }
 
@@ -141,17 +138,17 @@ public class ProcessService : IDisposable
     /// <returns>The process.</returns>
     private Process GetProcess()
     {
-        if (this._activeProcess != null)
+        if (_activeProcess != null)
         {
-            this._activeProcess.Dispose();
+            _activeProcess.Dispose();
         }
 
-        foreach (var processName in this._processNames)
+        foreach (var processName in _processNames)
         {
             var process = Process.GetProcessesByName(processName).FirstOrDefault();
             if (process != null)
             {
-                this._activeProcess = process;
+                _activeProcess = process;
                 return process;
             }
         }
@@ -168,25 +165,25 @@ public class ProcessService : IDisposable
         {
             try
             {
-                var token = this._tokenSource.Token;
+                var token = _tokenSource.Token;
                 if (token.IsCancellationRequested)
                 {
                     return;
                 }
 
-                var process = this.GetProcess();
+                var process = GetProcess();
                 while (process != null)
                 {
                     process.WaitForExit(WaitingTime);
-                    process = this.GetProcess();
+                    process = GetProcess();
                 }
             }
             catch
             {
             }
 
-            this.OnExit();
-            this.ProcessClosed?.Invoke(this, EventArgs.Empty);
+            OnExit();
+            ProcessClosed?.Invoke(this, EventArgs.Empty);
         });
     }
 
@@ -204,20 +201,20 @@ public class ProcessService : IDisposable
         {
             do
             {
-                var process = this.GetProcess();
+                var process = GetProcess();
                 Thread.Sleep(200);
                 currentProcess = process ?? throw new InvalidOperationException();
             }
             while (currentProcess.MainWindowHandle == IntPtr.Zero);
 
-            this._processId = currentProcess.Id;
+            _processId = currentProcess.Id;
         }
         catch
         {
-            this._processId = this.WaitForWindowHandle();
+            _processId = WaitForWindowHandle();
         }
 
-        return this._processId;
+        return _processId;
     }
 
     #endregion

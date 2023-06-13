@@ -42,7 +42,7 @@ public class ThemeService
 
     public void Apply()
     {
-        ControlzEx.Theming.ThemeManager.Current.ChangeTheme(_application, $"{_settingsService.Theme}.{_settingsService.Scheme}");           
+        ControlzEx.Theming.ThemeManager.Current.ChangeTheme(_application, $"{_settingsService.Theme}.{_settingsService.Scheme}");
     }
 
     public void Change(Theme theme, Scheme scheme)

@@ -13,8 +13,8 @@ public static class GraphQLHelper
     {
         get
         {
-            return new Type[] 
-            { 
+            return new Type[]
+            {
                 typeof(int),
                 typeof(long),
                 typeof(bool),
@@ -57,7 +57,7 @@ public static class GraphQLHelper
             var subProperties = prop.GetType().GetProperties();
 
             type = HandleEnumerables(type);
-            
+
             if (subProperties.Any() && !PrimitiveTypes.Contains(type))
             {
                 value += SerializeToGraphQL(GetInstance(type));
@@ -89,7 +89,7 @@ public static class GraphQLHelper
     }
 
     private static object GetInstance(Type type)
-    {           
+    {
         if (PrimitiveTypes.Contains(type))
         {
             return type == typeof(string) ? string.Empty : 0;
@@ -97,6 +97,6 @@ public static class GraphQLHelper
 
         return Activator.CreateInstance(type);
     }
-    
+
     #endregion
 }

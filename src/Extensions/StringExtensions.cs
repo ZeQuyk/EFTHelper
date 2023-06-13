@@ -40,7 +40,7 @@ public static class StringExtensions
         var types = new List<ItemTypes>();
         foreach (var item in input)
         {
-            if (Enum.TryParse<ItemTypes>(item, ignoreCase:true, out var result))
+            if (Enum.TryParse<ItemTypes>(item, ignoreCase: true, out var result))
             {
                 types.Add(result);
             }

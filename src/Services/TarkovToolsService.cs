@@ -46,7 +46,7 @@ public class TarkovToolsService : HttpServiceBase
     public Task<ItemsByTypeResponse> GetAllItemsAsync()
     {
         return GetItemsByTypeAsync(ItemTypes.Any);
-    }       
+    }
 
     public Task<ItemByIdResponse> GetItemByIdAsync(string id)
     {

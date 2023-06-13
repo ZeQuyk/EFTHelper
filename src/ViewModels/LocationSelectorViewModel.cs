@@ -38,11 +38,11 @@ public class LocationSelectorViewModel : ScreenBase
 
     public bool TopMost => _settingsService.TopMost;
 
-    public LocationViewModel SelectedLocation 
-    { 
+    public LocationViewModel SelectedLocation
+    {
         get => _selectedLocation;
-        set 
-        { 
+        set
+        {
             if (_selectedLocation != value)
             {
                 _selectedLocation = value;
@@ -54,7 +54,7 @@ public class LocationSelectorViewModel : ScreenBase
 
     public List<LocationViewModel> LocationViewModels { get; set; }
 
-    public ObservableCollection<string> LocationNames { get; set; }        
+    public ObservableCollection<string> LocationNames { get; set; }
 
     public SettingsViewModel SettingsViewModel { get; set; }
 

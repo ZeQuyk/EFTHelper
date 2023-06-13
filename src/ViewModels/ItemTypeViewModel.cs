@@ -55,7 +55,7 @@ public class ItemTypeViewModel : PropertyChangedBase, IMenuItem
                 icon = new PackIconRPGAwesome() { Kind = PackIconRPGAwesomeKind.AmmoBag };
                 break;
             case ItemTypes.Armor:
-                icon = new PackIconRemixIcon() { Kind = PackIconRemixIconKind.TShirt2Fill};
+                icon = new PackIconRemixIcon() { Kind = PackIconRemixIconKind.TShirt2Fill };
                 break;
             case ItemTypes.Backpack:
                 icon = new PackIconUnicons() { Kind = PackIconUniconsKind.Backpack };
@@ -88,7 +88,7 @@ public class ItemTypeViewModel : PropertyChangedBase, IMenuItem
                 icon = new PackIconCodicons { Kind = PackIconCodiconsKind.Key };
                 break;
             case ItemTypes.MarkedOnly:
-                icon = new PackIconMaterial { Kind = PackIconMaterialKind.CheckboxMarkedCircle }; 
+                icon = new PackIconMaterial { Kind = PackIconMaterialKind.CheckboxMarkedCircle };
                 break;
             case ItemTypes.Meds:
                 icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.BriefcaseMedicalSolid };
@@ -104,7 +104,7 @@ public class ItemTypeViewModel : PropertyChangedBase, IMenuItem
                 break;
             case ItemTypes.Preset:
                 icon = new PackIconVaadinIcons() { Kind = PackIconVaadinIconsKind.Tools };
-                    break;
+                break;
             case ItemTypes.Provisions:
                 icon = new PackIconMaterial() { Kind = PackIconMaterialKind.FridgeIndustrialOutline };
                 break;
@@ -114,13 +114,13 @@ public class ItemTypeViewModel : PropertyChangedBase, IMenuItem
             case ItemTypes.Suppressor:
                 icon = new PackIconMicrons() { Kind = PackIconMicronsKind.MuteVolume };
                 break;
-            case ItemTypes.Wearable: 
+            case ItemTypes.Wearable:
                 icon = new PackIconModern() { Kind = PackIconModernKind.ClothesShirt };
                 break;
         }
 
-        if (icon != null) 
-        { 
+        if (icon != null)
+        {
             icon.Width = 24;
             icon.Height = 24;
         }
