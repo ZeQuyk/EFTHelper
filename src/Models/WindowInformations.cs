@@ -28,7 +28,7 @@ namespace EFTHelper.Models
 
         public void Copy(Window window)
         {
-            if (window == null)
+            if (window is null)
             {
                 return;
             }

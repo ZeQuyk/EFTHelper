@@ -75,7 +75,7 @@ namespace EFTHelper.Helpers
             var shortName = GetCurrencyShortName(currency);
             var items = await service.GetItemsByNameAsync<Item>(shortName);
 
-            if(items == null || !items.ItemsByName.Any())
+            if(items is null || !items.ItemsByName.Any())
             {
                 return 1;
             }

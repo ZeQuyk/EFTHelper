@@ -121,17 +121,6 @@ namespace EFTHelper.ViewModels
             }
         }
 
-        public bool IsFlyoutOpen
-        {
-            get => _isFlyoutOpen;
-            set
-            {
-                _isFlyoutOpen = value;
-                NotifyOfPropertyChange();
-            }
-        }
-        
-
         #endregion
 
         #region Methods
@@ -139,7 +128,7 @@ namespace EFTHelper.ViewModels
         public override async void MenuSelectionChanged(IMenuItem item)
         {
             var clickedType = item as ItemTypeViewModel;
-            if (clickedType != null)
+            if (clickedType is not null)
             {
                 SelectedType = clickedType;
             }
@@ -149,7 +138,7 @@ namespace EFTHelper.ViewModels
 
         public async void OnItemClicked(ItemBaseViewModel itemClicked)
         {
-            if (itemClicked == null || ItemDetailViewModel != null && IsFlyoutOpen && itemClicked.Id == ItemDetailViewModel.Id)
+            if (itemClicked is null || (ItemDetailViewModel is not null && itemClicked.Id == ItemDetailViewModel.Id))
             {
                 return;
             }
@@ -208,7 +197,7 @@ namespace EFTHelper.ViewModels
 
         private void DisplayNextPage()
         {
-            if (DisplayedItems.Count >= _items.Count())
+            if (DisplayedItems.Count >= _items.Count)
             {
                 return;
             }

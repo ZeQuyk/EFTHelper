@@ -31,7 +31,7 @@ namespace EFTHelper.Helpers
 
         public async Task<EFTTaskBase> GetTask(string taskId)
         {
-            if (_EFTTasks == null || !_EFTTasks.Any())
+            if (_EFTTasks is null || !_EFTTasks.Any())
             {
                 await LoadEFTTasks();
             }

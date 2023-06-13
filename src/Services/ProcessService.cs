@@ -93,7 +93,7 @@ namespace EFTHelper.Services
         {
             var process = this.GetProcess();
 
-            while (process == null)
+            while (process is null)
             {
                 await Task.Delay(WaitingTime);
                 process = this.GetProcess();
