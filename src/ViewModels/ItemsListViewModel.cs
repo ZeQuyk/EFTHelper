@@ -31,7 +31,6 @@ public class ItemsListViewModel : ScreenBase
     private ObservableCollection<ItemBaseViewModel> _displayedItems;
     private List<ItemBaseViewModel> _items;
     private ItemDetailViewModel _itemDetailViewModel;
-    private bool _isFlyoutOpen;
     #endregion
 
     #region Constructors
