@@ -12,12 +12,11 @@ class JsonNullToIntConverter : JsonConverter<int>
     {
         try
         {
-            var isRead = reader.TryGetInt32(out var value);
-            return isRead ? value : default(int);
+            return reader.TryGetInt32(out var value) ? value : default;
         }
         catch
         {
-            return default(int);
+            return default;
         }
     }
 

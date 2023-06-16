@@ -12,12 +12,11 @@ class JsonNullToBoolConverter : JsonConverter<bool>
     {
         try
         {
-            var result = reader.GetBoolean();
-            return result;
+            return reader.GetBoolean();
         }
         catch
         {
-            return default(bool);
+            return default;
         }
     }
 

@@ -23,6 +23,7 @@ public class HamuburgerMenuItemConverter : IValueConverter
                 Icon = item.Icon
             });
         }
+
         return value;
     }
 
