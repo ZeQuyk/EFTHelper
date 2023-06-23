@@ -8,4 +8,5 @@ Ease your Escape From Tarkov experience with EFTHelper. <br>
 [Caliburn.Micro](https://caliburnmicro.com/) <br>
 [Hardcodet.NotifyIcon.Wpf](https://github.com/hardcodet/wpf-notifyicon)<br>
 [Tarkov.dev API](https://github.com/the-hideout/tarkov-api)<br>
-[BusyIndicator](https://github.com/Peoky/BusyIndicator)
+[BusyIndicator](https://github.com/Peoky/BusyIndicator)<br>
+[Lurker.AppData](https://github.com/C1rdec/AppData-Lurker)
