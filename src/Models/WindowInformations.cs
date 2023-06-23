@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Caliburn.Micro;
 
 namespace EFTHelper.Models;
 
@@ -26,9 +27,9 @@ public class WindowInformations
 
     #region Methods
 
-    public void Copy(Window window)
+    public void Copy(IViewAware view)
     {
-        if (window is null)
+        if (view.GetView() is not Window window)
         {
             return;
         }

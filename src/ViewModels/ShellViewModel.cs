@@ -52,8 +52,10 @@ public class ShellViewModel : Screen
         VersionViewModel = versionViewModel;
         Items = new ObservableCollection<IMenuItem>();
         DisplayName = string.Empty;
-        OptionItems = new ObservableCollection<IMenuItem>();
-        OptionItems.Add(settingMenuItem);
+        OptionItems = new ObservableCollection<IMenuItem>
+        {
+            settingMenuItem
+        };
         _dialogService = dialogService;
         _updateManagerService = updateManagerService;
         _dialogService.Register(this);
@@ -209,15 +211,9 @@ public class ShellViewModel : Screen
 
     #region Methods
 
-    public void ShowLocations()
-    {
-        ShowContent<LocationSelectorViewModel>();
-    }
+    public void ShowLocations() => ShowContent<LocationSelectorViewModel>();
 
-    public void ShowItems()
-    {
-        ShowContent<ItemsListViewModel>();
-    }
+    public void ShowItems() => ShowContent<ItemsListViewModel>();
 
     public void SetContent(ScreenBase screen)
     {
@@ -245,14 +241,9 @@ public class ShellViewModel : Screen
 
     public void OptionMenuSelectionChanged(object value, ItemClickEventArgs args)
     {
-        var iconItem = args.ClickedItem as HamburgerMenuIconItem;
-        if (iconItem != null)
+        if (args.ClickedItem is HamburgerMenuIconItem iconItem && iconItem.Tag is IMenuItem optionItem)
         {
-            var optionItem = iconItem.Tag as IMenuItem;
-            if (optionItem != null)
-            {
-                optionItem.OnClick?.Invoke();
-            }
+            optionItem.OnClick?.Invoke();
         }
 
         args.Handled = true;
@@ -300,14 +291,9 @@ public class ShellViewModel : Screen
     {
         _flyoutService.ShowFlyoutRequested += _flyoutService_ShowFlyoutRequested;
         _flyoutService.CloseFlyoutRequested += _flyoutService_CloseFlyoutRequested;
-        _flyoutService.FlyoutClosed += _flyoutService_FlyoutClosed;
         VersionViewModel.OnUpdateRequested += VersionViewModel_OnUpdateRequested;
+
         return base.OnActivateAsync(cancellationToken);
-    }
-
-    private void _flyoutService_FlyoutClosed(object sender, System.EventArgs e)
-    {
-
     }
 
     private void _flyoutService_CloseFlyoutRequested(object sender, System.EventArgs e)
@@ -327,13 +313,12 @@ public class ShellViewModel : Screen
 
     protected override Task OnDeactivateAsync(bool close, CancellationToken cancellationToken)
     {
-        var window = GetView() as Window;
-        _settingsService.WindowInformation.Copy(window);
+        _settingsService.WindowInformation.Copy(this);
         _settingsService.Save();
         _flyoutService.ShowFlyoutRequested -= _flyoutService_ShowFlyoutRequested;
         _flyoutService.CloseFlyoutRequested -= _flyoutService_CloseFlyoutRequested;
-        _flyoutService.FlyoutClosed -= _flyoutService_FlyoutClosed;
         VersionViewModel.OnUpdateRequested -= VersionViewModel_OnUpdateRequested;
+
         return base.OnDeactivateAsync(close, cancellationToken);
     }
 

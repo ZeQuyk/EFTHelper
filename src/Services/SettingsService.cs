@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using EFTHelper.Enums;
 using EFTHelper.Models;
 using Lurker.AppData;
@@ -81,12 +80,6 @@ public class SettingsService : AppDataFileBase<Settings>
         base.Save();
         OnSaved?.Invoke(this, EventArgs.Empty);
     }
-
-    private string AppDataFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-    private string SettingsFolderPath => Path.Combine(this.AppDataFolderPath, this.FolderName);
-
-    private string SettingsFilePath => Path.Combine(this.SettingsFolderPath, this.FileName);
 
     #endregion
 }
