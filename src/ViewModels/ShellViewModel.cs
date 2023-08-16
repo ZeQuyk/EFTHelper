@@ -172,9 +172,22 @@ public class ShellViewModel : Screen
 
         set
         {
+            if (value == null)
+            {
+                return;
+            }
+
             _selectedItem = value;
+            SelectedIndex = Items.IndexOf(value);
             NotifyOfPropertyChange();
+            NotifyOfPropertyChange(nameof(SelectedIndex));
         }
+    }
+
+    public int SelectedIndex
+    {
+        get;
+        set;
     }
 
     public string USDollarValue
@@ -227,8 +240,8 @@ public class ShellViewModel : Screen
             Items.Add(item);
         }
 
-        SelectedItem = menuInformation.SelectedItem ?? Items.FirstOrDefault();
         NotifyOfPropertyChange(() => Items);
+        SelectedItem = menuInformation.SelectedItem ?? Items.FirstOrDefault();
         Content.MenuSelectionChanged(SelectedItem);
     }
 

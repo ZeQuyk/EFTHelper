@@ -98,6 +98,7 @@
            DisplayMode="CompactOverlay" 
            cal:Message.Attach="[Event ItemClick]=[Action MenuSelectionChanged($source,$eventArgs)]; [Event OptionsItemClickEvent]=[Action OptionMenuSelectionChanged($source, $eventArgs)]"
            SelectedItem="{Binding SelectedItem,Converter={StaticResource SelectedItemConverter}}"
+           SelectedIndex="{Binding SelectedIndex}"
            ItemsSource="{Binding Items,Converter={StaticResource HamuburgerMenuItemConverter}}"           
            HamburgerMenuHeaderTemplate="{StaticResource MenuHeaderTemplate}"            
            OptionsItemsSource="{Binding OptionItems, Converter={StaticResource HamuburgerMenuItemConverter}}"

@@ -22,7 +22,7 @@ public class ItemsListViewModel : ScreenBase
     private readonly SettingsService _settingsService;
     private bool _isBusy = false;
     private int _pageIndex = 0;
-    private int _pageSize = 50;
+    private int _pageSize = 20;
     private bool _listenScroll = true;
     private string _query;
     private readonly object pageLock = new();
@@ -125,7 +125,7 @@ public class ItemsListViewModel : ScreenBase
 
     #region Methods
 
-    public override async void MenuSelectionChanged(IMenuItem item)
+    public override void MenuSelectionChanged(IMenuItem item)
     {
         var clickedType = item as ItemTypeViewModel;
         if (clickedType is not null)
@@ -133,7 +133,7 @@ public class ItemsListViewModel : ScreenBase
             SelectedType = clickedType;
         }
 
-        await RefreshDisplayedItemsAsync(clearQuery: true);
+        RefreshDisplayedItemsAsync(clearQuery: true);
     }
 
     public async void OnItemClicked(ItemBaseViewModel itemClicked)
