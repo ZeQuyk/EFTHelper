@@ -128,12 +128,14 @@ public class TaskBarIconViewModel : Conductor<ScreenBase>.Collection.OneActive
         }
     }
 
-    private void HandleKeyboard(System.Windows.Forms.Keys key)
+    private void HandleKeyboard(System.Windows.Forms.Keys key, System.Windows.Forms.Keys modifiers)
     {
         if (_hotkeys.Contains(key))
         {
             ShowItem(key);
         }
+            
+        _shellViewModel.HandleKeyboard(key, modifiers);
     }
 
     private async Task WaitForTarkov()
@@ -144,9 +146,7 @@ public class TaskBarIconViewModel : Conductor<ScreenBase>.Collection.OneActive
     }
 
     private void _globalHook_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
-    {
-        HandleKeyboard(e.KeyCode);
-    }
+        => HandleKeyboard(e.KeyCode, e.Modifiers);
 
     private void Service_ProcessClosed(object sender, System.EventArgs e)
     {

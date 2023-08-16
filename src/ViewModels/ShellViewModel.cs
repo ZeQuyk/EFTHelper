@@ -272,6 +272,24 @@ public class ShellViewModel : Screen
         Opacity = (double)_settingsService.Opacity / 100;
     }
 
+    public void HandleKeyboard(System.Windows.Forms.Keys key, System.Windows.Forms.Keys modifiers)
+    {
+        if (!IsActive || !modifiers.HasFlag(System.Windows.Forms.Keys.Control))
+        {
+            return;
+        }
+
+        switch(key)
+        {
+            case System.Windows.Forms.Keys.Up:
+                SelectPreviousMenuItem();
+                break;
+            case System.Windows.Forms.Keys.Down: 
+                SelectNextMenuItem();
+                break;
+        }
+    }
+
     protected override void OnViewLoaded(object view)
     {
         var window = view as Window;
@@ -351,6 +369,20 @@ public class ShellViewModel : Screen
 
         var viewModel = IoC.Get<TScreenBase>();
         SetContent(viewModel);
+    }
+
+    private void SelectPreviousMenuItem()
+    {
+        var currentIndex = Items.IndexOf(SelectedItem);
+        SelectedItem = currentIndex == 0 ? Items.Last() : Items.ElementAt(currentIndex - 1);
+        Content.MenuSelectionChanged(SelectedItem);
+    }
+
+    private void SelectNextMenuItem()
+    {
+        var currentIndex = Items.IndexOf(SelectedItem);
+        SelectedItem = currentIndex == Items.Count - 1 ? Items.First() : Items.ElementAt(currentIndex + 1);
+        Content.MenuSelectionChanged(SelectedItem);
     }
 
     #endregion
