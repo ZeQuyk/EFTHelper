@@ -20,9 +20,9 @@ public class ItemsListViewModel : ScreenBase
 
     private readonly TarkovToolsService _tarkovToolsService;
     private readonly SettingsService _settingsService;
+    private readonly int _pageSize = 20;
     private bool _isBusy = false;
     private int _pageIndex = 0;
-    private int _pageSize = 20;
     private bool _listenScroll = true;
     private string _query;
     private readonly object pageLock = new();

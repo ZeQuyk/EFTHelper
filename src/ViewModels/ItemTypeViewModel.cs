@@ -10,7 +10,7 @@ public class ItemTypeViewModel : PropertyChangedBase, IMenuItem
 {
     #region Fields
 
-    private ItemTypes _itemType;
+    private readonly ItemTypes _itemType;
 
     #endregion
 

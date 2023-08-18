@@ -10,9 +10,9 @@ public class ThemeService
 {
     #region Fields
 
-    private static Random _random = new();
-    private Application _application;
-    private SettingsService _settingsService;
+    private static readonly Random _random = new();
+    private readonly Application _application;
+    private readonly SettingsService _settingsService;
 
     #endregion
 

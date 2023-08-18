@@ -14,8 +14,8 @@ class AppBootstrapper : BootstrapperBase
     #region Fields
 
     private SimpleContainer _container;
-    private UpdateManagerService _updateManager;
-    private SettingsService _settingsService;
+    private readonly UpdateManagerService _updateManager;
+    private readonly SettingsService _settingsService;
 
     #endregion
 

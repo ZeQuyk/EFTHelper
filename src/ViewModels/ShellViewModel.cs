@@ -292,12 +292,12 @@ public class ShellViewModel : Screen
             return;
         }
 
-        switch(key)
+        switch (key)
         {
             case System.Windows.Forms.Keys.Up:
                 SelectPreviousMenuItem();
                 break;
-            case System.Windows.Forms.Keys.Down: 
+            case System.Windows.Forms.Keys.Down:
                 SelectNextMenuItem();
                 break;
         }

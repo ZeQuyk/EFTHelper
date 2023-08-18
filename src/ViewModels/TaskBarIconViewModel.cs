@@ -12,15 +12,15 @@ public class TaskBarIconViewModel : Conductor<ScreenBase>.Collection.OneActive
 {
     #region Fields
 
-    private ShellViewModel _shellViewModel;
-    private LocationSelectorViewModel _locationSelectorViewModel;
-    private VersionViewModel _versionViewModel;
-    private IWindowManager _windowManager;
-    private ProcessService _processService;
+    private readonly ShellViewModel _shellViewModel;
+    private readonly LocationSelectorViewModel _locationSelectorViewModel;
+    private readonly VersionViewModel _versionViewModel;
+    private readonly IWindowManager _windowManager;
+    private readonly ProcessService _processService;
+    private readonly UpdateManagerService _updateManagerService;
+    private readonly ItemsListViewModel _itemsListViewModel;
+    private readonly System.Windows.Forms.Keys[] _hotkeys = { System.Windows.Forms.Keys.F2, System.Windows.Forms.Keys.F3 };
     private IKeyboardMouseEvents _globalHook;
-    private UpdateManagerService _updateManagerService;
-    private ItemsListViewModel _itemsListViewModel;
-    private System.Windows.Forms.Keys[] _hotkeys = { System.Windows.Forms.Keys.F2, System.Windows.Forms.Keys.F3 };
 
     #endregion
 
@@ -134,7 +134,7 @@ public class TaskBarIconViewModel : Conductor<ScreenBase>.Collection.OneActive
         {
             ShowItem(key);
         }
-            
+
         _shellViewModel.HandleKeyboard(key, modifiers);
     }
 

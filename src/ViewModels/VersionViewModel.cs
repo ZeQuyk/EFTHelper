@@ -9,8 +9,8 @@ public class VersionViewModel : Screen
 {
     #region Fields
 
+    private readonly UpdateManagerService _updateManagerService;
     private bool _needUpdate;
-    private UpdateManagerService _updateManagerService;
 
     #endregion
 

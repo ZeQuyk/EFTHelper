@@ -9,8 +9,8 @@ public class SettingsViewModel : PropertyChangedBase
 {
     #region Fields
 
-    private SettingsService _settingsService;
-    private ThemeService _themeService;
+    private readonly SettingsService _settingsService;
+    private readonly ThemeService _themeService;
     private Theme _selectedTheme;
     private Scheme _selectedScheme;
     private bool _topMost;

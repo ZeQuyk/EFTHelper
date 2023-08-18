@@ -12,7 +12,7 @@ public class LocationSelectorViewModel : ScreenBase
 {
     #region Fields
 
-    private SettingsService _settingsService;
+    private readonly SettingsService _settingsService;
     private LocationViewModel _selectedLocation;
 
     #endregion

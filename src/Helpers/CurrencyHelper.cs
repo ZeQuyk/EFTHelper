@@ -13,7 +13,7 @@ public static class CurrencyHelper
 {
     #region Constants
 
-    private static Dictionary<Currencies, long> _currencyValues = new Dictionary<Currencies, long>();
+    private static readonly Dictionary<Currencies, long> _currencyValues = new Dictionary<Currencies, long>();
     private const string Roubles = "RUB";
     private const string RoublesSymbol = "₽";
     private const string USDollars = "USD";

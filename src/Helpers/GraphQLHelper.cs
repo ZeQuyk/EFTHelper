@@ -74,9 +74,9 @@ public static class GraphQLHelper
     /// </summary>
     private static Type HandleEnumerables(Type type)
     {
-        Type[] interfaces = type.GetInterfaces();
+        var interfaces = type.GetInterfaces();
 
-        foreach (Type i in interfaces)
+        foreach (var i in interfaces)
         {
             if (i.IsGenericType && i.GetGenericTypeDefinition().Equals(typeof(IEnumerable<>)))
             {

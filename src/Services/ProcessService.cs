@@ -22,8 +22,8 @@ public class ProcessService : IDisposable
     #region Fields
 
     private static readonly int WaitingTime = 2000;
-    private IEnumerable<string> _processNames;
-    private CancellationTokenSource _tokenSource;
+    private readonly IEnumerable<string> _processNames;
+    private readonly CancellationTokenSource _tokenSource;
     private Process _activeProcess;
     private int _processId;
 

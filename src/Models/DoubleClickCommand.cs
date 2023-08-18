@@ -17,7 +17,7 @@ public class DoubleClickCommand : ICommand
 {
     #region Fields
 
-    private Action _action;
+    private readonly Action _action;
 
     #endregion
 

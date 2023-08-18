@@ -7,8 +7,8 @@ namespace EFTHelper.Models;
 
 public class SettingMenuItem : IMenuItem
 {
-    private FlyoutService _flyoutService;
-    private SettingsViewModel _settingsViewModel;
+    private readonly FlyoutService _flyoutService;
+    private readonly SettingsViewModel _settingsViewModel;
 
     public SettingMenuItem(
         FlyoutService flyoutService,

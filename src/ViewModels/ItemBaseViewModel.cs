@@ -12,7 +12,7 @@ public class ItemBaseViewModel : Screen
 {
     #region Fields
 
-    private System.Action<ItemBaseViewModel> _action;
+    private readonly System.Action<ItemBaseViewModel> _action;
 
     #endregion
 

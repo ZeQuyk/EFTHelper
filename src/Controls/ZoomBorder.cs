@@ -145,7 +145,7 @@ public class ZoomBorder : Border
             if (child.IsMouseCaptured)
             {
                 var tt = GetTranslateTransform(child);
-                Vector v = start - e.GetPosition(this);
+                var v = start - e.GetPosition(this);
                 tt.X = origin.X - v.X;
                 tt.Y = origin.Y - v.Y;
             }
