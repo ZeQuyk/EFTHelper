@@ -119,7 +119,7 @@ public class ItemTypeViewModel : PropertyChangedBase, IMenuItem
                 break;
         }
 
-        if (icon != null)
+        if (icon is not null)
         {
             icon.Width = 24;
             icon.Height = 24;

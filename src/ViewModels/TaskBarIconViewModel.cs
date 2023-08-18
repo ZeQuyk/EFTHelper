@@ -73,7 +73,7 @@ public class TaskBarIconViewModel : Conductor<ScreenBase>.Collection.OneActive
     /// </summary>
     public async void Close()
     {
-        if (ActiveItem != null)
+        if (ActiveItem is not null)
         {
             await _shellViewModel.TryCloseAsync();
         }

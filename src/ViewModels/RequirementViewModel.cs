@@ -38,7 +38,7 @@ public class RequirementViewModel
         if (isRequirementType && type == RequirementTypes.QuestCompleted)
         {
             var eftTask = IoC.Get<EFTTasksHelper>().GetTask(Value.ToString()).Result;
-            if (eftTask != null)
+            if (eftTask is not null)
             {
                 return $"- Task completed: \"{eftTask.Title}\"";
             }

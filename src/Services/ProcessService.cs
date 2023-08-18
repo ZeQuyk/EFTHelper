@@ -138,7 +138,7 @@ public class ProcessService : IDisposable
     /// <returns>The process.</returns>
     private Process GetProcess()
     {
-        if (_activeProcess != null)
+        if (_activeProcess is not null)
         {
             _activeProcess.Dispose();
         }
@@ -146,7 +146,7 @@ public class ProcessService : IDisposable
         foreach (var processName in _processNames)
         {
             var process = Process.GetProcessesByName(processName).FirstOrDefault();
-            if (process != null)
+            if (process is not null)
             {
                 _activeProcess = process;
                 return process;
@@ -172,7 +172,7 @@ public class ProcessService : IDisposable
                 }
 
                 var process = GetProcess();
-                while (process != null)
+                while (process is not null)
                 {
                     process.WaitForExit(WaitingTime);
                     process = GetProcess();

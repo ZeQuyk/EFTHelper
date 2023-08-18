@@ -81,7 +81,7 @@ public class UpdateManagerService
 
     public void Watch()
     {
-        if (_timer != null)
+        if (_timer is not null)
         {
             DisposeTimer();
         }

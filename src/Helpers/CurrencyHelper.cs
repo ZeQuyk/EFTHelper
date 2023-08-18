@@ -82,7 +82,7 @@ public static class CurrencyHelper
 
         var item = items.ItemsByName.FirstOrDefault(x => x.ShortName.Equals(shortName, StringComparison.InvariantCultureIgnoreCase));
         var result = default(long);
-        if (item != null)
+        if (item is not null)
         {
             result = item.BuyFor?.FirstOrDefault()?.Price ?? item.BasePrice;
         }

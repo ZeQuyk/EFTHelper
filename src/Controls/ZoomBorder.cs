@@ -23,7 +23,7 @@ public class ZoomBorder : Border
         get { return base.Child; }
         set
         {
-            if (value != null && value != Child)
+            if (value is not null && value != Child)
             {
                 Initialize(value);
             }
@@ -51,7 +51,7 @@ public class ZoomBorder : Border
     public void Initialize(UIElement element)
     {
         child = element;
-        if (child != null)
+        if (child is not null)
         {
             var group = new TransformGroup();
             var st = new ScaleTransform();
@@ -70,7 +70,7 @@ public class ZoomBorder : Border
 
     public void Reset()
     {
-        if (child != null)
+        if (child is not null)
         {
             // reset zoom
             var st = GetScaleTransform(child);
@@ -86,7 +86,7 @@ public class ZoomBorder : Border
 
     private void Child_MouseWheel(object sender, MouseWheelEventArgs e)
     {
-        if (child != null)
+        if (child is not null)
         {
             var st = GetScaleTransform(child);
             var tt = GetTranslateTransform(child);
@@ -114,7 +114,7 @@ public class ZoomBorder : Border
 
     private void Child_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
-        if (child != null)
+        if (child is not null)
         {
             var tt = GetTranslateTransform(child);
             start = e.GetPosition(this);
@@ -126,7 +126,7 @@ public class ZoomBorder : Border
 
     private void Child_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
-        if (child != null)
+        if (child is not null)
         {
             child.ReleaseMouseCapture();
             Cursor = Cursors.Arrow;
@@ -140,7 +140,7 @@ public class ZoomBorder : Border
 
     private void Child_MouseMove(object sender, MouseEventArgs e)
     {
-        if (child != null)
+        if (child is not null)
         {
             if (child.IsMouseCaptured)
             {

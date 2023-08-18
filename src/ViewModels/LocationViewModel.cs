@@ -60,7 +60,7 @@ public class LocationViewModel : PropertyChangedBase, IMenuItem
             _ => null,
         };
 
-        if (icon != null)
+        if (icon is not null)
         {
             icon.Width = 24;
             icon.Height = 24;

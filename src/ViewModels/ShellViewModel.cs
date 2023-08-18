@@ -93,7 +93,7 @@ public class ShellViewModel : Screen
         get => _content;
         set
         {
-            if (_content != value && value != null)
+            if (_content != value && value is not null)
             {
                 _content = value;
                 NotifyOfPropertyChange();
@@ -106,7 +106,7 @@ public class ShellViewModel : Screen
         get => _flyoutContent;
         set
         {
-            if (_flyoutContent != value && value != null)
+            if (_flyoutContent != value && value is not null)
             {
                 _flyoutContent = value;
                 NotifyOfPropertyChange();

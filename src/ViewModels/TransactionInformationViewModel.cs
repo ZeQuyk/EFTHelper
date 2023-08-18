@@ -49,7 +49,7 @@ public class TransactionInformationViewModel
 
     public List<RequirementViewModel> Requirements { get; set; }
 
-    public bool HasRequirements => Requirements != null && Requirements.Any();
+    public bool HasRequirements => Requirements is not null && Requirements.Any();
 
     public string JoinedRequirements => HasRequirements ? string.Join(',', Requirements.Select(x => $"{x.Type} {x.Value}".ToSentence())) : string.Empty;
 

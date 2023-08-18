@@ -75,7 +75,7 @@ public class LocationSelectorViewModel : ScreenBase
     public override void MenuSelectionChanged(IMenuItem item)
     {
         var location = item as LocationViewModel;
-        if (location != null)
+        if (location is not null)
         {
             SelectedLocation = location;
         }

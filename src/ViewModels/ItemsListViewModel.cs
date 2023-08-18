@@ -82,7 +82,7 @@ public class ItemsListViewModel : ScreenBase
         get => _displayedItems;
         set
         {
-            if (value != null)
+            if (value is not null)
             {
                 _displayedItems = value;
                 NotifyOfPropertyChange();
