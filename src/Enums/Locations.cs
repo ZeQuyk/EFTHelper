@@ -11,4 +11,5 @@ public enum Locations
     Reserve,
     TheLab,
     StreetsOfTarkov,
+    GroundZero,
 }

@@ -57,6 +57,7 @@ public class LocationViewModel : PropertyChangedBase, IMenuItem
             Locations.TheLab => new PackIconUnicons() { Kind = PackIconUniconsKind.Flask },
             Locations.Woods => new PackIconMaterial() { Kind = PackIconMaterialKind.Forest },
             Locations.StreetsOfTarkov => new PackIconMaterial { Kind = PackIconMaterialKind.Road },
+            Locations.GroundZero => new PackIconMaterial { Kind = PackIconMaterialKind.RoadVariant },
             _ => null,
         };
 
