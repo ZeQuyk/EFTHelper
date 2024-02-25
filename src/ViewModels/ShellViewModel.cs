@@ -370,7 +370,7 @@ public class ShellViewModel : Screen
         EuroValue = await GetCurrencyValue(Currencies.Euro);
     }
 
-    private async Task<string> GetCurrencyValue(Currencies currency) => $"1{CurrencyHelper.GetCurrencySymbol(currency)} = {await CurrencyHelper.GetValueInRoublesAsync(currency):N0}{CurrencyHelper.GetCurrencySymbol(Currencies.Rouble)}";
+    private static async Task<string> GetCurrencyValue(Currencies currency) => $"1{CurrencyHelper.GetCurrencySymbol(currency)} = {await CurrencyHelper.GetValueInRoublesAsync(currency):N0}{CurrencyHelper.GetCurrencySymbol(Currencies.Rouble)}";
 
     private void ShowContent<TScreenBase>()
         where TScreenBase : ScreenBase

@@ -32,7 +32,7 @@ public class LocationViewModel : PropertyChangedBase, IMenuItem
 
     public string ImagePath { get; set; }
 
-    public string Label => Name.Substring(0, 1);
+    public string Label => Name[..1];
 
     public string Title => Name;
 
