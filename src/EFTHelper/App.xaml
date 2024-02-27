@@ -1,0 +1,30 @@
+﻿<Application x:Class="EFTHelper.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:EFTHelper.Converters"
+             xmlns:local="clr-namespace:EFTHelper">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <converters:HamuburgerMenuItemConverter x:Key="HamuburgerMenuItemConverter"/>
+                    <converters:SelectedItemConverter x:Key="SelectedItemConverter"/>
+                    <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+                </ResourceDictionary>
+                <ResourceDictionary>
+                    <local:AppBootstrapper x:Key="bootstrapper" />
+                    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                </ResourceDictionary>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Amber.xaml" />
+                <ResourceDictionary>
+                    <FontFamily x:Key="Bender">pack://application:,,,/Fonts/#Bender Regular</FontFamily>
+                </ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/BusyIndicator;component/Theme/Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
