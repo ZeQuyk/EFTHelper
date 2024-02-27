@@ -124,17 +124,13 @@ public static class CurrencyHelper
 
     private static string GetCurrencyShortName(Currencies currency)
     {
-        switch (currency)
+        return currency switch
         {
-            case Currencies.Rouble:
-                return Roubles;
-            case Currencies.Euro:
-                return Euro;
-            case Currencies.USDollar:
-                return USDollars;
-        }
-
-        return string.Empty;
+            Currencies.Rouble => Roubles,
+            Currencies.Euro => Euro,
+            Currencies.USDollar => USDollars,
+            _ => string.Empty,
+        };
     }
 
     private static void SaveValueInRoubles(Currencies currency, long value)

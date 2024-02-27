@@ -17,7 +17,7 @@ public class TaskBarIconViewModel : Conductor<ScreenBase>.Collection.OneActive
     private readonly VersionViewModel _versionViewModel;
     private readonly IWindowManager _windowManager;
     private readonly ProcessService _processService;
-    private readonly UpdateManagerService _updateManagerService;
+    private readonly IUpdateManagerService _updateManagerService;
     private readonly ItemsListViewModel _itemsListViewModel;
     private readonly System.Windows.Forms.Keys[] _hotkeys = { System.Windows.Forms.Keys.F2, System.Windows.Forms.Keys.F3 };
     private IKeyboardMouseEvents _globalHook;
@@ -30,7 +30,7 @@ public class TaskBarIconViewModel : Conductor<ScreenBase>.Collection.OneActive
         ShellViewModel shellViewModel,
         LocationSelectorViewModel locationSelectorViewModel,
         IWindowManager windowManager,
-        UpdateManagerService updateManagerService,
+        IUpdateManagerService updateManagerService,
         VersionViewModel versionViewModel,
         ItemsListViewModel itemsListViewModel,
         ThemeService themeService)

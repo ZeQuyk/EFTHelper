@@ -9,14 +9,14 @@ public class VersionViewModel : Screen
 {
     #region Fields
 
-    private readonly UpdateManagerService _updateManagerService;
+    private readonly IUpdateManagerService _updateManagerService;
     private bool _needUpdate;
 
     #endregion
 
     #region Constructors
 
-    public VersionViewModel(UpdateManagerService updateManagerService)
+    public VersionViewModel(IUpdateManagerService updateManagerService)
     {
         _updateManagerService = updateManagerService;
     }
@@ -73,7 +73,7 @@ public class VersionViewModel : Screen
 
     protected override async void OnViewLoaded(object view)
     {
-        NeedUpdate = await _updateManagerService.CheckForUpdate();
+        NeedUpdate = await _updateManagerService.CheckForUpdateAsync();
         if (!NeedUpdate)
         {
             _updateManagerService.UpdateAvailable += UpdateManagerService_UpdateAvailable;

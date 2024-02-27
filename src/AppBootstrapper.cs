@@ -14,7 +14,7 @@ class AppBootstrapper : BootstrapperBase
     #region Fields
 
     private SimpleContainer _container;
-    private readonly UpdateManagerService _updateManager;
+    private readonly IUpdateManagerService _updateManager;
     private readonly SettingsService _settingsService;
 
     #endregion
@@ -24,19 +24,19 @@ class AppBootstrapper : BootstrapperBase
     public AppBootstrapper()
     {
         _updateManager = new UpdateManagerService();
-        _updateManager.HandleSquirrel();
+        _updateManager.Initialize();
         _settingsService = new SettingsService();
         _settingsService.Initialize();
         Initialize();
     }
 
-    #endregion
+#endregion
 
     #region Methods
 
     protected override void Configure()
     {
-        this._container = new SimpleContainer();
+        _container = new SimpleContainer();
         AddServices();
         AddViewModels();
         _container.Singleton<IWindowManager, WindowManager>();

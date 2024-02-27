@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -10,12 +11,11 @@ namespace EFTHelper.Services;
 /// <summary>
 /// Represents the update manager.
 /// </summary>
-public class UpdateManagerService
+public class UpdateManagerService : TimedServiceBase, IUpdateManagerService
 {
     #region Fields
 
     private static readonly string GithubUrl = "https://github.com/ZeQuyk/EFTHelper";
-    private Timer _timer;
 
     #endregion
 
@@ -37,7 +37,7 @@ public class UpdateManagerService
     /// Updates this instance.
     /// </summary>
     /// <returns>The task awaiter.</returns>
-    public async Task Update()
+    public async Task UpdateAsync()
     {
         using var updateManager = await CreateUpdateManagerAsync();
         await updateManager.UpdateApp();
@@ -48,13 +48,13 @@ public class UpdateManagerService
     /// Updates this instance.
     /// </summary>
     /// <returns>True if needs update.</returns>
-    public async Task<bool> CheckForUpdate()
+    public async Task<bool> CheckForUpdateAsync()
     {
-#if DEBUG
-        return false;
-#endif
+        if (Debugger.IsAttached)
+        {
+            return false;
+        }
 
-#pragma warning disable CS0162
         try
         {
             using var updateManager = await CreateUpdateManagerAsync();
@@ -65,7 +65,6 @@ public class UpdateManagerService
         {
             return false;
         }
-#pragma warning restore CS0162
     }
 
     /// <summary>
@@ -74,26 +73,14 @@ public class UpdateManagerService
     /// <returns></returns>
     public Version GetVersion() => Assembly.GetExecutingAssembly().GetName().Version;
 
-    public void HandleSquirrel()
+    public void Initialize()
     {
         SquirrelAwareApp.HandleEvents(onInitialInstall: OnInstall, onAppUninstall: OnUninstall);
     }
 
-    public void Watch()
+    protected async override void Timer_Elapsed(object sender, ElapsedEventArgs e)
     {
-        if (_timer is not null)
-        {
-            DisposeTimer();
-        }
-
-        _timer = new Timer(TimeSpan.FromMinutes(5).TotalMilliseconds);
-        _timer.Elapsed += Timer_Elapsed;
-        _timer.Start();
-    }
-
-    private async void Timer_Elapsed(object sender, ElapsedEventArgs e)
-    {
-        var needUpdate = await CheckForUpdate();
+        var needUpdate = await CheckForUpdateAsync();
         if (needUpdate)
         {
             UpdateAvailable?.Invoke(this, EventArgs.Empty);
@@ -101,29 +88,21 @@ public class UpdateManagerService
         }
     }
 
-    private void DisposeTimer()
+    private async void OnInstall(Version version)
     {
-        _timer.Stop();
-        _timer.Elapsed -= Timer_Elapsed;
-        _timer.Dispose();
-        _timer = null;
-    }
-
-    private async void OnInstall(System.Version version)
-    {
-        using var updateManager = new Squirrel.UpdateManager(GithubUrl, "EFTHelper");
+        using var updateManager = await CreateUpdateManagerAsync();
         await updateManager.CreateUninstallerRegistryEntry();
         updateManager.CreateShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
     }
 
-    private void OnUninstall(System.Version version)
+    private async void OnUninstall(Version version)
     {
-        using var updateManager = new Squirrel.UpdateManager(GithubUrl, "EFTHelper");
+        using var updateManager = await CreateUpdateManagerAsync();
         updateManager.RemoveUninstallerRegistryEntry();
         updateManager.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
     }
 
-    private Task<UpdateManager> CreateUpdateManagerAsync() => UpdateManager.GitHubUpdateManager(GithubUrl);
+    private static Task<UpdateManager> CreateUpdateManagerAsync() => UpdateManager.GitHubUpdateManager(GithubUrl);
 
     #endregion
 }

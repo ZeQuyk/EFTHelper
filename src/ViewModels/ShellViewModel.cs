@@ -31,7 +31,7 @@ public class ShellViewModel : Screen
     private readonly SettingsService _settingsService;
     private readonly FlyoutService _flyoutService;
     private readonly DialogService _dialogService;
-    private readonly UpdateManagerService _updateManagerService;
+    private readonly IUpdateManagerService _updateManagerService;
     private double _opacity;
 
     #endregion
@@ -44,7 +44,7 @@ public class ShellViewModel : Screen
         FlyoutService flyoutService,
         SettingMenuItem settingMenuItem,
         DialogService dialogService,
-        UpdateManagerService updateManagerService)
+        IUpdateManagerService updateManagerService)
     {
         _settingsService = settingsService;
         _settingsService.OnSaved += SettingsService_OnSaved;
@@ -264,10 +264,10 @@ public class ShellViewModel : Screen
 
     public async Task UpdateApplication()
     {
-        var needUpdate = await _updateManagerService.CheckForUpdate();
+        var needUpdate = await _updateManagerService.CheckForUpdateAsync();
         if (needUpdate)
         {
-            await _updateManagerService.Update();
+            await _updateManagerService.UpdateAsync();
         }
         else
         {
@@ -320,37 +320,39 @@ public class ShellViewModel : Screen
 
     protected override Task OnActivateAsync(CancellationToken cancellationToken)
     {
-        _flyoutService.ShowFlyoutRequested += _flyoutService_ShowFlyoutRequested;
-        _flyoutService.CloseFlyoutRequested += _flyoutService_CloseFlyoutRequested;
+        _flyoutService.ShowFlyoutRequested += FlyoutService_ShowFlyoutRequested;
+        _flyoutService.CloseFlyoutRequested += FlyoutService_CloseFlyoutRequested;
         VersionViewModel.OnUpdateRequested += VersionViewModel_OnUpdateRequested;
 
         return base.OnActivateAsync(cancellationToken);
-    }
-
-    private void _flyoutService_CloseFlyoutRequested(object sender, System.EventArgs e)
-    {
-        IsFlyoutOpen = false;
-        FlyoutContent = null;
-        FlyoutHeader = null;
-    }
-
-    private void _flyoutService_ShowFlyoutRequested(object sender, FlyoutRequest e)
-    {
-        FlyoutContent = e.Content;
-        FlyoutPosition = e.Position;
-        FlyoutHeader = e.Header;
-        IsFlyoutOpen = true;
     }
 
     protected override Task OnDeactivateAsync(bool close, CancellationToken cancellationToken)
     {
         _settingsService.WindowInformation.Copy(this);
         _settingsService.Save();
-        _flyoutService.ShowFlyoutRequested -= _flyoutService_ShowFlyoutRequested;
-        _flyoutService.CloseFlyoutRequested -= _flyoutService_CloseFlyoutRequested;
+        _flyoutService.ShowFlyoutRequested -= FlyoutService_ShowFlyoutRequested;
+        _flyoutService.CloseFlyoutRequested -= FlyoutService_CloseFlyoutRequested;
         VersionViewModel.OnUpdateRequested -= VersionViewModel_OnUpdateRequested;
 
         return base.OnDeactivateAsync(close, cancellationToken);
+    }
+
+    private static async Task<string> GetCurrencyValue(Currencies currency) => $"1{CurrencyHelper.GetCurrencySymbol(currency)} = {await CurrencyHelper.GetValueInRoublesAsync(currency):N0}{CurrencyHelper.GetCurrencySymbol(Currencies.Rouble)}";
+
+    private void FlyoutService_CloseFlyoutRequested(object sender, System.EventArgs e)
+    {
+        IsFlyoutOpen = false;
+        FlyoutContent = null;
+        FlyoutHeader = null;
+    }
+
+    private void FlyoutService_ShowFlyoutRequested(object sender, FlyoutRequest e)
+    {
+        FlyoutContent = e.Content;
+        FlyoutPosition = e.Position;
+        FlyoutHeader = e.Header;
+        IsFlyoutOpen = true;
     }
 
     private void SettingsService_OnSaved(object sender, System.EventArgs e)
@@ -369,8 +371,6 @@ public class ShellViewModel : Screen
         USDollarValue = await GetCurrencyValue(Currencies.USDollar);
         EuroValue = await GetCurrencyValue(Currencies.Euro);
     }
-
-    private static async Task<string> GetCurrencyValue(Currencies currency) => $"1{CurrencyHelper.GetCurrencySymbol(currency)} = {await CurrencyHelper.GetValueInRoublesAsync(currency):N0}{CurrencyHelper.GetCurrencySymbol(Currencies.Rouble)}";
 
     private void ShowContent<TScreenBase>()
         where TScreenBase : ScreenBase
