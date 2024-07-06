@@ -1,31 +1,30 @@
-﻿using System.Text.Json.Serialization;
-using EFTHelper.Enums;
+﻿using EFTHelper.Enums;
 using EFTHelper.Extensions;
 using EFTHelper.Helpers;
 
 namespace EFTHelper.Models.TarkovTools.Requests;
 
-public class GraphQLRequest
+public class GraphQLRequest<T> : IGraphQLRequest
+    where T : class
 {
     #region Constructors
 
-    public GraphQLRequest(TarkovToolsRequestTypes requestType, object expectedResponse, string filterValue)
+    public GraphQLRequest(TarkovToolsRequestTypes requestType, string filterValue)
     {
-        Query = BuildQuery(requestType, expectedResponse, filterValue);
+        Query = BuildQuery(requestType, filterValue);
     }
 
     #endregion
 
     #region Properties
 
-    [JsonPropertyName("query")]
     public string Query { get; }
 
     #endregion
 
     #region Methods
 
-    private string BuildQuery(TarkovToolsRequestTypes requestType, object request, string filterValue)
+    private static string BuildQuery(TarkovToolsRequestTypes requestType, string filterValue)
     {
         var query = "{ ";
         var filterName = requestType.AssociatedFilterName();
@@ -38,7 +37,7 @@ public class GraphQLRequest
             query += $"({filterName}: {filter}) ";
         }
 
-        query += GraphQLHelper.SerializeToGraphQL(request);
+        query += GraphQLHelper.SerializeToGraphQL<T>();
         query += "}";
 
         return query;

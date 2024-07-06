@@ -9,11 +9,7 @@ public static class GraphQLHelper
 {
     #region Fields
 
-    private static Type[] PrimitiveTypes
-    {
-        get
-        {
-            return new Type[]
+    private static readonly Type[] _primitiveTypes = new Type[]
             {
                 typeof(int),
                 typeof(long),
@@ -35,8 +31,7 @@ public static class GraphQLHelper
                 typeof(Single),
                 typeof(string)
             };
-        }
-    }
+
 
     #endregion
 
@@ -45,22 +40,25 @@ public static class GraphQLHelper
     /// <summary>
     /// Transforms the object into a GraphQL list of fields to be returned by the api.
     /// </summary>
-    public static string SerializeToGraphQL(object request)
+    public static string SerializeToGraphQL<T>()
+        => SerializeToGraphQL(typeof(T));
+
+    private static string SerializeToGraphQL(Type type)
     {
         var value = "{";
 
-        var properties = request.GetType().GetProperties();
+        var properties = type.GetProperties();
         foreach (var prop in properties)
         {
             value += $"{prop.Name.FirstCharToLower()} ";
-            var type = prop.PropertyType;
-            var subProperties = prop.GetType().GetProperties();
+            var propertyType = prop.PropertyType;
+            var subProperties = propertyType.GetType().GetProperties();
 
-            type = HandleEnumerables(type);
+            propertyType = HandleEnumerables(propertyType);
 
-            if (subProperties.Any() && !PrimitiveTypes.Contains(type))
+            if (subProperties.Any() && !_primitiveTypes.Contains(propertyType))
             {
-                value += SerializeToGraphQL(GetInstance(type));
+                value += SerializeToGraphQL(propertyType);
             }
         }
 
@@ -86,16 +84,6 @@ public static class GraphQLHelper
         }
 
         return type;
-    }
-
-    private static object GetInstance(Type type)
-    {
-        if (PrimitiveTypes.Contains(type))
-        {
-            return type == typeof(string) ? string.Empty : 0;
-        }
-
-        return Activator.CreateInstance(type);
     }
 
     #endregion

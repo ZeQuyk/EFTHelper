@@ -12,8 +12,8 @@ public class TarkovToolsService : HttpServiceBase
 {
     #region Fields
 
-    private const string apiUrl = "https://api.tarkov.dev/";
-    private const string apiEndpoint = "graphql";
+    private const string ApiUrl = "https://api.tarkov.dev/";
+    private const string ApiEndpoint = "graphql";
 
     #endregion
 
@@ -21,7 +21,7 @@ public class TarkovToolsService : HttpServiceBase
 
     public TarkovToolsService()
     {
-        HttpClient.BaseAddress = new Uri(apiUrl);
+        HttpClient.BaseAddress = new Uri(ApiUrl);
     }
 
     #endregion
@@ -31,40 +31,35 @@ public class TarkovToolsService : HttpServiceBase
     public Task<ItemsByNameResponse<TItem>> GetItemsByNameAsync<TItem>(string name)
         where TItem : ItemBase, new()
     {
-        var request = new GraphQLRequest(TarkovToolsRequestTypes.ItemsByName, new TItem(), name);
+        var request = new GraphQLRequest<TItem>(TarkovToolsRequestTypes.ItemsByName, name);
 
         return ExecutePostRequestAsync(request, new ItemsByNameResponse<TItem>());
     }
 
     public Task<ItemsByTypeResponse> GetItemsByTypeAsync(ItemTypes itemType)
     {
-        var request = new GraphQLRequest(TarkovToolsRequestTypes.ItemsByType, new ItemBaseRequest(), itemType.ToString().FirstCharToLower());
+        var request = new GraphQLRequest<ItemBaseRequest>(TarkovToolsRequestTypes.ItemsByType, itemType.ToString().FirstCharToLower());
 
         return ExecutePostRequestAsync(request, new ItemsByTypeResponse());
     }
 
-    public Task<ItemsByTypeResponse> GetAllItemsAsync()
-    {
-        return GetItemsByTypeAsync(ItemTypes.Any);
-    }
-
     public Task<ItemByIdResponse> GetItemByIdAsync(string id)
     {
-        var request = new GraphQLRequest(TarkovToolsRequestTypes.Item, new ItemRequest(), id);
+        var request = new GraphQLRequest<ItemRequest>(TarkovToolsRequestTypes.Item, id);
 
         return ExecutePostRequestAsync(request, new ItemByIdResponse());
     }
 
     public Task<QuestsResponse> GetEFTTasks()
     {
-        var request = new GraphQLRequest(TarkovToolsRequestTypes.Quests, new QuestsRequest(), string.Empty);
+        var request = new GraphQLRequest<QuestsRequest>(TarkovToolsRequestTypes.Quests, string.Empty);
 
         return ExecutePostRequestAsync(request, new QuestsResponse());
     }
 
-    private async Task<TResponse> ExecutePostRequestAsync<TResponse>(GraphQLRequest request, TResponse defaultValue)
+    private async Task<TResponse> ExecutePostRequestAsync<TResponse>(IGraphQLRequest request, TResponse defaultValue)
     {
-        var response = await ExecutePostRequestAsync<GraphQLRequest, TarkovToolsResponse>(apiEndpoint, request);
+        var response = await ExecutePostRequestAsync<IGraphQLRequest, TarkovToolsResponse>(ApiEndpoint, request);
 
         return TryDeserialize(response?.Data?.ToString(), defaultValue);
     }
