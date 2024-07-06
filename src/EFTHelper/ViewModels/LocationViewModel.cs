@@ -10,7 +10,7 @@ public class LocationViewModel : PropertyChangedBase, IMenuItem
 {
     #region Constants
 
-    private const string ImageUrlBase = "https://raw.githubusercontent.com/ZeQuyk/EFTHelper/main/src/Images";
+    private const string ImageUrlBase = "https://raw.githubusercontent.com/ZeQuyk/EFTHelper/main/src/EFTHelper/Images";
 
     #endregion
 
