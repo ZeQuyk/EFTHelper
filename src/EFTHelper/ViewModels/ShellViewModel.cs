@@ -47,7 +47,7 @@ public class ShellViewModel : Screen
         IUpdateManagerService updateManagerService)
     {
         _settingsService = settingsService;
-        _settingsService.OnSaved += SettingsService_OnSaved;
+        _settingsService.OnFileSaved += SettingsService_OnSaved;
         _flyoutService = flyoutService;
         VersionViewModel = versionViewModel;
         Items = new ObservableCollection<IMenuItem>();
@@ -355,7 +355,7 @@ public class ShellViewModel : Screen
         IsFlyoutOpen = true;
     }
 
-    private void SettingsService_OnSaved(object sender, System.EventArgs e)
+    private void SettingsService_OnSaved(object sender, Settings e)
     {
         NotifyOfPropertyChange(() => Opacity);
         NotifyOfPropertyChange(() => IsTopMost);

@@ -1,5 +1,4 @@
-﻿using System;
-using EFTHelper.Enums;
+﻿using EFTHelper.Enums;
 using EFTHelper.Models;
 using Lurker.AppData;
 
@@ -11,12 +10,6 @@ public class SettingsService : AppDataFileBase<Settings>
 
     public const int OPACITY_MIN = 20;
     public const int OPACITY_MAX = 100;
-
-    #endregion
-
-    #region Events
-
-    public event EventHandler OnSaved;
 
     #endregion
 
@@ -70,16 +63,6 @@ public class SettingsService : AppDataFileBase<Settings>
     protected override string FileName => "Settings.json";
 
     protected override string FolderName => "EFTHelper";
-
-    #endregion
-
-    #region Methods
-
-    public new void Save()
-    {
-        base.Save();
-        OnSaved?.Invoke(this, EventArgs.Empty);
-    }
 
     #endregion
 }
