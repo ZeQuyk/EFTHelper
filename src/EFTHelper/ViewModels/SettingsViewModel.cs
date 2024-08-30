@@ -9,7 +9,7 @@ public class SettingsViewModel : PropertyChangedBase
 {
     #region Fields
 
-    private readonly SettingsService _settingsService;
+    private readonly ISettingsService _settingsService;
     private readonly ThemeService _themeService;
     private Theme _selectedTheme;
     private Scheme _selectedScheme;
@@ -20,14 +20,14 @@ public class SettingsViewModel : PropertyChangedBase
 
     #region Constructors
 
-    public SettingsViewModel(SettingsService settingsService, ThemeService themeService)
+    public SettingsViewModel(ISettingsService settingsService, ThemeService themeService)
     {
         _settingsService = settingsService;
         _themeService = themeService;
         _selectedScheme = _themeService.Scheme;
         _selectedTheme = _themeService.Theme;
-        _topMost = _settingsService.TopMost;
-        _opacity = _settingsService.Opacity;
+        _topMost = _settingsService.GetWindowInformation().Position.TopMost;
+        _opacity = _settingsService.GetOpacity();
         PropertyChanged += SettingsViewModel_PropertyChanged;
     }
 
@@ -89,8 +89,11 @@ public class SettingsViewModel : PropertyChangedBase
 
     private void SettingsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        _settingsService.TopMost = TopMost;
-        _settingsService.Opacity = Opacity;
+        var windowInformation = _settingsService.GetWindowInformation();
+        windowInformation.Position.TopMost = TopMost;
+
+        _settingsService.SetWindowInformation(windowInformation);
+        _settingsService.SetOpacity(Opacity);
         _themeService.Change(SelectedTheme, SelectedScheme);
     }
 

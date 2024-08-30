@@ -11,7 +11,6 @@ public class Settings
         WindowInformation = new WindowInformations();
         Theme = Theme.Dark;
         Scheme = Scheme.Amber;
-        TopMost = true;
         Opacity = 100;
     }
 
@@ -24,8 +23,6 @@ public class Settings
     public Theme Theme { get; set; }
 
     public Scheme Scheme { get; set; }
-
-    public bool TopMost { get; set; }
 
     public int Opacity { get; set; }
 

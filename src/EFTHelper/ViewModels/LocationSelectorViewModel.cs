@@ -12,7 +12,7 @@ public class LocationSelectorViewModel : ScreenBase
 {
     #region Fields
 
-    private readonly SettingsService _settingsService;
+    private readonly ISettingsService _settingsService;
     private LocationViewModel _selectedLocation;
 
     #endregion
@@ -20,7 +20,7 @@ public class LocationSelectorViewModel : ScreenBase
     #region Constructors
 
     public LocationSelectorViewModel(
-        SettingsService settingsService,
+        ISettingsService settingsService,
         SettingsViewModel settingsViewModel)
     {
         SettingsViewModel = settingsViewModel;
@@ -36,7 +36,7 @@ public class LocationSelectorViewModel : ScreenBase
 
     public string SelectedLocationName => SelectedLocation.Name;
 
-    public bool TopMost => _settingsService.TopMost;
+    public bool TopMost => _settingsService.GetWindowInformation().Position.TopMost;
 
     public LocationViewModel SelectedLocation
     {

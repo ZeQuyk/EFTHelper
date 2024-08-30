@@ -12,13 +12,13 @@ public class ThemeService
 
     private static readonly Random _random = new();
     private readonly Application _application;
-    private readonly SettingsService _settingsService;
+    private readonly ISettingsService _settingsService;
 
     #endregion
 
     #region Constructors
 
-    public ThemeService(Application application, SettingsService settingsService)
+    public ThemeService(Application application, ISettingsService settingsService)
     {
         _settingsService = settingsService;
         _application = application;
@@ -28,9 +28,9 @@ public class ThemeService
 
     #region Properties
 
-    public Theme Theme => _settingsService.Theme;
+    public Theme Theme => _settingsService.GetTheme();
 
-    public Scheme Scheme => _settingsService.Scheme;
+    public Scheme Scheme => _settingsService.GetScheme();
 
     #endregion
 
@@ -42,13 +42,13 @@ public class ThemeService
 
     public void Apply()
     {
-        ControlzEx.Theming.ThemeManager.Current.ChangeTheme(_application, $"{_settingsService.Theme}.{_settingsService.Scheme}");
+        ControlzEx.Theming.ThemeManager.Current.ChangeTheme(_application, $"{_settingsService.GetTheme()}.{_settingsService.GetScheme()}");
     }
 
     public void Change(Theme theme, Scheme scheme)
     {
-        _settingsService.Scheme = scheme;
-        _settingsService.Theme = theme;
+        _settingsService.SetScheme(scheme);
+        _settingsService.SetTheme(theme);
         _settingsService.Save();
         ControlzEx.Theming.ThemeManager.Current.ChangeTheme(_application, $"{theme}.{scheme}");
     }

@@ -15,7 +15,6 @@ class AppBootstrapper : BootstrapperBase
 
     private SimpleContainer _container;
     private readonly IUpdateManagerService _updateManager;
-    private readonly SettingsService _settingsService;
 
     #endregion
 
@@ -25,8 +24,6 @@ class AppBootstrapper : BootstrapperBase
     {
         _updateManager = new UpdateManagerService();
         _updateManager.Initialize();
-        _settingsService = new SettingsService();
-        _settingsService.Initialize();
         Initialize();
     }
 
@@ -45,7 +42,7 @@ class AppBootstrapper : BootstrapperBase
         _ = _container.GetInstance<EFTTasksHelper>().LoadEFTTasks();
         _container.Instance(Application);
         _container.Instance(_updateManager);
-        _container.Instance(_settingsService);
+        _container.Singleton<ISettingsService, SettingsService>();
     }
 
     protected override void OnStartup(object sender, StartupEventArgs e)

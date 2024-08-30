@@ -1,10 +1,11 @@
-﻿using EFTHelper.Enums;
+﻿using Caliburn.Micro;
+using EFTHelper.Enums;
 using EFTHelper.Models;
 using Lurker.AppData;
 
 namespace EFTHelper.Services;
 
-public class SettingsService : AppDataFileBase<Settings>
+public class SettingsService : AppDataFileBase<Settings>, ISettingsService
 {
     #region Constants
 
@@ -13,56 +14,56 @@ public class SettingsService : AppDataFileBase<Settings>
 
     #endregion
 
+    #region Constructors
+
+    public SettingsService()
+    {
+        Initialize();
+    }
+
+    #endregion
+
     #region Properties
-
-    public WindowInformations WindowInformation
-    {
-        get => Entity.WindowInformation;
-        set
-        {
-            Entity.WindowInformation = value;
-        }
-    }
-
-    public Theme Theme
-    {
-        get => Entity.Theme;
-        set
-        {
-            Entity.Theme = value;
-        }
-    }
-
-    public Scheme Scheme
-    {
-        get => Entity.Scheme;
-        set
-        {
-            Entity.Scheme = value;
-        }
-    }
-
-    public bool TopMost
-    {
-        get => Entity.TopMost;
-        set
-        {
-            Entity.TopMost = value;
-        }
-    }
-
-    public int Opacity
-    {
-        get => Entity.Opacity;
-        set
-        {
-            Entity.Opacity = value;
-        }
-    }
 
     protected override string FileName => "Settings.json";
 
     protected override string FolderName => "EFTHelper";
+
+    #endregion
+
+    #region Methods
+
+    public int GetOpacity()
+        => Entity.Opacity;
+
+    public Theme GetTheme()
+        => Entity.Theme;
+
+    public WindowInformations GetWindowInformation()
+        => Entity.WindowInformation;
+
+    public void SetOpacity(int opacity)
+        => Entity.Opacity = opacity;
+
+    public void SetScheme(Scheme scheme)
+        => Entity.Scheme = scheme;
+
+    public Scheme GetScheme()
+        => Entity.Scheme;
+
+    public void SetTheme(Theme theme)
+        => Entity.Theme = theme;
+
+    public void SetWindowInformation(WindowInformations windowInformations)
+        => Entity.WindowInformation = windowInformations;
+
+    public void SetWindowInformation(IViewAware viewAware)
+    {
+        var windowInformation = GetWindowInformation();
+        windowInformation.Copy(viewAware);
+
+        SetWindowInformation(windowInformation);
+    }
 
     #endregion
 }

@@ -28,7 +28,7 @@ public class ShellViewModel : Screen
     private ObservableCollection<IMenuItem> _items;
     private ObservableCollection<IMenuItem> _optionItems;
     private IMenuItem _selectedItem;
-    private readonly SettingsService _settingsService;
+    private readonly ISettingsService _settingsService;
     private readonly FlyoutService _flyoutService;
     private readonly DialogService _dialogService;
     private readonly IUpdateManagerService _updateManagerService;
@@ -39,7 +39,7 @@ public class ShellViewModel : Screen
     #region Constructors
 
     public ShellViewModel(
-        SettingsService settingsService,
+        ISettingsService settingsService,
         VersionViewModel versionViewModel,
         FlyoutService flyoutService,
         SettingMenuItem settingMenuItem,
@@ -86,7 +86,7 @@ public class ShellViewModel : Screen
         }
     }
 
-    public bool IsTopMost => _settingsService.TopMost;
+    public bool IsTopMost => _settingsService.GetWindowInformation().Position.TopMost;
 
     public ScreenBase Content
     {
@@ -282,7 +282,7 @@ public class ShellViewModel : Screen
 
     public void LostFocus()
     {
-        Opacity = (double)_settingsService.Opacity / 100;
+        Opacity = (double)_settingsService.GetOpacity() / 100;
     }
 
     public void HandleKeyboard(System.Windows.Forms.Keys key, System.Windows.Forms.Keys modifiers)
@@ -306,15 +306,15 @@ public class ShellViewModel : Screen
     protected override void OnViewLoaded(object view)
     {
         var window = view as Window;
-        var informations = _settingsService.WindowInformation;
+        var information = _settingsService.GetWindowInformation();
 
         // Todo: Check if out off screen
         Execute.OnUIThread(() =>
         {
-            window.Width = informations.Width;
-            window.Height = informations.Height;
-            window.Left = informations.Position.Left;
-            window.Top = informations.Position.Top;
+            window.Width = information.Width;
+            window.Height = information.Height;
+            window.Left = information.Position.Left;
+            window.Top = information.Position.Top;
         });
     }
 
@@ -329,7 +329,7 @@ public class ShellViewModel : Screen
 
     protected override Task OnDeactivateAsync(bool close, CancellationToken cancellationToken)
     {
-        _settingsService.WindowInformation.Copy(this);
+        _settingsService.SetWindowInformation(this);
         _settingsService.Save();
         _flyoutService.ShowFlyoutRequested -= FlyoutService_ShowFlyoutRequested;
         _flyoutService.CloseFlyoutRequested -= FlyoutService_CloseFlyoutRequested;

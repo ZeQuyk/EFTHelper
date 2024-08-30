@@ -19,7 +19,7 @@ public class ItemsListViewModel : ScreenBase
     #region Fields
 
     private readonly TarkovToolsService _tarkovToolsService;
-    private readonly SettingsService _settingsService;
+    private readonly ISettingsService _settingsService;
     private readonly int _pageSize = 20;
     private bool _isBusy = false;
     private int _pageIndex = 0;
@@ -38,7 +38,7 @@ public class ItemsListViewModel : ScreenBase
 
     public ItemsListViewModel(
         TarkovToolsService tarkovToolsService,
-        SettingsService settingsService)
+        ISettingsService settingsService)
     {
         _tarkovToolsService = tarkovToolsService;
         _settingsService = settingsService;
@@ -52,7 +52,7 @@ public class ItemsListViewModel : ScreenBase
 
     #region Properties
 
-    public bool TopMost => _settingsService.TopMost;
+    public bool TopMost => _settingsService.GetWindowInformation().Position.TopMost;
 
     public List<ItemTypeViewModel> ItemTypes
     {

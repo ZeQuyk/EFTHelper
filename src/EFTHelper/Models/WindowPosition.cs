@@ -8,5 +8,7 @@ public class WindowPosition
 
     public double Top { get; set; }
 
+    public bool TopMost { get; set; } = true;
+
     #endregion
 }
