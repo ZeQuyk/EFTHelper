@@ -1,3 +1,4 @@
+ # EFT Helper
 Ease your Escape From Tarkov experience with EFTHelper. <br>
 [Download the latest version](https://github.com/ZeQuyk/EFTHelper/releases/latest) by clicking on the EFTHelperSetup.exe file
 
