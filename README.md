@@ -25,10 +25,7 @@ EFT Helper is a Windows desktop application designed to enhance your Escape From
   - Quest rewards
   - Trader reputation changes
   
-- **Map Information**: View details for all Tarkov maps:
-  - Customs, Woods, Factory, Shoreline
-  - Lighthouse, Interchange, Reserve
-  - The Lab, Streets of Tarkov, Ground Zero
+- **Map Information**: View details for all Tarkov maps
   
 - **System Tray Integration**: Run the application in the background with quick access from the system tray
 
@@ -123,7 +120,7 @@ EFTHelper/
 - [Hardcodet.NotifyIcon.Wpf](https://github.com/hardcodet/wpf-notifyicon) - System tray icon support
 - [Tarkov.dev API](https://github.com/the-hideout/tarkov-api) - Game data API
 - [BusyIndicator](https://github.com/Peoky/BusyIndicator) - Loading indicators
-- [AppData-Lurker](https://github.com/C1rdec/AppData-Lurker) - AppData monitoring
+- [AppData-Lurker](https://github.com/C1rdec/AppData-Lurker) - Easy AppData access
 
 ## 🤝 Contributing
 
@@ -156,3 +153,4 @@ If you encounter any issues or have questions:
 ---
 
 **Note**: This is a community tool and is not affiliated with or endorsed by Battlestate Games.
+
